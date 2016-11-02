@@ -126,5 +126,17 @@ namespace MathAnalyser
         {
 
         }
+
+        private void TrigonometryStatementsButton_Click(object sender, EventArgs e)
+        {
+            TrigonometryStatementsPanel statementsPanel = new TrigonometryStatementsPanel(this);
+            statementsPanel.Show();
+        }
+
+        private void HyperbolicalStatementsButton_Click(object sender, EventArgs e)
+        {
+            HyperbolicalStatementsPanel hyperbolicalPanel = new HyperbolicalStatementsPanel(this);
+            hyperbolicalPanel.Show();
+        }
     }
 }

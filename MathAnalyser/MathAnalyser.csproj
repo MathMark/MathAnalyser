@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HyperbolicalStatementsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HyperbolicalStatementsPanel.Designer.cs">
+      <DependentUpon>HyperbolicalStatementsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +61,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrigonometryStatementsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrigonometryStatementsPanel.Designer.cs">
+      <DependentUpon>TrigonometryStatementsPanel.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="HyperbolicalStatementsPanel.resx">
+      <DependentUpon>HyperbolicalStatementsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -68,6 +83,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TrigonometryStatementsPanel.resx">
+      <DependentUpon>TrigonometryStatementsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

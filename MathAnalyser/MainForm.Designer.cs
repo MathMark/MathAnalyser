@@ -43,6 +43,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox_Function = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.function1_label = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.View_Button = new System.Windows.Forms.ToolStripDropDownButton();
             this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,9 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.function1_label = new System.Windows.Forms.Label();
+            this.panelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TrigonometryStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.HyperbolicalStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -96,6 +99,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Function";
             // 
+            // function1_label
+            // 
+            this.function1_label.AutoSize = true;
+            this.function1_label.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.function1_label.ForeColor = System.Drawing.SystemColors.Control;
+            this.function1_label.Location = new System.Drawing.Point(22, 19);
+            this.function1_label.Name = "function1_label";
+            this.function1_label.Size = new System.Drawing.Size(63, 15);
+            this.function1_label.TabIndex = 7;
+            this.function1_label.Text = "y = f(x)";
+            // 
             // toolStrip1
             // 
             this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -113,7 +127,8 @@
             this.View_Button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.View_Button.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.themeToolStripMenuItem,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.panelsToolStripMenuItem});
             this.View_Button.Image = ((System.Drawing.Image)(resources.GetObject("View_Button.Image")));
             this.View_Button.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.View_Button.Name = "View_Button";
@@ -209,16 +224,28 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.SmallIcon;
             // 
-            // function1_label
+            // panelsToolStripMenuItem
             // 
-            this.function1_label.AutoSize = true;
-            this.function1_label.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.function1_label.ForeColor = System.Drawing.SystemColors.Control;
-            this.function1_label.Location = new System.Drawing.Point(22, 19);
-            this.function1_label.Name = "function1_label";
-            this.function1_label.Size = new System.Drawing.Size(63, 15);
-            this.function1_label.TabIndex = 7;
-            this.function1_label.Text = "y = f(x)";
+            this.panelsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TrigonometryStatementsButton,
+            this.HyperbolicalStatementsButton});
+            this.panelsToolStripMenuItem.Name = "panelsToolStripMenuItem";
+            this.panelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.panelsToolStripMenuItem.Text = "Panels";
+            // 
+            // TrigonometryStatementsButton
+            // 
+            this.TrigonometryStatementsButton.Name = "TrigonometryStatementsButton";
+            this.TrigonometryStatementsButton.Size = new System.Drawing.Size(209, 22);
+            this.TrigonometryStatementsButton.Text = "Trigonometry Statements";
+            this.TrigonometryStatementsButton.Click += new System.EventHandler(this.TrigonometryStatementsButton_Click);
+            // 
+            // HyperbolicalStatementsButton
+            // 
+            this.HyperbolicalStatementsButton.Name = "HyperbolicalStatementsButton";
+            this.HyperbolicalStatementsButton.Size = new System.Drawing.Size(209, 22);
+            this.HyperbolicalStatementsButton.Text = "Hyperbolical Statements";
+            this.HyperbolicalStatementsButton.Click += new System.EventHandler(this.HyperbolicalStatementsButton_Click);
             // 
             // MainForm
             // 
@@ -263,6 +290,9 @@
         private System.Windows.Forms.Label panel;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label function1_label;
+        private System.Windows.Forms.ToolStripMenuItem panelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TrigonometryStatementsButton;
+        private System.Windows.Forms.ToolStripMenuItem HyperbolicalStatementsButton;
     }
 }
 
