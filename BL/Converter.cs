@@ -25,6 +25,7 @@ namespace BL
 
         public static Exception UnknownSymbolException = new Exception("There is unkown symbol in line.");
         public static Exception LineIsEmptyException = new Exception("Input line is empty");
+        public static Exception UnknownOperatorException = new Exception("The line contains unknown operator");
         private static short GetPriority(string InputStatement)//returnes priority of function
         {
 
@@ -109,13 +110,7 @@ namespace BL
                             break;
                         }
                     }
-                    //while (char.IsLetter(InputExpression[j]))
-                    //{
-                    //    buffer += InputExpression[j];
-                    //    if()
-                    //    j++;
-                    //}
-                    //j--;
+
                     stack.Push(buffer);
                     buffer = string.Empty;
                 }
@@ -284,7 +279,8 @@ namespace BL
                             case "arcsch":
                                 stack.Push(Math.Log(1 / X + Math.Sqrt(1 / X * X + 1)));
                                 break;
-
+                            default:
+                                throw UnknownOperatorException;
 
                         }
                     }

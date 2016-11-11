@@ -13,8 +13,8 @@ namespace BL.Tests
         [Test]
         public void ConvertToPostfix_Test()
         {
-            const string InputExpression = "2*sin(x)/3+5*x-1";
-           // const string InputExpression = "";
+            //const string InputExpression = "2*sin(x)/3+5*x-1";
+           const string InputExpression = "fdshgfdh";
 
             string EXPECTED_RESULT = "2xsin*3/5x*+1-";
            //string EXPECTED_RESULT = "";
@@ -24,7 +24,7 @@ namespace BL.Tests
         [Test]
         public void GetValue_Test()
         {
-            List<string> InputExpression = new List<string> {"4","p","sin","*","2","/","3","-"};
+            List<string> InputExpression = new List<string> {"4","p","singg","*","2","/","3","-"};
             const double point = 0;
 
             double EXPECTED_RESULT = 4*Math.Sin(Math.PI)/2-3;
