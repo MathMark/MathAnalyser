@@ -17,6 +17,8 @@ namespace MathAnalyser
     }
     public partial class MainForm : Form,IMainForm
     {
+        TrigonometryStatementsPanel statementsPanel;
+
         public MainForm()
         {
             InitializeComponent();
@@ -26,6 +28,9 @@ namespace MathAnalyser
             this.Width= 2*screenSize.Size.Width / 3;
 
             GetTheme((string)Settings.Default["Theme"]);
+
+            statementsPanel = new TrigonometryStatementsPanel(this);
+            statementsPanel.Show();
         }
 
         public string MessageBoard
@@ -129,7 +134,7 @@ namespace MathAnalyser
 
         private void TrigonometryStatementsButton_Click(object sender, EventArgs e)
         {
-            TrigonometryStatementsPanel statementsPanel = new TrigonometryStatementsPanel(this);
+           // TrigonometryStatementsPanel statementsPanel = new TrigonometryStatementsPanel(this);
             statementsPanel.Show();
         }
 

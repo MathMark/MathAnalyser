@@ -51,13 +51,17 @@
             this.Theme_Black_Button = new System.Windows.Forms.ToolStripMenuItem();
             this.Theme_BlackBlue_Button = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.panelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainStatementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TrigonometryStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.HyperbolicalStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.otherStatementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.messageBoard = new System.Windows.Forms.RichTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.panelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrigonometryStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.HyperbolicalStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -115,7 +119,9 @@
             this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStrip1.ImeMode = System.Windows.Forms.ImeMode.On;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.View_Button});
+            this.View_Button,
+            this.AboutButton,
+            this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(870, 25);
@@ -142,7 +148,7 @@
             this.Theme_Black_Button,
             this.Theme_BlackBlue_Button});
             this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.themeToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.themeToolStripMenuItem.Text = "Theme";
             // 
             // Theme_White_Button
@@ -169,7 +175,44 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(108, 6);
+            // 
+            // panelsToolStripMenuItem
+            // 
+            this.panelsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainStatementsToolStripMenuItem,
+            this.TrigonometryStatementsButton,
+            this.HyperbolicalStatementsButton,
+            this.otherStatementsToolStripMenuItem});
+            this.panelsToolStripMenuItem.Name = "panelsToolStripMenuItem";
+            this.panelsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.panelsToolStripMenuItem.Text = "Panels";
+            // 
+            // mainStatementsToolStripMenuItem
+            // 
+            this.mainStatementsToolStripMenuItem.Name = "mainStatementsToolStripMenuItem";
+            this.mainStatementsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.mainStatementsToolStripMenuItem.Text = "Main Statements";
+            // 
+            // TrigonometryStatementsButton
+            // 
+            this.TrigonometryStatementsButton.Name = "TrigonometryStatementsButton";
+            this.TrigonometryStatementsButton.Size = new System.Drawing.Size(209, 22);
+            this.TrigonometryStatementsButton.Text = "Trigonometry Statements";
+            this.TrigonometryStatementsButton.Click += new System.EventHandler(this.TrigonometryStatementsButton_Click);
+            // 
+            // HyperbolicalStatementsButton
+            // 
+            this.HyperbolicalStatementsButton.Name = "HyperbolicalStatementsButton";
+            this.HyperbolicalStatementsButton.Size = new System.Drawing.Size(209, 22);
+            this.HyperbolicalStatementsButton.Text = "Hyperbolical Statements";
+            this.HyperbolicalStatementsButton.Click += new System.EventHandler(this.HyperbolicalStatementsButton_Click);
+            // 
+            // otherStatementsToolStripMenuItem
+            // 
+            this.otherStatementsToolStripMenuItem.Name = "otherStatementsToolStripMenuItem";
+            this.otherStatementsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.otherStatementsToolStripMenuItem.Text = "Other Statements";
             // 
             // messageBoard
             // 
@@ -224,28 +267,23 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.SmallIcon;
             // 
-            // panelsToolStripMenuItem
+            // AboutButton
             // 
-            this.panelsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TrigonometryStatementsButton,
-            this.HyperbolicalStatementsButton});
-            this.panelsToolStripMenuItem.Name = "panelsToolStripMenuItem";
-            this.panelsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.panelsToolStripMenuItem.Text = "Panels";
+            this.AboutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.AboutButton.Image = ((System.Drawing.Image)(resources.GetObject("AboutButton.Image")));
+            this.AboutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.Size = new System.Drawing.Size(44, 22);
+            this.AboutButton.Text = "About";
             // 
-            // TrigonometryStatementsButton
+            // toolStripDropDownButton1
             // 
-            this.TrigonometryStatementsButton.Name = "TrigonometryStatementsButton";
-            this.TrigonometryStatementsButton.Size = new System.Drawing.Size(209, 22);
-            this.TrigonometryStatementsButton.Text = "Trigonometry Statements";
-            this.TrigonometryStatementsButton.Click += new System.EventHandler(this.TrigonometryStatementsButton_Click);
-            // 
-            // HyperbolicalStatementsButton
-            // 
-            this.HyperbolicalStatementsButton.Name = "HyperbolicalStatementsButton";
-            this.HyperbolicalStatementsButton.Size = new System.Drawing.Size(209, 22);
-            this.HyperbolicalStatementsButton.Text = "Hyperbolical Statements";
-            this.HyperbolicalStatementsButton.Click += new System.EventHandler(this.HyperbolicalStatementsButton_Click);
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
             // MainForm
             // 
@@ -293,6 +331,10 @@
         private System.Windows.Forms.ToolStripMenuItem panelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TrigonometryStatementsButton;
         private System.Windows.Forms.ToolStripMenuItem HyperbolicalStatementsButton;
+        private System.Windows.Forms.ToolStripMenuItem mainStatementsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem otherStatementsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton AboutButton;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
     }
 }
 
