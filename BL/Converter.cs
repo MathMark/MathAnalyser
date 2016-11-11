@@ -23,7 +23,7 @@ namespace BL
         static char[] Constants = { 'x', 'p', 'e' };
         static char[] Operators = { '+', '-', '/', '*', '^' };
 
-        public static Exception UnknownSymbolException = new Exception("There is unkown symbol in line.");
+        public static Exception UnknownSymbolException = new Exception("There is unkown symbol in line");
         public static Exception LineIsEmptyException = new Exception("Input line is empty");
         public static Exception UnknownOperatorException = new Exception("The line contains unknown operator");
         private static short GetPriority(string InputStatement)//returnes priority of function
