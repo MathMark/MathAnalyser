@@ -19,8 +19,16 @@ namespace MathAnalyser
 
         private void View_EnterPressed(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            View.MessageBoard+="Input Line: "+View.InputBoard+" Output Line: "+
-                String.Concat<string>(Converter.ConvertToPostfix(View.InputBoard));
+            try
+            {
+                View.MessageBoard += "Input Line: " + View.InputBoard + " Output Line: " +
+                    String.Concat<string>(Converter.ConvertToPostfix(View.InputBoard));
+            }
+            catch(InvalidOperationException)
+            {
+                View.MessageBoard += "InvalidOperationException - Stack is empty";
+                View.MessageBoard += "Possible reason: The argument might have been forgotten";
+            }
         }
     }
 }

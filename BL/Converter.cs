@@ -24,6 +24,7 @@ namespace BL
         static char[] Operators = { '+', '-', '/', '*', '^' };
 
         public static Exception UnknownSymbolException = new Exception("There is unkown symbol in line.");
+        public static Exception LineIsEmptyException = new Exception("Input line is empty");
         private static short GetPriority(string InputStatement)//returnes priority of function
         {
 
@@ -66,6 +67,10 @@ namespace BL
 
         public static List<string> ConvertToPostfix(string InputExpression)
         {
+            if(InputExpression==string.Empty)
+            {
+                throw LineIsEmptyException;
+            }
             List<string> OutputExpression = new List<string>();
 
             if (InputExpression[0] == '-')
@@ -92,12 +97,25 @@ namespace BL
                 }
                 else if ((char.IsLetter(InputExpression[j])) && (!EqualsToConstant(InputExpression[j])))
                 {
-                    while (char.IsLetter(InputExpression[j]))
+                    for(;j<InputExpression.Length;j++)
                     {
-                        buffer += InputExpression[j];
-                        j++;
+                        if(char.IsLetter(InputExpression[j]))
+                        {
+                            buffer += InputExpression[j];
+                        }
+                        else
+                        {
+                            j--;
+                            break;
+                        }
                     }
-                    j--;
+                    //while (char.IsLetter(InputExpression[j]))
+                    //{
+                    //    buffer += InputExpression[j];
+                    //    if()
+                    //    j++;
+                    //}
+                    //j--;
                     stack.Push(buffer);
                     buffer = string.Empty;
                 }
