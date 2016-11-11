@@ -11,7 +11,7 @@ namespace BL.Tests
     public class MAtest
     {
         [Test]
-        public void ConvertToPostfixTest()
+        public void ConvertToPostfix_Test()
         {
             const string InputExpression = "2*sin(x)/3+5*x-1";
             //const string InputExpression = "2-1";
@@ -20,6 +20,16 @@ namespace BL.Tests
            // string EXPECTED_RESULT = "21-";
 
             Assert.That(string.Concat<string>(Converter.ConvertToPostfix(InputExpression)), Is.EqualTo(EXPECTED_RESULT));
+        }
+        [Test]
+        public void GetValue_Test()
+        {
+            List<string> InputExpression = new List<string> {"4","p","sin","*","2","/","3","-"};
+            const double point = 0;
+
+            double EXPECTED_RESULT = 4*Math.Sin(Math.PI)/2-3;
+            Assert.That(Converter.GetValue(InputExpression, point), Is.EqualTo(EXPECTED_RESULT));
+
         }
 
     }

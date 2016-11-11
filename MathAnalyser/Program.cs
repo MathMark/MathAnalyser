@@ -16,7 +16,9 @@ namespace MathAnalyser
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            MainForm form = new MainForm();
+            Presenter presenter = new Presenter(form);
+            Application.Run(form);
         }
     }
 }

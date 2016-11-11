@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathAnalyser.Properties;
 
@@ -14,6 +8,9 @@ namespace MathAnalyser
     public interface IMainForm
     {
         string MessageBoard { get; set; }
+        string InputBoard { get; }
+
+        event KeyPressEventHandler EnterPressed;
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -31,8 +28,26 @@ namespace MathAnalyser
 
             statementsPanel = new TrigonometryStatementsPanel(this);
             statementsPanel.Show();
+
+            textBox_Function.KeyPress += TextBox_Function_KeyPress;
         }
 
+        private void TextBox_Function_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           // throw new NotImplementedException();
+           // errorProvider1.SetIconPadding(textBox_Function, 10);
+           /// if ((Convert.ToInt32(e.KeyChar) >= 1040) && (Convert.ToInt32(e.KeyChar) <= 1103))
+           /// {
+             //   errorProvider1.SetError(textBox_Function, "The line is not supposed to have Cyrillic symbols");
+           // }
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                EnterPressed(this, e);
+            }
+            
+        }
+
+        public event KeyPressEventHandler EnterPressed;
         public string MessageBoard
         {
             get
@@ -44,7 +59,13 @@ namespace MathAnalyser
                 messageBoard.Text=value+"\n";
             }
         }
-
+        public string InputBoard
+        {
+            get
+            {
+                return textBox_Function.Text;
+            }
+        }
         private void Theme_White_Button_Click(object sender, EventArgs e)
         {
             Settings.Default["Theme"] = "White";
@@ -114,18 +135,6 @@ namespace MathAnalyser
             }
         }
 
-        private void textBox_Function_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            errorProvider1.SetIconPadding(textBox_Function,10);
-            if ((Convert.ToInt32(e.KeyChar)>=1040)&&(Convert.ToInt32(e.KeyChar) <= 1103))
-            {
-                 errorProvider1.SetError(textBox_Function, "The line is not supposed to have Cyrillic symbols");
-            }
-            // if (e.KeyChar == (char)Keys.Enter)
-             MessageBoard +=  "Given: "+"3*sin(x+2)/2"+e.KeyChar+"pressed";
-
-
-        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {

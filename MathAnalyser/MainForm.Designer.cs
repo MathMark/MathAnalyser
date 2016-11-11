@@ -87,7 +87,6 @@
             this.textBox_Function.Name = "textBox_Function";
             this.textBox_Function.Size = new System.Drawing.Size(231, 23);
             this.textBox_Function.TabIndex = 1;
-            this.textBox_Function.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_Function_KeyPress);
             // 
             // groupBox1
             // 
