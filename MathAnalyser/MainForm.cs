@@ -8,7 +8,7 @@ namespace MathAnalyser
     public interface IMainForm
     {
         string MessageBoard { get; set; }
-        string InputBoard { get; }
+        string InputData { get; }
         Bitmap Sheet { set; }
         int SheetWidth { get; }
         int SheetHeight { get; }
@@ -21,7 +21,7 @@ namespace MathAnalyser
     }
     public partial class MainForm : Form,IMainForm
     {
-        TrigonometryStatementsPanel statementsPanel;
+        //TrigonometryStatementsPanel statementsPanel;
 
         public MainForm()
         {
@@ -36,7 +36,7 @@ namespace MathAnalyser
            // statementsPanel = new TrigonometryStatementsPanel(this);
            // statementsPanel.Show();
 
-            Preparation p = new Preparation(pictureBox.Width, pictureBox.Height);
+            Build p = new Build(pictureBox.Width, pictureBox.Height);
             Sheet = p.BuildAxes(Color.FromArgb(155,121,120,122),2);
             Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), 25);
 
@@ -106,7 +106,7 @@ namespace MathAnalyser
                 messageBoard.Text=value+"\n";
             }
         }
-        public string InputBoard
+        public string InputData
         {
             get
             {
@@ -191,13 +191,13 @@ namespace MathAnalyser
         private void TrigonometryStatementsButton_Click(object sender, EventArgs e)
         {
            // TrigonometryStatementsPanel statementsPanel = new TrigonometryStatementsPanel(this);
-            statementsPanel.Show();
+            //statementsPanel.Show();
         }
 
         private void HyperbolicalStatementsButton_Click(object sender, EventArgs e)
         {
-            HyperbolicalStatementsPanel hyperbolicalPanel = new HyperbolicalStatementsPanel(this);
-            hyperbolicalPanel.Show();
+           // HyperbolicalStatementsPanel hyperbolicalPanel = new HyperbolicalStatementsPanel(this);
+           // hyperbolicalPanel.Show();
         }
     }
 }

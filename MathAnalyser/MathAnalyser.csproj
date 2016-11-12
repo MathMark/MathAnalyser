@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Preparation.cs" />
+    <Compile Include="Build.cs" />
     <Compile Include="HyperbolicalStatementsPanel.cs">
       <SubType>Form</SubType>
     </Compile>
