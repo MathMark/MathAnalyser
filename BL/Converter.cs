@@ -10,22 +10,17 @@ namespace BL
      * by the placement of operators between operands, e.g. "2+2") to function written in Postfix notation 
      * (Reverse Polish Notation). It is needed to easily read the function and calculate
      values in a particular point.*/
-    public interface IConverter
+
+    public class Converter 
     {
-        //static string[] ConvertToPostfix(string function);
-    }
-    public class Converter : IConverter
-    {
-        static string[] Statements = {"~","sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
+        static string[] Statements = {"sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
             "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
             "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch"};
 
         static char[] Constants = { 'x', 'p', 'e' };
-        static char[] Operators = { '+', '-', '/', '*', '^' };
+        static char[] Operators = { '~','+', '-', '/', '*', '^' };
 
-        public static Exception UnknownSymbolException = new Exception("There is unkown symbol in line");
-        public static Exception LineIsEmptyException = new Exception("Input line is empty");
-        public static Exception UnknownOperatorException = new Exception("The line contains unknown operator");
+
         private static short GetPriority(string InputStatement)//returnes priority of function
         {
 
@@ -70,16 +65,16 @@ namespace BL
         {
             if(InputExpression==string.Empty)
             {
-                throw LineIsEmptyException;
+                throw new Exception("Input line is empty");
             }
             List<string> OutputExpression = new List<string>();
 
             if (InputExpression[0] == '-')
             {
-                InputExpression.Remove(0, 1);
-                InputExpression.Insert(0, "~");
+                InputExpression=InputExpression.Remove(0, 1);
+                InputExpression=InputExpression.Insert(0, "~");
             }
-            InputExpression.Replace("(-", "(~");
+            InputExpression=InputExpression.Replace("(-", "(~");
 
             Stack<string> stack = new Stack<string>();
 
@@ -87,7 +82,7 @@ namespace BL
 
             for (int j = 0; j < InputExpression.Length; j++)
             {
-                if ((char.IsDigit(InputExpression[j])) || (EqualsToConstant(InputExpression[j])))//в буфере число?
+                if ((char.IsDigit(InputExpression[j])) || (EqualsToConstant(InputExpression[j])))
                 {
                     buffer += InputExpression[j];
                     if ((j == InputExpression.Length - 1) || (!char.IsDigit(InputExpression[j + 1])))
@@ -137,7 +132,7 @@ namespace BL
                     {
                         stack.Push(InputExpression[j].ToString());
                     }
-                    else if (GetPriority(stack.Peek()) < GetPriority(InputExpression[j].ToString())) //сравнение приоритетов операций
+                    else if (GetPriority(stack.Peek()) < GetPriority(InputExpression[j].ToString())) 
                     {
                         stack.Push(InputExpression[j].ToString());
                     }
@@ -154,7 +149,7 @@ namespace BL
                 }
                 else
                 {
-                    throw UnknownSymbolException;
+                    throw new Exception(String.Format("There is unkown symbol in line: {0}",InputExpression[j]));
                 }
 
             }
@@ -173,10 +168,7 @@ namespace BL
             double a, b;
             foreach (string piece in PostfixLine)
             {
-                if (string.IsNullOrEmpty(piece)) continue;
 
-                else
-                {
                     if (char.IsDigit(piece[0]))
                     {
                         stack.Push(Convert.ToDouble(piece));
@@ -280,7 +272,7 @@ namespace BL
                                 stack.Push(Math.Log(1 / X + Math.Sqrt(1 / X * X + 1)));
                                 break;
                             default:
-                                throw UnknownOperatorException;
+                                throw new Exception(String.Format("The line contains unknown operator: {0}",piece));
 
                         }
                     }
@@ -289,6 +281,7 @@ namespace BL
                         if (piece[0] == 'e') stack.Push(Math.E);
                         else if (piece[0] == 'p') stack.Push(Math.PI);
                         else if (piece[0] == 'x') stack.Push(point);
+                        else if (piece[0] == '~') stack.Push(-1 * stack.Pop());
                         else
                         {
                             b = Convert.ToDouble(stack.Pop());
@@ -310,62 +303,15 @@ namespace BL
                                     s = b;
                                     break;
                                 case '^':
-                                    if (b > 1)
-                                    {
-                                        if ((a < 0) || (a > 0))
-                                        {
-                                            stack.Push(Math.Pow(a, b));
-                                        }
-                                        else
-                                        {
-                                            stack.Push(0);
-                                        }
-                                    }
-                                    else if ((b < 1) && (b > 0))
-                                    {
-                                        if (a > 0)
-                                        {
-                                            stack.Push(Math.Pow(a, b));
-                                        }
-                                        else if (a < 0)
-                                        {
-                                            if (s % 2 == 1)
-                                            {
-                                                stack.Push(-Math.Pow(Math.Abs(a), b));
-                                            }
-                                            else stack.Push(Math.Pow(a, b));
-                                        }
-                                        else
-                                        {
-                                            stack.Push(0);
-                                        }
-                                    }
-                                    else if (b == 1)
-                                    {
-                                        stack.Push(a);
-                                    }
-                                    else if (b == 0)
-                                    {
-                                        if (a == 0)
-                                        {
-                                            stack.Push(0);
-                                        }
-                                        else stack.Push(1);
-                                    }
+                                    stack.Push(Math.Pow(a,b));
                                     break;
                                 case ';':
                                     stack.Push(b);
                                     stack.Push(a);
                                     break;
-                                ///unary operations
-                                case '~':
-                                    stack.Push(a);
-                                    stack.Push(-1 * Convert.ToDouble(b));
-                                    break;
                             }
                         }
                     }
-                }
             }
             return stack.Pop();
         }
