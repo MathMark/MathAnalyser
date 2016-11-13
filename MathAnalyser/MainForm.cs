@@ -17,6 +17,8 @@ namespace MathAnalyser
         event KeyPressEventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
         event MouseEventHandler SheetMouseWheel;
+        event EventHandler SetColor;
+        event EventHandler SetDashStyle;
 
     }
     public partial class MainForm : Form,IMainForm
@@ -44,6 +46,18 @@ namespace MathAnalyser
             pictureBox.SizeChanged += PictureBox_SizeChanged;
             pictureBox.MouseHover += PictureBox_MouseHover;
             pictureBox.MouseWheel += PictureBox_MouseWheel;
+            SetColorButton.Click += SetColorButton_Click;
+            SetDashStyleButton.Click += SetDashStyleButton_Click;
+        }
+
+        private void SetDashStyleButton_Click(object sender, EventArgs e)
+        {
+            SetDashStyle(this, e);
+        }
+
+        private void SetColorButton_Click(object sender, EventArgs e)
+        {
+            SetColor(this, e);
         }
 
         private void PictureBox_MouseHover(object sender, EventArgs e)
@@ -73,6 +87,8 @@ namespace MathAnalyser
         public event KeyPressEventHandler EnterPressed;
         public event EventHandler SheetSizeChanged;
         public event MouseEventHandler SheetMouseWheel;
+        public event EventHandler SetColor;
+        public event EventHandler SetDashStyle;
 
         public Bitmap Sheet
         {

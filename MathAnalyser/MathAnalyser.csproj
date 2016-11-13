@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Build.cs" />
+    <Compile Include="Curve.cs" />
     <Compile Include="HyperbolicalStatementsPanel.cs">
       <SubType>Form</SubType>
     </Compile>

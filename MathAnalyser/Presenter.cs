@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using BL;
+using System.Windows.Forms;
 
 namespace MathAnalyser
 {
@@ -12,9 +13,14 @@ namespace MathAnalyser
     {
         IMainForm View;
         Build p;
+
         int scale = 25;
         int offset = 0;
-        List<string> Functions;
+
+        Pen pen;
+        ColorDialog colordialog;
+
+        List<Curve> Functions;
 
         public Presenter(IMainForm View)
         {
@@ -23,9 +29,27 @@ namespace MathAnalyser
             View.EnterPressed += View_EnterPressed;
             View.SheetSizeChanged += View_SheetSizeChanged;
             View.SheetMouseWheel += View_SheetMouseWheel;
+            View.SetColor += View_SetColor;
+            View.SetDashStyle += View_SetDashStyle;
 
-            Functions = new List<string>();
+            Functions = new List<Curve>();
             p = new Build(View.SheetWidth, View.SheetHeight);
+            pen = new Pen(Color.Red,2);
+            colordialog = new ColorDialog();
+
+        }
+
+        private void View_SetDashStyle(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void View_SetColor(object sender, EventArgs e)
+        {
+           if( colordialog.ShowDialog()==DialogResult.OK)
+            {
+                pen.Color = colordialog.Color;
+            }
         }
 
         private void View_SheetMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -50,10 +74,10 @@ namespace MathAnalyser
             View.Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), scale + offset);
             if (Functions.Count != 0)
             {
-                foreach (string function in Functions)
+                foreach (Curve function in Functions)
                 {
-                    View.Sheet = p.DrawFunction(Converter.ConvertToPostfix(function),
-                        Color.Red, 2, System.Drawing.Drawing2D.DashStyle.Solid, scale + offset);
+                    View.Sheet = p.DrawFunction(function.PostfixNotation,
+                        function.CurvePen, scale + offset);
                 }
             }
 
@@ -67,10 +91,10 @@ namespace MathAnalyser
 
             if (Functions.Count != 0)
             {
-                foreach (string function in Functions)
+                foreach (Curve function in Functions)
                 {
-                    View.Sheet = p.DrawFunction(Converter.ConvertToPostfix(function),
-                        Color.Red, 2, System.Drawing.Drawing2D.DashStyle.Solid, scale + offset);
+                    View.Sheet = p.DrawFunction(function.PostfixNotation,
+                        function.CurvePen, scale + offset);
                 }
             }
         }
@@ -87,9 +111,17 @@ namespace MathAnalyser
                 View.MessageBoard += "InvalidOperationException - Stack is empty";
                 View.MessageBoard += "Possible reason: The argument might have been forgotten";
             }
-            View.Sheet = p.DrawFunction(Converter.ConvertToPostfix(View.InputData),
-                Color.Red, 2, System.Drawing.Drawing2D.DashStyle.Solid, scale);
-            Functions.Add(View.InputData);
+            try
+            {
+                List<string> Postfix = Converter.ConvertToPostfix(View.InputData);
+                View.Sheet = p.DrawFunction(Postfix,
+                   pen, scale);
+                Functions.Add(new Curve(Postfix,pen.Color,pen.Width,pen.DashStyle));
+            }
+            catch(Exception exception)
+            {
+                View.MessageBoard += "Error: " + exception.Message;
+            }
 
         }
     }

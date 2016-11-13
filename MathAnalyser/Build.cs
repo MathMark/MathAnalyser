@@ -23,6 +23,8 @@ namespace MathAnalyser
 
             Draft = new Bitmap(Width, Height);
             Painter = Graphics.FromImage(Draft);
+            Painter.SmoothingMode = SmoothingMode.HighQuality;
+
         }
         public Bitmap BuildAxes(Color colorPen,int width)
         {
@@ -48,11 +50,9 @@ namespace MathAnalyser
             }
             return Draft;
         }
-        public Bitmap DrawFunction(List<string> PostfixFunction,Color color,int width,DashStyle dashStyle,int scale)
+        public Bitmap DrawFunction(List<string> PostfixFunction,Pen pen,int scale)
         {
             double prototype;
-            Pen pen = new Pen(color, width);
-            pen.DashStyle = dashStyle;
 
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
