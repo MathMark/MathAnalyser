@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using MathAnalyser.Properties;
 
 namespace MathAnalyser
 {
@@ -214,6 +213,52 @@ namespace MathAnalyser
         {
            // HyperbolicalStatementsPanel hyperbolicalPanel = new HyperbolicalStatementsPanel(this);
            // hyperbolicalPanel.Show();
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void HideWindowButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void MaximizeWindowButton_Click(object sender, EventArgs e)
+        {
+            if(this.WindowState== FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+            
+        }
+
+        bool TogMove;
+        int MValX;
+        int MValY;
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            TogMove = true;
+            MValX = e.X;
+            MValY = e.Y;
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            TogMove = false;
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (TogMove)
+            {
+                this.SetDesktopLocation(MousePosition.X-MValX, MousePosition.Y - MValY);
+            }
         }
     }
 }

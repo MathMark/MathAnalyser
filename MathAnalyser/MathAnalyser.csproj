@@ -102,7 +102,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\close-icon2.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj">
       <Project>{a3b85004-a84a-4b20-b2d8-227b5a3fb769}</Project>
@@ -111,6 +113,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Безымянный.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximizethewindow_theapplication_maximizar_2873.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimize_window-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
