@@ -12,12 +12,17 @@ namespace MathAnalyser
         Build p;
 
         int scale = 25;
-        int offset = 0;
+
+
+        Color ColorNet = Color.FromArgb(30, 121, 120, 122);
+        Color ColorAxes = Color.FromArgb(155, 121, 120, 122);
 
         Pen pen;
         ColorDialog colordialog;
+        List<string> Postfix;
 
         List<Curve> Functions;
+
 
         public Presenter(IMainForm View)
         {
@@ -29,11 +34,36 @@ namespace MathAnalyser
             View.SetColor += View_SetColor;
             View.SetDashStyle += View_SetDashStyle;
 
+
+            View.MoveGraph += View_MoveGraph;
+            View.FinishMoving += View_FinishMoving;
+
             Functions = new List<Curve>();
             p = new Build(View.SheetWidth, View.SheetHeight);
             pen = new Pen(Color.Red,2);
             colordialog = new ColorDialog();
 
+        }
+
+        private void View_FinishMoving(int dx, int dy)
+        {
+            p.StartPosition = new Point(dx,dy);
+            if(Functions.Count!=0)
+            {
+                foreach (Curve function in Functions)
+                {
+                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
+                        function.PostfixNotation);
+                }
+            }
+
+        }
+
+        private void View_MoveGraph(int dx, int dy)
+        {
+            View.Sheet = p.BuildAxes(ColorAxes, 2, dx, dy);
+            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);;
+            
         }
 
         private void View_SetDashStyle(object sender, EventArgs e)
@@ -51,30 +81,28 @@ namespace MathAnalyser
 
         private void View_SheetMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            p = new Build(View.SheetWidth, View.SheetHeight);
-            
-            View.Sheet = p.BuildAxes(Color.FromArgb(155, 121, 120, 122), 2);
+            View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
             if (e.Delta>0)
             {
-                if(offset<50)
+                if(scale<50)
                 {
-                    offset++;
+                    scale++;
                 }
             }
             else
             {
-                if (offset >-20)
+                if (scale >10)
                 {
-                    offset--;
+                    scale--;
                 }
             }
-            View.Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), scale + offset);
+            View.Sheet = p.BuildNet(ColorNet, scale,0,0);
             if (Functions.Count != 0)
             {
                 foreach (Curve function in Functions)
                 {
-                    View.Sheet = p.DrawFunction(function.PostfixNotation,
-                        function.CurvePen, scale + offset);
+                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
+                        function.PostfixNotation);
                 }
             }
 
@@ -83,15 +111,15 @@ namespace MathAnalyser
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
             p = new Build(View.SheetWidth, View.SheetHeight);
-            View.Sheet = p.BuildAxes(Color.FromArgb(155, 121, 120, 122), 2);
-            View.Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), scale + offset);
+            View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
+            View.Sheet = p.BuildNet(ColorNet, scale,0,0);
 
             if (Functions.Count != 0)
             {
                 foreach (Curve function in Functions)
                 {
-                    View.Sheet = p.DrawFunction(function.PostfixNotation,
-                        function.CurvePen, scale + offset);
+                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
+                        function.PostfixNotation);
                 }
             }
         }
@@ -110,9 +138,8 @@ namespace MathAnalyser
             }
             try
             {
-                List<string> Postfix = Converter.ConvertToPostfix(View.InputData);
-                View.Sheet = p.DrawFunction(Postfix,
-                   pen, scale);
+                Postfix = Converter.ConvertToPostfix(View.InputData);
+                View.Sheet = p.DrawFunction(pen, scale, Postfix);
                 Functions.Add(new Curve(Postfix,pen.Color,pen.Width,pen.DashStyle));
             }
             catch(Exception exception)

@@ -19,6 +19,9 @@ namespace MathAnalyser
         event EventHandler SetColor;
         event EventHandler SetDashStyle;
 
+        event Action<int,int> MoveGraph;
+        event Action<int, int> FinishMoving;
+
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -38,8 +41,8 @@ namespace MathAnalyser
            // statementsPanel.Show();
 
             Build p = new Build(pictureBox.Width, pictureBox.Height);
-            Sheet = p.BuildAxes(Color.FromArgb(155,121,120,122),2);
-            Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), 25);
+            Sheet = p.BuildAxes(Color.FromArgb(155,121,120,122),2,0,0);
+            Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), 25,0,0);
 
             textBox_Function.KeyPress += TextBox_Function_KeyPress;
             pictureBox.SizeChanged += PictureBox_SizeChanged;
@@ -47,6 +50,34 @@ namespace MathAnalyser
             pictureBox.MouseWheel += PictureBox_MouseWheel;
             SetColorButton.Click += SetColorButton_Click;
             SetDashStyleButton.Click += SetDashStyleButton_Click;
+
+            pictureBox.MouseDown += PictureBox_MouseDown;
+            pictureBox.MouseUp += PictureBox_MouseUp;
+            pictureBox.MouseMove += PictureBox_MouseMove;
+        }
+
+        bool IsPressed;
+        int MouseX;
+        int MouseY;
+        private void PictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(IsPressed)
+            {
+                MoveGraph(e.X-MouseX, e.Y - MouseY);
+            }
+        }
+
+        private void PictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            IsPressed = false;
+            FinishMoving(e.X - MouseX, e.Y - MouseY);
+        }
+
+        private void PictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            IsPressed = true;
+            MouseX = e.X;
+            MouseY = e.Y;
         }
 
         private void SetDashStyleButton_Click(object sender, EventArgs e)
@@ -88,6 +119,10 @@ namespace MathAnalyser
         public event MouseEventHandler SheetMouseWheel;
         public event EventHandler SetColor;
         public event EventHandler SetDashStyle;
+
+
+        public event Action<int,int> MoveGraph;
+        public event Action<int, int> FinishMoving;
 
         public Bitmap Sheet
         {

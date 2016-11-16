@@ -13,48 +13,116 @@ namespace MathAnalyser
         Graphics Painter;
         Bitmap Draft;
 
+        Point start;
+
+
+        private int leftEdge;
+        private int rightEdge;
+        private int topEdge;
+        private int bottomEdge;
+
+        public Point StartPosition
+        {
+            get
+            {
+                return start;
+            }
+            set
+            {
+                start = value;
+                Painter.TranslateTransform(value.X,value.Y);
+
+                if(value.X>0)
+                {
+                    rightEdge += value.X;
+                    leftEdge -= value.X;
+                }
+                else
+                {
+                    rightEdge -= value.X;
+                    leftEdge += value.X;
+                }
+                if(value.Y>0)
+                {
+                    topEdge += value.Y;
+                    bottomEdge -= value.Y;
+                }
+                else
+                {
+                    topEdge -= value.Y;
+                    bottomEdge += value.Y;
+                }
+
+               // Xedge += Math.Abs(value.X);
+               // Yedge += Math.Abs(value.Y);
+
+            }
+        }
+
         public Build(int Width,int Height)
         {
             this.Width = Width;
             this.Height = Height;
 
+            leftEdge=-Width/2;
+            rightEdge=Width/2;
+            topEdge=Height/2;
+            bottomEdge=-Height/2;
+
+
             Draft = new Bitmap(Width, Height);
             Painter = Graphics.FromImage(Draft);
+
             Painter.SmoothingMode = SmoothingMode.HighQuality;
+            Painter.TranslateTransform(Width/2, Height / 2);
 
         }
-        public Bitmap BuildAxes(Color colorPen,int width)
+
+        public Bitmap BuildAxes(Color colorPen,int width,int dx,int dy)
         {
             Pen pen = new Pen(colorPen,width);
-            Painter.DrawLine(pen, Width / 2, 0, Width / 2, Draft.Height);
-            Painter.DrawLine(pen, 0, Draft.Height / 2, Draft.Width, Draft.Height / 2);
+            Painter.Clear(Color.Transparent);
+
+            Painter.DrawLine(pen, dx, topEdge, dx, bottomEdge);//Y
+            Painter.DrawLine(pen, leftEdge, dy, rightEdge, dy);//X
+
             return Draft;
+            
         }
-        public Bitmap BuildNet(Color colorPen,float scale)
+        public Bitmap BuildNet(Color colorPen,float scale,int dx,int dy)
         {
             Pen penNet = new Pen(colorPen);
-            float start = Convert.ToSingle(Draft.Width / 2);
-            for (float i = 0; i < Draft.Width; i += scale)
+
+            //Vertical
+            for (float i = 0; i <rightEdge ; i += scale)
             {
-                Painter.DrawLine(penNet, start + i, 0, start + i, Draft.Height);
-                Painter.DrawLine(penNet, start - i, 0, start - i, Draft.Height);
+                Painter.DrawLine(penNet, i+dx, topEdge, i+dx, bottomEdge);
             }
-            start = Convert.ToSingle(Draft.Height / 2);
-            for (float i = 0; i < Draft.Height / 2; i += scale)
+            for (float i = 0; i >= leftEdge; i -= scale)
             {
-                Painter.DrawLine(penNet, 0, start + i, Draft.Width, start + i);
-                Painter.DrawLine(penNet, 0, start - i, Draft.Width, start - i);
+                 Painter.DrawLine(penNet, i+dx, topEdge, i+dx, bottomEdge);
             }
+
+            //Horizontal
+            for (float i = 0; i < topEdge; i += scale)
+            {
+                Painter.DrawLine(penNet, leftEdge, i+dy, rightEdge, i+dy);
+            }
+            for (float i = 0; i >= bottomEdge; i -= scale)
+            {
+                 Painter.DrawLine(penNet, leftEdge, i+dy, rightEdge, i+dy);
+            }
+
             return Draft;
         }
-        public Bitmap DrawFunction(List<string> PostfixFunction,Pen pen,int scale)
+        public Bitmap DrawFunction(Pen pen,int scale, List<string>PostfixFunction)
         {
             double prototype;
 
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
 
-                for (double x = -Draft.Width / 2; x < Draft.Width / 2; x += 1)
+                for (double x = leftEdge; x < rightEdge; x += 1)
                 {
      
                     prototype = Converter.GetValue(PostfixFunction, x / scale);
@@ -86,8 +154,8 @@ namespace MathAnalyser
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(Draft.Width / 2 + x),
-                            Convert.ToSingle(Draft.Height / 2 - scale * prototype)));
+                        Coordinates.Add(new PointF(Convert.ToSingle(x),
+                            Convert.ToSingle(-scale * prototype)));
                     }
                 }
                 try
