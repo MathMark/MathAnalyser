@@ -163,75 +163,15 @@ namespace MathAnalyser
                 return textBox_Function.Text;
             }
         }
-        //private void Theme_White_Button_Click(object sender, EventArgs e)
-        //{
-        //    Settings.Default["Theme"] = "White";
-        //    Settings.Default.Save();
-        //    GetTheme((string)Settings.Default["Theme"]);
-        //}
 
-        //private void Theme_Black_Button_Click(object sender, EventArgs e)
-        //{
-        //    Settings.Default["Theme"] = "Black";
-        //    Settings.Default.Save();
-        //    GetTheme((string)Settings.Default["Theme"]);
-        //}
-
-        //private void Theme_BlackBlue_Button_Click(object sender, EventArgs e)
-        //{
-        //    Settings.Default["Theme"] = "BlackBlue";
-        //    Settings.Default.Save();
-        //    GetTheme((string)Settings.Default["Theme"]);
-        //}
-
-        //private void GetTheme(string Parameter)
-        //{
-        //    switch(Parameter)
-        //    {
-        //        case "White":
-        //            this.BackColor = Color.White;
-        //            this.textBox_Function.BackColor = Color.White;
-        //            this.textBox_Function.ForeColor = Color.Black;
-
-        //            toolStrip1.BackColor = Color.White;
-
-        //            foreach (ToolStripItem item in toolStrip1.Items)
-        //            {
-        //                if (item is ToolStripDropDownButton)
-        //                {
-        //                    item.ForeColor = Color.Black;
-        //                }
-        //            }
-
-        //            messageBoard.BackColor = Color.FromArgb(255, 255, 255);
-        //            messageBoard.ForeColor = Color.Gray;
-
-        //            break;
-        //        case "Black":
-        //            this.BackColor = Color.FromArgb(40, 40, 40);
-
-        //            this.textBox_Function.BackColor = Color.FromArgb(50, 50, 50);
-        //            this.textBox_Function.ForeColor = Color.White;
-
-        //            toolStrip1.BackColor = Color.FromArgb(20, 20, 20); 
-
-        //            foreach(ToolStripItem item in toolStrip1.Items)
-        //            {
-        //                if(item is ToolStripDropDownButton)
-        //                {
-        //                    item.ForeColor = Color.White;
-        //                }
-        //            }
-
-        //            messageBoard.BackColor= Color.FromArgb(20, 20, 20);
-        //            messageBoard.ForeColor = Color.Gray;
-
-        //            break;
-        //        case "BlackBlue":
-        //            break;
-        //    }
-        //}
-
+        //public ListViewItem FunctionListBox
+      //  {
+           // get
+          //  {
+               // return functionListBox.It
+           // }
+       // }//
+       
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -294,6 +234,11 @@ namespace MathAnalyser
             {
                 this.SetDesktopLocation(MousePosition.X-MValX, MousePosition.Y - MValY);
             }
+        }
+
+        private void ClearMessageBoardButton_Click(object sender, EventArgs e)
+        {
+            MessageBoard = string.Empty;
         }
     }
 }

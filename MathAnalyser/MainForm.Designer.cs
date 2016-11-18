@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "sin(x)"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Red, null);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {
             "cos(x)"}, "(отсутствует)", System.Drawing.Color.Empty, System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192))))), null);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
             "x^2-5"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.Teal, null);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "abs(x+3)"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.RosyBrown, null);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {
             "x-2"}, -1, System.Drawing.Color.Empty, System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128))))), null);
             this.textBox_Function = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -57,10 +57,10 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.messageBoard = new System.Windows.Forms.RichTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.FunctionList = new System.Windows.Forms.ListView();
+            this.functionListBox = new System.Windows.Forms.ListView();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.ClearMessageBoardButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
@@ -246,26 +246,26 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // FunctionList
+            // functionListBox
             // 
-            this.FunctionList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.FunctionList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.FunctionList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FunctionList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FunctionList.ForeColor = System.Drawing.Color.White;
-            listViewItem2.StateImageIndex = 0;
-            this.FunctionList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5});
-            this.FunctionList.Location = new System.Drawing.Point(3, 28);
-            this.FunctionList.Name = "FunctionList";
-            this.FunctionList.Size = new System.Drawing.Size(249, 105);
-            this.FunctionList.TabIndex = 6;
-            this.FunctionList.UseCompatibleStateImageBehavior = false;
-            this.FunctionList.View = System.Windows.Forms.View.SmallIcon;
+            this.functionListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.functionListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.functionListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.functionListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.functionListBox.ForeColor = System.Drawing.Color.White;
+            listViewItem7.StateImageIndex = 0;
+            this.functionListBox.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
+            this.functionListBox.Location = new System.Drawing.Point(3, 28);
+            this.functionListBox.Name = "functionListBox";
+            this.functionListBox.Size = new System.Drawing.Size(249, 105);
+            this.functionListBox.TabIndex = 6;
+            this.functionListBox.UseCompatibleStateImageBehavior = false;
+            this.functionListBox.View = System.Windows.Forms.View.SmallIcon;
             // 
             // toolStrip2
             // 
@@ -275,7 +275,7 @@
             this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripButton1});
+            this.ClearMessageBoardButton});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -291,16 +291,17 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(49, 22);
             this.toolStripLabel1.Text = "Output";
             // 
-            // toolStripButton1
+            // ClearMessageBoardButton
             // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::MathAnalyser.Properties.Resources.Cross;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.ClearMessageBoardButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ClearMessageBoardButton.BackColor = System.Drawing.Color.Transparent;
+            this.ClearMessageBoardButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ClearMessageBoardButton.Image = global::MathAnalyser.Properties.Resources.Cross;
+            this.ClearMessageBoardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ClearMessageBoardButton.Name = "ClearMessageBoardButton";
+            this.ClearMessageBoardButton.Size = new System.Drawing.Size(23, 22);
+            this.ClearMessageBoardButton.Text = "toolStripButton1";
+            this.ClearMessageBoardButton.Click += new System.EventHandler(this.ClearMessageBoardButton_Click);
             // 
             // toolStrip3
             // 
@@ -446,7 +447,7 @@
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.toolStrip5, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.FunctionList, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.functionListBox, 0, 1);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(291, 374);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
@@ -567,6 +568,7 @@
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.toolStrip1.ResumeLayout(false);
@@ -605,7 +607,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.RichTextBox messageBoard;
         private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.ListView FunctionList;
+        private System.Windows.Forms.ListView functionListBox;
         private System.Windows.Forms.ToolStripMenuItem panelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TrigonometryStatementsButton;
         private System.Windows.Forms.ToolStripMenuItem HyperbolicalStatementsButton;
@@ -614,7 +616,7 @@
         private System.Windows.Forms.ToolStripButton AboutButton;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton ClearMessageBoardButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;

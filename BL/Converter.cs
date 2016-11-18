@@ -162,157 +162,174 @@ namespace BL
         public static double GetValue(List<string> PostfixLine, double point)
         {
             Stack<double> stack = new Stack<double>();
-            double s = 0;
-            double a, b;
+
+            double number1, number2;
+ 
+
             foreach (string piece in PostfixLine)
             {
-
-                    if (char.IsDigit(piece[0]))
+                if (char.IsDigit(piece[0]))
                     {
                         stack.Push(Convert.ToDouble(piece));
                     }
-                    else if ((char.IsLetter(piece[0])) && (!EqualsToConstant(piece[0])))
+                else if ((char.IsLetter(piece[0])) && (!EqualsToConstant(piece[0])))
                     {
-                        double X = Convert.ToDouble(stack.Pop());
+                        double variable = Convert.ToDouble(stack.Pop());
                         switch (piece)
                         {
                             case "sqrt":
-                                stack.Push(Math.Sqrt(X));
+                                stack.Push(Math.Sqrt(variable));
                                 break;
                             case "abs":
-                                stack.Push(Math.Abs(X));
+                                stack.Push(Math.Abs(variable));
                                 break;
                             case "sin":
-                                stack.Push(Math.Sin(X));
+                                stack.Push(Math.Sin(variable));
                                 break;
                             case "sinh":
-                                stack.Push(Math.Sinh(X));
+                                stack.Push(Math.Sinh(variable));
                                 break;
                             case "cosh":
-                                stack.Push(Math.Cosh(X));
+                                stack.Push(Math.Cosh(variable));
                                 break;
                             case "cos":
-                                stack.Push(Math.Cos(X));
+                                stack.Push(Math.Cos(variable));
                                 break;
                             case "cth":
-                                stack.Push(1 / Math.Tanh(X));
+                                stack.Push(1 / Math.Tanh(variable));
                                 break;
                             case "tanh":
-                                stack.Push(Math.Tanh(X));
+                                stack.Push(Math.Tanh(variable));
                                 break;
                             case "tan":
-                                stack.Push(Math.Tan(X));
+                                stack.Push(Math.Tan(variable));
                                 break;
                             case "cot":
-                                stack.Push(1 / Math.Tan(X));
+                                stack.Push(1 / Math.Tan(variable));
                                 break;
                             case "аbs":
-                                stack.Push(Math.Abs(X));
+                                stack.Push(Math.Abs(variable));
                                 break;
                             case "ln":
-                                stack.Push(Math.Log(X));
+                                stack.Push(Math.Log(variable));
                                 break;
                             case "arsinh":
-                                stack.Push(Math.Log(X + Math.Sqrt(X * X + 1)));
+                                stack.Push(Math.Log(variable + Math.Sqrt(variable * variable + 1)));
                                 break;
                             case "arcsin":
-                                stack.Push(Math.Asin(X));
+                                stack.Push(Math.Asin(variable));
                                 break;
                             case "arcosh":
-                                stack.Push(Math.Log(X + Math.Sqrt(X + 1) * Math.Sqrt(X - 1)));
+                                stack.Push(Math.Log(variable + Math.Sqrt(variable + 1) * Math.Sqrt(variable - 1)));
                                 break;
                             case "arccos":
-                                stack.Push(Math.Acos(X));
+                                stack.Push(Math.Acos(variable));
                                 break;
                             case "artanh":
-                                stack.Push(Math.Log((X + 1) / (X - 1)) / 2);
+                                stack.Push(Math.Log((variable + 1) / (variable - 1)) / 2);
                                 break;
                             case "arccot":
-                                stack.Push(Math.Atan(-1 * X) + Math.PI / 2);
+                                stack.Push(Math.Atan(-1 * variable) + Math.PI / 2);
                                 break;
                             case "arcth":
-                                stack.Push(Math.Log((X + 1) / (1 - X)) / 2);
+                                stack.Push(Math.Log((variable + 1) / (1 - variable)) / 2);
                                 break;
                             case "arctan":
-                                stack.Push(Math.Atan(X));
+                                stack.Push(Math.Atan(variable));
                                 break;
                             case "log":
-                                stack.Push(Math.Log(Convert.ToDouble(stack.Pop()), X));
+                                stack.Push(Math.Log(Convert.ToDouble(stack.Pop()), variable));
                                 break;
                             case "sign":
-                                stack.Push(Math.Sign(X));
+                                stack.Push(Math.Sign(variable));
                                 break;
                             case "rem":
-                                stack.Push(Convert.ToDouble(stack.Pop()) % X);
+                                stack.Push(Convert.ToDouble(stack.Pop()) % variable);
                                 break;
                             case "sec":
-                                stack.Push(1 / Math.Cos(X));
+                                stack.Push(1 / Math.Cos(variable));
                                 break;
                             case "csc":
-                                stack.Push(1 / Math.Sin(X));
+                                stack.Push(1 / Math.Sin(variable));
                                 break;
                             case "arcsec":
-                                stack.Push(Math.Acos(1 / X));
+                                stack.Push(Math.Acos(1 / variable));
                                 break;
                             case "arccsc":
-                                stack.Push(Math.Asin(1 / X));
+                                stack.Push(Math.Asin(1 / variable));
                                 break;
                             case "sech":
-                                stack.Push(1 / Math.Cosh(X));
+                                stack.Push(1 / Math.Cosh(variable));
                                 break;
                             case "csch":
-                                stack.Push(1 / Math.Sinh(X));
+                                stack.Push(1 / Math.Sinh(variable));
                                 break;
                             case "arsech":
-                                stack.Push(Math.Log(1 / X + Math.Sqrt(1 / X + 1) * Math.Sqrt(1 / X - 1)));
+                                stack.Push(Math.Log(1 / variable + Math.Sqrt(1 / variable + 1) * Math.Sqrt(1 / variable - 1)));
                                 break;
                             case "arcsch":
-                                stack.Push(Math.Log(1 / X + Math.Sqrt(1 / X * X + 1)));
+                                stack.Push(Math.Log(1 / variable + Math.Sqrt(1 / variable * variable + 1)));
                                 break;
                             default:
                                 throw new Exception(String.Format("The line contains unknown operator: {0}",piece));
 
                         }
                     }
-                    else
-                    {
-                        if (piece[0] == 'e') stack.Push(Math.E);
-                        else if (piece[0] == 'p') stack.Push(Math.PI);
-                        else if (piece[0] == 'x') stack.Push(point);
-                        else if (piece[0] == '~') stack.Push(-1 * stack.Pop());
-                        else
+                else
+                {
+                    switch (piece[0])
                         {
-                            b = Convert.ToDouble(stack.Pop());
-                            a = Convert.ToDouble(stack.Pop());
-                            switch (piece[0])
-                            {
-                                ///binary operations
-                                case '+':
-                                    stack.Push(a + b);
+
+                            case 'e':
+                                stack.Push(Math.E);
+                                break;
+                            case 'p':
+                                stack.Push(Math.PI);
+                                break;
+                            case 'x':
+                                stack.Push(point);
+                                break;
+                            case '~':
+                                stack.Push(-1 * stack.Pop());
+                                break;
+
+                            ///binary operations
+                            case '+':
+                                number2 = Convert.ToDouble(stack.Pop());
+                                number1 = Convert.ToDouble(stack.Pop());
+                                stack.Push(number1 + number2);
                                     break;
                                 case '-':
-                                    stack.Push(a - b);
+                                number2 = Convert.ToDouble(stack.Pop());
+                                number1 = Convert.ToDouble(stack.Pop());
+                                stack.Push(number1 - number2);
                                     break;
                                 case '*':
-                                    stack.Push(a * b);
+                                number2 = Convert.ToDouble(stack.Pop());
+                                number1 = Convert.ToDouble(stack.Pop());
+                                stack.Push(number1 * number2);
                                     break;
                                 case '/':
-                                    stack.Push(a / b);
-                                    s = b;
+                                number2 = Convert.ToDouble(stack.Pop());
+                                number1 = Convert.ToDouble(stack.Pop());
+                                stack.Push(number1 / number2);
+ 
                                     break;
                                 case '^':
-                                    stack.Push(Math.Pow(a,b));
+                                number2 = Convert.ToDouble(stack.Pop());
+                                number1 = Convert.ToDouble(stack.Pop());
+                                stack.Push(Math.Pow(number1,number2));
                                     break;
                                 case ';':
-                                    stack.Push(b);
-                                    stack.Push(a);
                                     break;
                             }
                         }
                     }
-            }
+
             return stack.Pop();
         }
+
     }
 }
+
 

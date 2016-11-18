@@ -16,8 +16,8 @@ namespace MathAnalyser
         Point start;
 
 
-        private int leftEdge;
-        private int rightEdge;
+        public int leftEdge;
+        public int rightEdge;
         private int topEdge;
         private int bottomEdge;
 
@@ -34,27 +34,25 @@ namespace MathAnalyser
 
                 if(value.X>0)
                 {
-                    rightEdge += value.X;
-                    leftEdge -= value.X;
+                    rightEdge -= Math.Abs(value.X);
+                    leftEdge -= Math.Abs(value.X);
                 }
                 else
                 {
-                    rightEdge -= value.X;
-                    leftEdge += value.X;
+                    rightEdge += Math.Abs(value.X);
+                    leftEdge += Math.Abs(value.X);
                 }
                 if(value.Y>0)
                 {
-                    topEdge += value.Y;
-                    bottomEdge -= value.Y;
+                    topEdge -= Math.Abs(value.Y);
+                    bottomEdge -= Math.Abs(value.Y);
                 }
                 else
                 {
-                    topEdge -= value.Y;
-                    bottomEdge += value.Y;
+                    topEdge += Math.Abs(value.Y);
+                    bottomEdge += Math.Abs(value.Y);
                 }
 
-               // Xedge += Math.Abs(value.X);
-               // Yedge += Math.Abs(value.Y);
 
             }
         }
@@ -92,7 +90,7 @@ namespace MathAnalyser
         public Bitmap BuildNet(Color colorPen,float scale,int dx,int dy)
         {
             Pen penNet = new Pen(colorPen);
-
+   
             //Vertical
             for (float i = 0; i <rightEdge ; i += scale)
             {
@@ -121,11 +119,11 @@ namespace MathAnalyser
 
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
-
-                for (double x = leftEdge; x < rightEdge; x += 1)
-                {
+            for (double  i= -Width/2,x=leftEdge; i < Width/2;i+=1, x += 1)
+            {
      
-                    prototype = Converter.GetValue(PostfixFunction, x / scale);
+                    prototype = Converter.GetValue(PostfixFunction, x/scale);
+                
                     if (prototype > Draft.Height / 2)
                     {
                         prototype = Draft.Height / 2;
@@ -133,7 +131,7 @@ namespace MathAnalyser
                     else if (prototype < -Draft.Height / 2)
                     {
                         prototype = -Draft.Height / 2;
-                    }
+                   }
                     else if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
                         if (Coordinates.Count != 0)
@@ -154,8 +152,8 @@ namespace MathAnalyser
                     }
                     else
                     {
-                        Coordinates.Add(new PointF(Convert.ToSingle(x),
-                            Convert.ToSingle(-scale * prototype)));
+                    Coordinates.Add(new PointF(Convert.ToSingle(x),
+                        Convert.ToSingle(-scale* prototype)));
                     }
                 }
                 try
@@ -175,6 +173,7 @@ namespace MathAnalyser
                 {
                     //return;
                 }
+            
             return Draft;
 
         }
