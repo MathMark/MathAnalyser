@@ -62,9 +62,7 @@ namespace MathAnalyser
         private void View_MoveGraph(int dx, int dy)
         {
             View.Sheet = p.BuildAxes(ColorAxes, 2, dx, dy);
-            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);;
-
-            View.MessageBoard = p.leftEdge + " " + p.rightEdge;
+            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);         
             
         }
 
@@ -148,7 +146,7 @@ namespace MathAnalyser
             {
                 View.MessageBoard += "Error: " + exception.Message;
             }
-
+            View.FunctionColor = pen.Color;
         }
     }
 }

@@ -71,8 +71,17 @@ namespace MathAnalyser
             Draft = new Bitmap(Width, Height);
             Painter = Graphics.FromImage(Draft);
 
-            Painter.SmoothingMode = SmoothingMode.HighQuality;
+
             Painter.TranslateTransform(Width/2, Height / 2);
+
+            //Fast rendering:
+            
+            Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
+            Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+
 
         }
 

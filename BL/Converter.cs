@@ -26,13 +26,25 @@ namespace BL
             {
                 if (InputStatement == Statement) return 5;
             }
-            if (InputStatement == "^") return 4;
-            else if ((InputStatement == "*") || (InputStatement == "/")) return 3;
-            else if ((InputStatement == "+") || (InputStatement == "-")) return 2;
-            else if (InputStatement == "(") return 1;
-            else
+
+            switch(InputStatement)
             {
-                return 0;//e.g. '\0' -> 0
+                case "~":
+                    return 5;
+                case "^":
+                    return 4;
+                case "/":
+                    goto case "*";
+                case "*":
+                    return 3;
+                case "-":
+                    goto case "+";
+                case "+":
+                    return 2;
+                case "(":
+                    return 1;
+                default:
+                    return 0;//e.g. '\0' -> 0
             }
 
         }
@@ -73,6 +85,7 @@ namespace BL
                 InputExpression=InputExpression.Insert(0, "~");
             }
             InputExpression=InputExpression.Replace("(-", "(~");
+            
 
             Stack<string> stack = new Stack<string>();
 

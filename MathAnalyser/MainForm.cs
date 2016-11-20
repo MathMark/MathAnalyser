@@ -11,7 +11,7 @@ namespace MathAnalyser
         Bitmap Sheet { set; }
         int SheetWidth { get; }
         int SheetHeight { get; }
-
+        Color FunctionColor { set; }
 
         event KeyPressEventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
@@ -26,7 +26,7 @@ namespace MathAnalyser
     public partial class MainForm : Form,IMainForm
     {
         //TrigonometryStatementsPanel statementsPanel;
-
+        private Color functionColor;
         public MainForm()
         {
             InitializeComponent();
@@ -54,6 +54,7 @@ namespace MathAnalyser
             pictureBox.MouseDown += PictureBox_MouseDown;
             pictureBox.MouseUp += PictureBox_MouseUp;
             pictureBox.MouseMove += PictureBox_MouseMove;
+
         }
 
         bool IsPressed;
@@ -110,6 +111,17 @@ namespace MathAnalyser
             if (e.KeyChar == (char)Keys.Enter)
             {
                 EnterPressed(this, e);
+
+                functionListBox.Items.Add(InputData);
+
+                foreach(ListViewItem item in functionListBox.Items)
+                {
+                    if(item.Text== InputData)
+                    {
+                        item.BackColor = functionColor;
+                    }
+                }
+
             }
             
         }
@@ -161,6 +173,13 @@ namespace MathAnalyser
             get
             {
                 return textBox_Function.Text;
+            }
+        }
+        public Color FunctionColor
+        {
+            set
+            {
+                functionColor = value;
             }
         }
 
