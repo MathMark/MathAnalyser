@@ -93,6 +93,7 @@
             this.messageBoard.Location = new System.Drawing.Point(3, 28);
             this.messageBoard.Name = "messageBoard";
             this.messageBoard.ReadOnly = true;
+            this.messageBoard.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.messageBoard.Size = new System.Drawing.Size(269, 105);
             this.messageBoard.TabIndex = 4;
             this.messageBoard.Text = "";
