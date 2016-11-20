@@ -1,6 +1,15 @@
 # MathAnalyser
 
-MathAnalyser represents a program which is able to analyse math functions.
+![Screenshot](https://github.com/MathMark/MathAnalyser/blob/master/ScreenShot.png)
+
+MathAnalyser represents a program which is able to analyse math functions. 
+
+##Features
+-Drawing graphs of math functions
+-Analysing graphs of math functions in each seperate point (TO DO)
+-Finding local and global extremums (TO DO)
+-Finding derivative in each point (TO DO)
+-Finding points where several functions across with each other
 
 ## Chart of functions
 
