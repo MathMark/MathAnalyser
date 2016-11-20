@@ -38,11 +38,21 @@ namespace MathAnalyser
             View.MoveGraph += View_MoveGraph;
             View.FinishMoving += View_FinishMoving;
 
+            View.DeleteFunctionsButtonPressed += View_DeleteFunctionsButtonPressed;
+
             Functions = new List<Curve>();
             p = new Build(View.SheetWidth, View.SheetHeight);
             pen = new Pen(Color.Red,2);
             colordialog = new ColorDialog();
+            
+        }
 
+        private void View_DeleteFunctionsButtonPressed(object sender, EventArgs e)
+        {
+            Functions.Clear();
+            p.Clear();
+            View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
+            View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
         }
 
         private void View_FinishMoving(int dx, int dy)
@@ -61,6 +71,7 @@ namespace MathAnalyser
 
         private void View_MoveGraph(int dx, int dy)
         {
+            p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2, dx, dy);
             View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);         
             
@@ -81,6 +92,7 @@ namespace MathAnalyser
 
         private void View_SheetMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
             if (e.Delta>0)
             {
@@ -111,6 +123,7 @@ namespace MathAnalyser
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
             p = new Build(View.SheetWidth, View.SheetHeight);
+            p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);
 
@@ -128,25 +141,27 @@ namespace MathAnalyser
         {
             try
             {
+                Postfix = Converter.ConvertToPostfix(View.InputData);
+                View.Sheet = p.DrawFunction(pen, scale, Postfix);
+
+                Functions.Add(new Curve(Postfix, pen.Color, pen.Width, pen.DashStyle));
+
                 View.MessageBoard += "Input Line: " + View.InputData + " Output Line: " +
-                    String.Concat<string>(Converter.ConvertToPostfix(View.InputData));
+                    String.Concat<string>(Postfix);
+
+                View.AddfunctionInListBox(View.InputData, pen.Color);
+
             }
             catch(InvalidOperationException)
             {
                 View.MessageBoard += "InvalidOperationException - Stack is empty";
                 View.MessageBoard += "Possible reason: The argument might have been forgotten";
             }
-            try
-            {
-                Postfix = Converter.ConvertToPostfix(View.InputData);
-                View.Sheet = p.DrawFunction(pen, scale, Postfix);
-                Functions.Add(new Curve(Postfix,pen.Color,pen.Width,pen.DashStyle));
-            }
             catch(Exception exception)
             {
                 View.MessageBoard += "Error: " + exception.Message;
             }
-            View.FunctionColor = pen.Color;
+
         }
     }
 }

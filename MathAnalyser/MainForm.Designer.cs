@@ -31,20 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.textBox_Function = new System.Windows.Forms.TextBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.View_Button = new System.Windows.Forms.ToolStripDropDownButton();
-            this.themeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Theme_White_Button = new System.Windows.Forms.ToolStripMenuItem();
-            this.Theme_Black_Button = new System.Windows.Forms.ToolStripMenuItem();
-            this.Theme_BlackBlue_Button = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.panelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainStatementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrigonometryStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.HyperbolicalStatementsButton = new System.Windows.Forms.ToolStripMenuItem();
-            this.otherStatementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AboutButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.messageBoard = new System.Windows.Forms.RichTextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.functionListBox = new System.Windows.Forms.ListView();
@@ -65,15 +51,12 @@
             this.SetDashStyleButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip5 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.DeleteFunctionsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
             this.HideWindowButton = new System.Windows.Forms.Button();
             this.MaximizeWindowButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -99,124 +82,6 @@
             this.textBox_Function.Name = "textBox_Function";
             this.textBox_Function.Size = new System.Drawing.Size(300, 19);
             this.textBox_Function.TabIndex = 1;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.View_Button,
-            this.AboutButton,
-            this.toolStripDropDownButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(660, 287);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(121, 25);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // View_Button
-            // 
-            this.View_Button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.View_Button.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.themeToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.panelsToolStripMenuItem});
-            this.View_Button.Image = ((System.Drawing.Image)(resources.GetObject("View_Button.Image")));
-            this.View_Button.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.View_Button.Name = "View_Button";
-            this.View_Button.Size = new System.Drawing.Size(45, 22);
-            this.View_Button.Text = "View";
-            // 
-            // themeToolStripMenuItem
-            // 
-            this.themeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Theme_White_Button,
-            this.Theme_Black_Button,
-            this.Theme_BlackBlue_Button});
-            this.themeToolStripMenuItem.Name = "themeToolStripMenuItem";
-            this.themeToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.themeToolStripMenuItem.Text = "Theme";
-            // 
-            // Theme_White_Button
-            // 
-            this.Theme_White_Button.Name = "Theme_White_Button";
-            this.Theme_White_Button.Size = new System.Drawing.Size(159, 22);
-            this.Theme_White_Button.Text = "White (standart)";
-            // 
-            // Theme_Black_Button
-            // 
-            this.Theme_Black_Button.Name = "Theme_Black_Button";
-            this.Theme_Black_Button.Size = new System.Drawing.Size(159, 22);
-            this.Theme_Black_Button.Text = "Black";
-            // 
-            // Theme_BlackBlue_Button
-            // 
-            this.Theme_BlackBlue_Button.Name = "Theme_BlackBlue_Button";
-            this.Theme_BlackBlue_Button.Size = new System.Drawing.Size(159, 22);
-            this.Theme_BlackBlue_Button.Text = "Black and Blue";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(108, 6);
-            // 
-            // panelsToolStripMenuItem
-            // 
-            this.panelsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainStatementsToolStripMenuItem,
-            this.TrigonometryStatementsButton,
-            this.HyperbolicalStatementsButton,
-            this.otherStatementsToolStripMenuItem});
-            this.panelsToolStripMenuItem.Name = "panelsToolStripMenuItem";
-            this.panelsToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
-            this.panelsToolStripMenuItem.Text = "Panels";
-            // 
-            // mainStatementsToolStripMenuItem
-            // 
-            this.mainStatementsToolStripMenuItem.Name = "mainStatementsToolStripMenuItem";
-            this.mainStatementsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.mainStatementsToolStripMenuItem.Text = "Main Statements";
-            // 
-            // TrigonometryStatementsButton
-            // 
-            this.TrigonometryStatementsButton.Name = "TrigonometryStatementsButton";
-            this.TrigonometryStatementsButton.Size = new System.Drawing.Size(209, 22);
-            this.TrigonometryStatementsButton.Text = "Trigonometry Statements";
-            this.TrigonometryStatementsButton.Click += new System.EventHandler(this.TrigonometryStatementsButton_Click);
-            // 
-            // HyperbolicalStatementsButton
-            // 
-            this.HyperbolicalStatementsButton.Name = "HyperbolicalStatementsButton";
-            this.HyperbolicalStatementsButton.Size = new System.Drawing.Size(209, 22);
-            this.HyperbolicalStatementsButton.Text = "Hyperbolical Statements";
-            this.HyperbolicalStatementsButton.Click += new System.EventHandler(this.HyperbolicalStatementsButton_Click);
-            // 
-            // otherStatementsToolStripMenuItem
-            // 
-            this.otherStatementsToolStripMenuItem.Name = "otherStatementsToolStripMenuItem";
-            this.otherStatementsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.otherStatementsToolStripMenuItem.Text = "Other Statements";
-            // 
-            // AboutButton
-            // 
-            this.AboutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.AboutButton.Image = ((System.Drawing.Image)(resources.GetObject("AboutButton.Image")));
-            this.AboutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AboutButton.Name = "AboutButton";
-            this.AboutButton.Size = new System.Drawing.Size(44, 22);
-            this.AboutButton.Text = "About";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
             // messageBoard
             // 
@@ -446,9 +311,7 @@
             this.toolStrip5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip5.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton6,
-            this.toolStripSeparator7,
-            this.toolStripButton7,
+            this.DeleteFunctionsButton,
             this.toolStripSeparator8});
             this.toolStrip5.Location = new System.Drawing.Point(0, 0);
             this.toolStrip5.Name = "toolStrip5";
@@ -457,32 +320,19 @@
             this.toolStrip5.TabIndex = 7;
             this.toolStrip5.Text = "toolStrip5";
             // 
-            // toolStripButton6
+            // DeleteFunctionsButton
             // 
-            this.toolStripButton6.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton6.Image = global::MathAnalyser.Properties.Resources.Cross;
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton6.Text = "toolStripButton1";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton7.Text = "toolStripButton3";
+            this.DeleteFunctionsButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.DeleteFunctionsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DeleteFunctionsButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteFunctionsButton.Image")));
+            this.DeleteFunctionsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeleteFunctionsButton.Name = "DeleteFunctionsButton";
+            this.DeleteFunctionsButton.Size = new System.Drawing.Size(59, 22);
+            this.DeleteFunctionsButton.Text = "Delete all";
             // 
             // toolStripSeparator8
             // 
+            this.toolStripSeparator8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
             // 
@@ -548,14 +398,11 @@
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
@@ -573,7 +420,6 @@
             this.toolStrip5.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -581,23 +427,9 @@
 
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox textBox_Function;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton View_Button;
-        private System.Windows.Forms.ToolStripMenuItem themeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem Theme_White_Button;
-        private System.Windows.Forms.ToolStripMenuItem Theme_Black_Button;
-        private System.Windows.Forms.ToolStripMenuItem Theme_BlackBlue_Button;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.RichTextBox messageBoard;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ListView functionListBox;
-        private System.Windows.Forms.ToolStripMenuItem panelsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem TrigonometryStatementsButton;
-        private System.Windows.Forms.ToolStripMenuItem HyperbolicalStatementsButton;
-        private System.Windows.Forms.ToolStripMenuItem mainStatementsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem otherStatementsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton AboutButton;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton ClearMessageBoardButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -610,10 +442,7 @@
         private System.Windows.Forms.ToolStripButton SetColorButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.ToolStrip toolStrip5;
-        private System.Windows.Forms.ToolStripButton toolStripButton6;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripButton toolStripButton7;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripButton DeleteFunctionsButton;
         private System.Windows.Forms.ToolStripButton SetDashStyleButton;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
@@ -622,6 +451,7 @@
         private System.Windows.Forms.Button HideWindowButton;
         private System.Windows.Forms.Button MaximizeWindowButton;
         private System.Windows.Forms.Button ExitButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }
 

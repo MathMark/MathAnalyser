@@ -11,13 +11,16 @@ namespace MathAnalyser
         Bitmap Sheet { set; }
         int SheetWidth { get; }
         int SheetHeight { get; }
-        Color FunctionColor { set; }
+
+
+        void AddfunctionInListBox(string function, Color backgroundColor);
 
         event KeyPressEventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
         event MouseEventHandler SheetMouseWheel;
         event EventHandler SetColor;
         event EventHandler SetDashStyle;
+        event EventHandler DeleteFunctionsButtonPressed;
 
         event Action<int,int> MoveGraph;
         event Action<int, int> FinishMoving;
@@ -25,8 +28,7 @@ namespace MathAnalyser
     }
     public partial class MainForm : Form,IMainForm
     {
-        //TrigonometryStatementsPanel statementsPanel;
-        private Color functionColor;
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,11 +36,6 @@ namespace MathAnalyser
             Rectangle screenSize = Screen.PrimaryScreen.Bounds;
             this.Height = 2*screenSize.Size.Height/3;
             this.Width= 2*screenSize.Size.Width / 3;
-
-            //GetTheme((string)Settings.Default["Theme"]);
-//
-           // statementsPanel = new TrigonometryStatementsPanel(this);
-           // statementsPanel.Show();
 
             Build p = new Build(pictureBox.Width, pictureBox.Height);
             Sheet = p.BuildAxes(Color.FromArgb(155,121,120,122),2,0,0);
@@ -55,6 +52,27 @@ namespace MathAnalyser
             pictureBox.MouseUp += PictureBox_MouseUp;
             pictureBox.MouseMove += PictureBox_MouseMove;
 
+            DeleteFunctionsButton.Click += DeleteFunctionsButton_Click;
+
+            
+        }
+        public void AddfunctionInListBox(string function,Color backgroundColor)
+        {
+            functionListBox.Items.Add(InputData);
+
+            foreach (ListViewItem item in functionListBox.Items)
+            {
+                if (item.Text == InputData)
+                {
+                    item.BackColor = backgroundColor;
+                }
+            }
+            functionListBox.EnsureVisible(functionListBox.Items.Count - 1);
+        }
+        private void DeleteFunctionsButton_Click(object sender, EventArgs e)
+        {
+            functionListBox.Items.Clear();
+            DeleteFunctionsButtonPressed(this, e);
         }
 
         bool IsPressed;
@@ -112,16 +130,6 @@ namespace MathAnalyser
             {
                 EnterPressed(this, e);
 
-                functionListBox.Items.Add(InputData);
-
-                foreach(ListViewItem item in functionListBox.Items)
-                {
-                    if(item.Text== InputData)
-                    {
-                        item.BackColor = functionColor;
-                    }
-                }
-
             }
             
         }
@@ -131,7 +139,7 @@ namespace MathAnalyser
         public event MouseEventHandler SheetMouseWheel;
         public event EventHandler SetColor;
         public event EventHandler SetDashStyle;
-
+        public event EventHandler DeleteFunctionsButtonPressed;
 
         public event Action<int,int> MoveGraph;
         public event Action<int, int> FinishMoving;
@@ -166,6 +174,8 @@ namespace MathAnalyser
             set
             {
                 messageBoard.Text=value+"\n";
+                messageBoard.SelectionStart = messageBoard.Text.Length;
+                messageBoard.ScrollToCaret();
             }
         }
         public string InputData
@@ -175,21 +185,7 @@ namespace MathAnalyser
                 return textBox_Function.Text;
             }
         }
-        public Color FunctionColor
-        {
-            set
-            {
-                functionColor = value;
-            }
-        }
 
-        //public ListViewItem FunctionListBox
-      //  {
-           // get
-          //  {
-               // return functionListBox.It
-           // }
-       // }//
        
 
         private void MainForm_Load(object sender, EventArgs e)

@@ -84,11 +84,14 @@ namespace MathAnalyser
 
 
         }
-
+        public void Clear()
+        {
+            Painter.Clear(Color.Transparent);
+        }
         public Bitmap BuildAxes(Color colorPen,int width,int dx,int dy)
         {
             Pen pen = new Pen(colorPen,width);
-            Painter.Clear(Color.Transparent);
+            
 
             Painter.DrawLine(pen, dx, topEdge, dx, bottomEdge);//Y
             Painter.DrawLine(pen, leftEdge, dy, rightEdge, dy);//X
