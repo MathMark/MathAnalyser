@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using BL;
 
+
 namespace MathAnalyser
 {
     class Build
@@ -18,8 +19,8 @@ namespace MathAnalyser
 
         public int leftEdge;
         public int rightEdge;
-        private int topEdge;
-        private int bottomEdge;
+        public int topEdge;
+        public int bottomEdge;
 
         public Point StartPosition
         {
@@ -64,24 +65,25 @@ namespace MathAnalyser
 
             leftEdge=-Width/2;
             rightEdge=Width/2;
-            topEdge=Height/2;
-            bottomEdge=-Height/2;
+            topEdge=-Height/2;
+            bottomEdge=Height/2;
 
 
             Draft = new Bitmap(Width, Height);
             Painter = Graphics.FromImage(Draft);
 
 
-            Painter.TranslateTransform(Width/2, Height / 2);
+            Painter.TranslateTransform(Width/2, Height / 2,MatrixOrder.Append);
+
+            
 
             //Fast rendering:
-            
+
             Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
             Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
             Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-
 
         }
         public void Clear()
@@ -91,7 +93,6 @@ namespace MathAnalyser
         public Bitmap BuildAxes(Color colorPen,int width,int dx,int dy)
         {
             Pen pen = new Pen(colorPen,width);
-            
 
             Painter.DrawLine(pen, dx, topEdge, dx, bottomEdge);//Y
             Painter.DrawLine(pen, leftEdge, dy, rightEdge, dy);//X
@@ -114,37 +115,33 @@ namespace MathAnalyser
             }
 
             //Horizontal
-            for (float i = 0; i < topEdge; i += scale)
+            for (float i = 0; i < bottomEdge; i += scale)
             {
                 Painter.DrawLine(penNet, leftEdge, i+dy, rightEdge, i+dy);
             }
-            for (float i = 0; i >= bottomEdge; i -= scale)
+            for (float i = 0; i >= topEdge; i -= scale)
             {
                  Painter.DrawLine(penNet, leftEdge, i+dy, rightEdge, i+dy);
             }
 
             return Draft;
         }
-        public Bitmap DrawFunction(Pen pen,int scale, List<string>PostfixFunction)
+        public Bitmap DrawFunction(Pen pen,int scale, string PostfixFunction)
         {
-            double prototype;
+
+           // Painter.DrawCurve(new Pen(Color.Blue), new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 20) });
+            float prototype;
 
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
-            for (double  i= -Width/2,x=leftEdge; i < Width/2;i+=1, x += 1)
+
+            for (double  i= -Width/2,x=leftEdge; i < Width/2;i+=0.1, x +=0.1)
             {
      
-                    prototype = Converter.GetValue(PostfixFunction, x/scale);
-                
-                    if (prototype > Draft.Height / 2)
-                    {
-                        prototype = Draft.Height / 2;
-                    }
-                    else if (prototype < -Draft.Height / 2)
-                    {
-                        prototype = -Draft.Height / 2;
-                   }
-                    else if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
+                prototype = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
+
+
+                if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
                     {
                         if (Coordinates.Count != 0)
                         {
@@ -165,8 +162,9 @@ namespace MathAnalyser
                     else
                     {
                     Coordinates.Add(new PointF(Convert.ToSingle(x),
-                        Convert.ToSingle(-scale* prototype)));
+                        Convert.ToSingle(scale* prototype)));
                     }
+                    
                 }
                 try
                 {
@@ -174,20 +172,43 @@ namespace MathAnalyser
                     {
                         coordinates = new PointF[Coordinates.Count];
                         coordinates = Coordinates.ToArray();
-                        Painter.DrawLines(pen, coordinates);
+                       //Painter.DrawLines(pen, coordinates);
+                    Painter.DrawCurve(pen, coordinates);
                     }
                 }
-                catch (OverflowException)
-                {
-                    ;
-                }
-                catch (ArgumentException)
-                {
-                    //return;
-                }
-            
+            catch (OverflowException)
+            {
+                Painter.DrawLine(pen, 0,0,50,50);
+            }
+            catch (ArgumentException)
+            {
+                //return;
+            }
+
             return Draft;
 
+        }
+
+        public Bitmap SetCross(Bitmap d,Pen pen,float offset, float crossPoint)
+        {
+            Bitmap e =new Bitmap(d);
+            try
+            {
+                
+                Graphics s = Graphics.FromImage(e);
+                s.TranslateTransform(Painter.Transform.OffsetX, Painter.Transform.OffsetY);
+
+                //s.DrawLine(pen, -Width / 2, crossPoint, Width, crossPoint);
+                s.DrawLine(pen, offset, 0, offset, crossPoint);
+                //s.DrawLine(pen, offset, -Height / 2, offset, Height / 2);
+                s.DrawLine(pen, 0, crossPoint, offset, crossPoint);
+                s.Dispose();
+                return e;
+            }
+            catch(OverflowException)
+            {
+                return e;
+            }
         }
     }
 }

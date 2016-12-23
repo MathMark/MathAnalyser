@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
+
 
 namespace MathAnalyser
 {
@@ -8,12 +10,17 @@ namespace MathAnalyser
     {
         string MessageBoard { get; set; }
         string InputData { get; }
-        Bitmap Sheet { set; }
+        Bitmap Sheet { get; set; }
         int SheetWidth { get; }
         int SheetHeight { get; }
+        bool TraceMode { get; set; }
+
+        bool IsFocused { get; }
+        //PointF coordinatesOfTracingFunction { get; set; }
 
 
         void AddfunctionInListBox(string function, Color backgroundColor);
+        void AddfunctionToComboBox(string function);
 
         event KeyPressEventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
@@ -25,13 +32,19 @@ namespace MathAnalyser
         event Action<int,int> MoveGraph;
         event Action<int, int> FinishMoving;
 
+        event Action<string, decimal> ChildFormOkPressed;
+
     }
     public partial class MainForm : Form,IMainForm
     {
-
+        TracingForm tracingForm;
+ 
         public MainForm()
         {
             InitializeComponent();
+            tracingForm = new TracingForm();
+
+
 
             Rectangle screenSize = Screen.PrimaryScreen.Bounds;
             this.Height = 2*screenSize.Size.Height/3;
@@ -54,8 +67,47 @@ namespace MathAnalyser
 
             DeleteFunctionsButton.Click += DeleteFunctionsButton_Click;
 
-            
+            functionsForTracingComboBox.SelectedIndexChanged += FunctionsForTrace_SelectedIndexChanged;
+
+            traceButton.Click += TraceButton_Click;
+
+
         }
+
+        private void FunctionsForTrace_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBoard += "ww";
+        }
+   
+
+        private void TraceButton_Click(object sender, EventArgs e)
+        {
+            this.Focus();
+            
+
+            if ((functionListBox.Items.Count != 0)&&
+                (!TraceMode))
+            {
+                tracingForm = new TracingForm(this, functionListBox.Items);
+                tracingForm.OkPressed += TracingForm_OkPressed;
+
+                TraceMode = true;
+
+                tracingForm.Show();
+            }
+            else
+            {
+                MessageBoard += "Nothing to trace";
+            }
+        }
+
+        private void TracingForm_OkPressed(string function, decimal step)
+        {
+            ChildFormOkPressed(function, step);
+        }
+
+        #region Functions which changes controls on the main form
+
         public void AddfunctionInListBox(string function,Color backgroundColor)
         {
             functionListBox.Items.Add(InputData);
@@ -69,6 +121,14 @@ namespace MathAnalyser
             }
             functionListBox.EnsureVisible(functionListBox.Items.Count - 1);
         }
+
+        public void AddfunctionToComboBox(string function)
+        {
+            functionsForTracingComboBox.Items.Add(function);
+        }
+        #endregion
+
+
         private void DeleteFunctionsButton_Click(object sender, EventArgs e)
         {
             functionListBox.Items.Clear();
@@ -85,11 +145,12 @@ namespace MathAnalyser
                 MoveGraph(e.X-MouseX, e.Y - MouseY);
             }
         }
-
+        
         private void PictureBox_MouseUp(object sender, MouseEventArgs e)
         {
             IsPressed = false;
             FinishMoving(e.X - MouseX, e.Y - MouseY);
+            
         }
 
         private void PictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -102,6 +163,7 @@ namespace MathAnalyser
         private void SetDashStyleButton_Click(object sender, EventArgs e)
         {
             SetDashStyle(this, e);
+
         }
 
         private void SetColorButton_Click(object sender, EventArgs e)
@@ -124,6 +186,7 @@ namespace MathAnalyser
             SheetSizeChanged(this, e);
         }
 
+        //occurs when user presses some button as textBox is in focus
         private void TextBox_Function_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -143,9 +206,34 @@ namespace MathAnalyser
 
         public event Action<int,int> MoveGraph;
         public event Action<int, int> FinishMoving;
+        public event Action<string, decimal> ChildFormOkPressed;
 
+        bool traceMode = false;
+        public bool TraceMode
+        {
+            get
+            {
+                return traceMode;
+            }
+            set
+            {
+                traceMode = value;
+            }
+        }
+
+        public bool IsFocused
+        {
+            get
+            {
+                return Focused;
+            }
+        }
         public Bitmap Sheet
         {
+            get
+            {
+                return (Bitmap)pictureBox.Image;
+            }
             set
             {
                 pictureBox.Image = value;
@@ -186,11 +274,12 @@ namespace MathAnalyser
             }
         }
 
-       
+
+
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void TrigonometryStatementsButton_Click(object sender, EventArgs e)

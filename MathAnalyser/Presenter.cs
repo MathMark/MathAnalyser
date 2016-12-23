@@ -19,9 +19,11 @@ namespace MathAnalyser
 
         Pen pen;
         ColorDialog colordialog;
-        List<string> Postfix;
+        string Postfix;
 
-        List<Curve> Functions;
+        List<Curve> FunctionsToDraw;
+        int DX;
+        int DY;
 
 
         public Presenter(IMainForm View)
@@ -40,16 +42,44 @@ namespace MathAnalyser
 
             View.DeleteFunctionsButtonPressed += View_DeleteFunctionsButtonPressed;
 
-            Functions = new List<Curve>();
+            View.ChildFormOkPressed += View_ChildFormOkPressed;
+
+            FunctionsToDraw = new List<Curve>();
             p = new Build(View.SheetWidth, View.SheetHeight);
             pen = new Pen(Color.Red,2);
             colordialog = new ColorDialog();
-            
+
+            DX = 0;
+            DY = 0;
         }
+
+        private void View_ChildFormOkPressed(string function, decimal step)
+        {
+            TracingDataForm tracingDataForm = new TracingDataForm(View,function, step, scale, DX, DY);
+            tracingDataForm.Show();
+        }
+
+        bool traceFunctionMode = false;
+        float d = 0;
+        string function = string.Empty;
+        Bitmap buffer;
+
+
+        private void View_TraceFunction(object sender, EventArgs e)
+        {
+            traceFunctionMode = true;
+            if(FunctionsToDraw.Count == 1)
+            {
+                function = FunctionsToDraw[0].PostfixNotation;
+                buffer = new Bitmap(View.Sheet);
+            }
+        }
+
+       
 
         private void View_DeleteFunctionsButtonPressed(object sender, EventArgs e)
         {
-            Functions.Clear();
+            FunctionsToDraw.Clear();
             p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
             View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
@@ -58,9 +88,12 @@ namespace MathAnalyser
         private void View_FinishMoving(int dx, int dy)
         {
             p.StartPosition = new Point(dx,dy);
-            if(Functions.Count!=0)
+            DX = dx;
+            DY = dy;
+
+            if(FunctionsToDraw.Count!=0)
             {
-                foreach (Curve function in Functions)
+                foreach (Curve function in FunctionsToDraw)
                 {
                     View.Sheet = p.DrawFunction(function.CurvePen, scale,
                         function.PostfixNotation);
@@ -73,8 +106,7 @@ namespace MathAnalyser
         {
             p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2, dx, dy);
-            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);         
-            
+            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);             
         }
 
         private void View_SetDashStyle(object sender, EventArgs e)
@@ -109,9 +141,9 @@ namespace MathAnalyser
                 }
             }
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);
-            if (Functions.Count != 0)
+            if (FunctionsToDraw.Count != 0)
             {
-                foreach (Curve function in Functions)
+                foreach (Curve function in FunctionsToDraw)
                 {
                     View.Sheet = p.DrawFunction(function.CurvePen, scale,
                         function.PostfixNotation);
@@ -127,9 +159,9 @@ namespace MathAnalyser
             View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);
 
-            if (Functions.Count != 0)
+            if (FunctionsToDraw.Count != 0)
             {
-                foreach (Curve function in Functions)
+                foreach (Curve function in FunctionsToDraw)
                 {
                     View.Sheet = p.DrawFunction(function.CurvePen, scale,
                         function.PostfixNotation);
@@ -139,17 +171,18 @@ namespace MathAnalyser
 
         private void View_EnterPressed(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
+
             try
             {
-                Postfix = Converter.ConvertToPostfix(View.InputData);
+               Postfix = Parser.ConvertToPostfix(View.InputData);
                 View.Sheet = p.DrawFunction(pen, scale, Postfix);
 
-                Functions.Add(new Curve(Postfix, pen.Color, pen.Width, pen.DashStyle));
+                FunctionsToDraw.Add(new Curve(Postfix, pen.Color, pen.Width, pen.DashStyle));
 
-                View.MessageBoard += "Input Line: " + View.InputData + " Output Line: " +
-                    String.Concat<string>(Postfix);
+                View.MessageBoard += $"Input Line: {View.InputData} Output Line: {Postfix}";
 
                 View.AddfunctionInListBox(View.InputData, pen.Color);
+                View.AddfunctionToComboBox(View.InputData);
 
             }
             catch(InvalidOperationException)

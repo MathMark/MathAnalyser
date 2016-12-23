@@ -184,16 +184,16 @@ namespace BL
 
             string[] Statements = PostfixExpression.Split(new char[] {}, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (string piece in Statements)
+            foreach (string token in Statements)
             {
-                if (char.IsDigit(piece[0]))
+                if (char.IsDigit(token[0]))
                     {
-                        stack.Push(Convert.ToDouble(piece));
+                        stack.Push(Convert.ToDouble(token));
                     }
-                else if ((char.IsLetter(piece[0])) && (!EqualsToConstant(piece[0])))
+                else if ((char.IsLetter(token[0])) && (!EqualsToConstant(token[0])))
                     {
                         double variable = Convert.ToDouble(stack.Pop());
-                        switch (piece)
+                        switch (token)
                         {
                             case "sqrt":
                                 stack.Push(Math.Sqrt(variable));
@@ -289,13 +289,13 @@ namespace BL
                                 stack.Push(Math.Log(1 / variable + Math.Sqrt(1 / variable * variable + 1)));
                                 break;
                             default:
-                                throw new Exception(String.Format("The line contains unknown operator: {0}",piece));
+                                throw new Exception(String.Format("The line contains unknown operator: {0}",token));
 
                         }
                     }
                 else
                 {
-                    switch (piece[0])
+                    switch (token[0])
                         {
 
                             case 'e':

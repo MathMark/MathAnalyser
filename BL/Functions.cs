@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
-    class Functions
+    static class Functions
     {
         public static double Tan(double x)
         {
-            return Math.Sin(x) / Math.Round(Math.Cos(x), 2); ;
+            return Math.Sin(x) / Math.Round(Math.Cos(x), 2); 
         }
         public static double Cotan(double x)
         {
-            return Math.Cos(x) / Math.Round(Math.Sin(x), 2); ;
+            return Math.Cos(x) / Math.Round(Math.Sin(x), 2);
         }
         public static double Sec(double x)
         {

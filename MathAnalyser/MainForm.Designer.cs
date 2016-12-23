@@ -49,14 +49,18 @@
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.SetColorButton = new System.Windows.Forms.ToolStripButton();
             this.SetDashStyleButton = new System.Windows.Forms.ToolStripButton();
+            this.traceButton = new System.Windows.Forms.ToolStripButton();
+            this.functionsForTracingComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip5 = new System.Windows.Forms.ToolStrip();
             this.DeleteFunctionsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.HideWindowButton = new System.Windows.Forms.Button();
             this.MaximizeWindowButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -72,7 +76,7 @@
             // 
             // textBox_Function
             // 
-            this.textBox_Function.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBox_Function.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Function.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.textBox_Function.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -80,7 +84,7 @@
             this.textBox_Function.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox_Function.Location = new System.Drawing.Point(3, 28);
             this.textBox_Function.Name = "textBox_Function";
-            this.textBox_Function.Size = new System.Drawing.Size(300, 19);
+            this.textBox_Function.Size = new System.Drawing.Size(858, 19);
             this.textBox_Function.TabIndex = 1;
             // 
             // messageBoard
@@ -94,7 +98,7 @@
             this.messageBoard.Name = "messageBoard";
             this.messageBoard.ReadOnly = true;
             this.messageBoard.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.messageBoard.Size = new System.Drawing.Size(269, 105);
+            this.messageBoard.Size = new System.Drawing.Size(584, 102);
             this.messageBoard.TabIndex = 4;
             this.messageBoard.Text = "";
             // 
@@ -111,7 +115,7 @@
             this.functionListBox.ForeColor = System.Drawing.Color.White;
             this.functionListBox.Location = new System.Drawing.Point(3, 28);
             this.functionListBox.Name = "functionListBox";
-            this.functionListBox.Size = new System.Drawing.Size(249, 105);
+            this.functionListBox.Size = new System.Drawing.Size(249, 389);
             this.functionListBox.TabIndex = 6;
             this.functionListBox.UseCompatibleStateImageBehavior = false;
             this.functionListBox.View = System.Windows.Forms.View.SmallIcon;
@@ -128,7 +132,7 @@
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip2.Size = new System.Drawing.Size(275, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(590, 25);
             this.toolStrip2.TabIndex = 7;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -164,7 +168,7 @@
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip3.Size = new System.Drawing.Size(536, 30);
+            this.toolStrip3.Size = new System.Drawing.Size(594, 30);
             this.toolStrip3.TabIndex = 9;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -190,12 +194,12 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.toolStrip3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 28);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 90);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(536, 340);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(594, 281);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // pictureBox
@@ -204,7 +208,7 @@
             this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox.Location = new System.Drawing.Point(3, 33);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(530, 304);
+            this.pictureBox.Size = new System.Drawing.Size(588, 245);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -216,28 +220,28 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.toolStrip2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.messageBoard, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 374);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 377);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.80342F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.19658F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(275, 136);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(590, 133);
             this.tableLayoutPanel2.TabIndex = 11;
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.toolStrip4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.textBox_Function, 0, 1);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(552, 28);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 31);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(306, 92);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(864, 53);
             this.tableLayoutPanel3.TabIndex = 12;
             // 
             // toolStrip4
@@ -250,11 +254,13 @@
             this.toolStripSeparator5,
             this.toolStripLabel3,
             this.SetColorButton,
-            this.SetDashStyleButton});
+            this.SetDashStyleButton,
+            this.traceButton,
+            this.functionsForTracingComboBox});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip4.Size = new System.Drawing.Size(306, 25);
+            this.toolStrip4.Size = new System.Drawing.Size(864, 25);
             this.toolStrip4.TabIndex = 7;
             this.toolStrip4.Text = "toolStrip4";
             // 
@@ -274,35 +280,57 @@
             // 
             this.SetColorButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.SetColorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SetColorButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SetColorButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.SetColorButton.Image = ((System.Drawing.Image)(resources.GetObject("SetColorButton.Image")));
             this.SetColorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SetColorButton.Name = "SetColorButton";
-            this.SetColorButton.Size = new System.Drawing.Size(59, 22);
+            this.SetColorButton.Size = new System.Drawing.Size(67, 22);
             this.SetColorButton.Text = "Set Color";
             // 
             // SetDashStyleButton
             // 
             this.SetDashStyleButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.SetDashStyleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SetDashStyleButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SetDashStyleButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.SetDashStyleButton.Image = ((System.Drawing.Image)(resources.GetObject("SetDashStyleButton.Image")));
             this.SetDashStyleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SetDashStyleButton.Name = "SetDashStyleButton";
-            this.SetDashStyleButton.Size = new System.Drawing.Size(84, 22);
+            this.SetDashStyleButton.Size = new System.Drawing.Size(98, 22);
             this.SetDashStyleButton.Text = "Set Dash Style";
+            // 
+            // traceButton
+            // 
+            this.traceButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.traceButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.traceButton.Image = ((System.Drawing.Image)(resources.GetObject("traceButton.Image")));
+            this.traceButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.traceButton.Name = "traceButton";
+            this.traceButton.Size = new System.Drawing.Size(40, 22);
+            this.traceButton.Text = "Trace";
+            // 
+            // functionsForTracingComboBox
+            // 
+            this.functionsForTracingComboBox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.functionsForTracingComboBox.Name = "functionsForTracingComboBox";
+            this.functionsForTracingComboBox.Size = new System.Drawing.Size(75, 25);
+            this.functionsForTracingComboBox.Text = "Trace";
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.toolStrip5, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.functionListBox, 0, 1);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(291, 374);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(606, 90);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(255, 136);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(255, 420);
             this.tableLayoutPanel4.TabIndex = 13;
             // 
             // toolStrip5
@@ -340,6 +368,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SteelBlue;
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.HideWindowButton);
             this.panel1.Controls.Add(this.MaximizeWindowButton);
             this.panel1.Controls.Add(this.ExitButton);
@@ -351,6 +380,16 @@
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(98, 15);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Math Analyser";
             // 
             // HideWindowButton
             // 
@@ -388,6 +427,11 @@
             this.ExitButton.UseVisualStyleBackColor = true;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,6 +464,7 @@
             this.toolStrip5.ResumeLayout(false);
             this.toolStrip5.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -453,6 +498,10 @@
         private System.Windows.Forms.Button MaximizeWindowButton;
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripButton traceButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ToolStripComboBox functionsForTracingComboBox;
     }
 }
 

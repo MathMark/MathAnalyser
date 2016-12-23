@@ -6,10 +6,10 @@ namespace MathAnalyser
 {
     class Curve
     {
-        private List<string> postfixNotation;
+        string postfixNotation;
         Pen pen;
 
-        public List<string>PostfixNotation
+        public string PostfixNotation
         {
             get
             {
@@ -24,7 +24,7 @@ namespace MathAnalyser
             }
         }
 
-        public Curve(List<string>PostfixFunction,Color color,float CurveWidth,DashStyle dashStyle)
+        public Curve(string PostfixFunction,Color color,float CurveWidth,DashStyle dashStyle)
         {
             postfixNotation = PostfixFunction;
             pen = new Pen(color);
@@ -33,7 +33,7 @@ namespace MathAnalyser
         }
         public override string ToString()
         {
-            return string.Concat<string>(postfixNotation);
+            return postfixNotation;
         }
         public override bool Equals(object inputFunction)
         {
