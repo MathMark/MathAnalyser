@@ -72,7 +72,6 @@ namespace MathAnalyser
             Draft = new Bitmap(Width, Height);
             Painter = Graphics.FromImage(Draft);
 
-
             Painter.TranslateTransform(Width/2, Height / 2,MatrixOrder.Append);
 
             
@@ -126,6 +125,7 @@ namespace MathAnalyser
 
             return Draft;
         }
+        
         public Bitmap DrawFunction(Pen pen,int scale, string PostfixFunction)
         {
 

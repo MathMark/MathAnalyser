@@ -15,12 +15,8 @@ namespace MathAnalyser
         int SheetHeight { get; }
         bool TraceMode { get; set; }
 
-        bool IsFocused { get; }
-        //PointF coordinatesOfTracingFunction { get; set; }
-
 
         void AddfunctionInListBox(string function, Color backgroundColor);
-        void AddfunctionToComboBox(string function);
 
         event KeyPressEventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
@@ -28,6 +24,7 @@ namespace MathAnalyser
         event EventHandler SetColor;
         event EventHandler SetDashStyle;
         event EventHandler DeleteFunctionsButtonPressed;
+        event Action<string> DeleteFunctionButtonPressed;
 
         event Action<int,int> MoveGraph;
         event Action<int, int> FinishMoving;
@@ -38,7 +35,19 @@ namespace MathAnalyser
     public partial class MainForm : Form,IMainForm
     {
         TracingForm tracingForm;
- 
+
+        public event KeyPressEventHandler EnterPressed;
+        public event EventHandler SheetSizeChanged;
+        public event MouseEventHandler SheetMouseWheel;
+        public event EventHandler SetColor;
+        public event EventHandler SetDashStyle;
+        public event EventHandler DeleteFunctionsButtonPressed;
+        public event Action<string> DeleteFunctionButtonPressed;
+
+        public event Action<int, int> MoveGraph;
+        public event Action<int, int> FinishMoving;
+        public event Action<string, decimal> ChildFormOkPressed;
+
         public MainForm()
         {
             InitializeComponent();
@@ -67,11 +76,18 @@ namespace MathAnalyser
 
             DeleteFunctionsButton.Click += DeleteFunctionsButton_Click;
 
-            functionsForTracingComboBox.SelectedIndexChanged += FunctionsForTrace_SelectedIndexChanged;
-
             traceButton.Click += TraceButton_Click;
+            DeleteFunctionFromListButton.Click += DeleteFunctionFromListButton_Click; ;
 
+        }
 
+        private void DeleteFunctionFromListButton_Click(object sender, EventArgs e)
+        {
+            if (functionListBox.SelectedItems.Count != 0)
+            {
+                DeleteFunctionButtonPressed(functionListBox.SelectedItems[0].Text);
+                functionListBox.Items.Remove(functionListBox.SelectedItems[0]);
+            }
         }
 
         private void FunctionsForTrace_SelectedIndexChanged(object sender, EventArgs e)
@@ -122,10 +138,7 @@ namespace MathAnalyser
             functionListBox.EnsureVisible(functionListBox.Items.Count - 1);
         }
 
-        public void AddfunctionToComboBox(string function)
-        {
-            functionsForTracingComboBox.Items.Add(function);
-        }
+
         #endregion
 
 
@@ -197,16 +210,7 @@ namespace MathAnalyser
             
         }
 
-        public event KeyPressEventHandler EnterPressed;
-        public event EventHandler SheetSizeChanged;
-        public event MouseEventHandler SheetMouseWheel;
-        public event EventHandler SetColor;
-        public event EventHandler SetDashStyle;
-        public event EventHandler DeleteFunctionsButtonPressed;
-
-        public event Action<int,int> MoveGraph;
-        public event Action<int, int> FinishMoving;
-        public event Action<string, decimal> ChildFormOkPressed;
+        
 
         bool traceMode = false;
         public bool TraceMode

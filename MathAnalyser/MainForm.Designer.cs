@@ -50,7 +50,6 @@
             this.SetColorButton = new System.Windows.Forms.ToolStripButton();
             this.SetDashStyleButton = new System.Windows.Forms.ToolStripButton();
             this.traceButton = new System.Windows.Forms.ToolStripButton();
-            this.functionsForTracingComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip5 = new System.Windows.Forms.ToolStrip();
             this.DeleteFunctionsButton = new System.Windows.Forms.ToolStripButton();
@@ -61,6 +60,11 @@
             this.MaximizeWindowButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.DeleteFunctionFromListButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -164,7 +168,8 @@
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator3,
-            this.toolStripLabel2});
+            this.toolStripLabel2,
+            this.toolStripButton4});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -255,8 +260,7 @@
             this.toolStripLabel3,
             this.SetColorButton,
             this.SetDashStyleButton,
-            this.traceButton,
-            this.functionsForTracingComboBox});
+            this.traceButton});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -310,13 +314,6 @@
             this.traceButton.Size = new System.Drawing.Size(40, 22);
             this.traceButton.Text = "Trace";
             // 
-            // functionsForTracingComboBox
-            // 
-            this.functionsForTracingComboBox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.functionsForTracingComboBox.Name = "functionsForTracingComboBox";
-            this.functionsForTracingComboBox.Size = new System.Drawing.Size(75, 25);
-            this.functionsForTracingComboBox.Text = "Trace";
-            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -341,7 +338,11 @@
             this.toolStrip5.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DeleteFunctionsButton,
-            this.toolStripSeparator8});
+            this.toolStripSeparator8,
+            this.DeleteFunctionFromListButton,
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripButton3});
             this.toolStrip5.Location = new System.Drawing.Point(0, 0);
             this.toolStrip5.Name = "toolStrip5";
             this.toolStrip5.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -353,10 +354,12 @@
             // 
             this.DeleteFunctionsButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.DeleteFunctionsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DeleteFunctionsButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeleteFunctionsButton.ForeColor = System.Drawing.Color.White;
             this.DeleteFunctionsButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteFunctionsButton.Image")));
             this.DeleteFunctionsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DeleteFunctionsButton.Name = "DeleteFunctionsButton";
-            this.DeleteFunctionsButton.Size = new System.Drawing.Size(59, 22);
+            this.DeleteFunctionsButton.Size = new System.Drawing.Size(71, 22);
             this.DeleteFunctionsButton.Text = "Delete all";
             // 
             // toolStripSeparator8
@@ -432,6 +435,54 @@
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // DeleteFunctionFromListButton
+            // 
+            this.DeleteFunctionFromListButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.DeleteFunctionFromListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DeleteFunctionFromListButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeleteFunctionFromListButton.ForeColor = System.Drawing.Color.White;
+            this.DeleteFunctionFromListButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteFunctionFromListButton.Image")));
+            this.DeleteFunctionFromListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeleteFunctionFromListButton.Name = "DeleteFunctionFromListButton";
+            this.DeleteFunctionFromListButton.Size = new System.Drawing.Size(23, 22);
+            this.DeleteFunctionFromListButton.Text = "X";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButton2.ForeColor = System.Drawing.Color.White;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(83, 22);
+            this.toolStripButton2.Text = "Change Color";
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripButton4.ForeColor = System.Drawing.Color.White;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(47, 27);
+            this.toolStripButton4.Text = "Center";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,7 +552,11 @@
         private System.Windows.Forms.ToolStripButton traceButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ToolStripComboBox functionsForTracingComboBox;
+        private System.Windows.Forms.ToolStripButton DeleteFunctionFromListButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripSeparator toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
     }
 }
 
