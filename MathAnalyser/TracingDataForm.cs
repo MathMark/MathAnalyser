@@ -59,7 +59,7 @@ namespace MathAnalyser
         Pen penForCurve;
         Pen penForCross;
 
-        Build Painter;
+        Depiction Painter;
         IMainForm View;
 
         Bitmap buffer;
@@ -84,7 +84,7 @@ namespace MathAnalyser
 
             functionLabel.Text = $"f(x) = {function}";
 
-            Painter = new Build(scene.Width, scene.Height);
+            Painter = new Depiction(scene.Width, scene.Height);
 
             DrawScene(Color.FromArgb(30, 121, 120, 122), 
                       Color.FromArgb(155, 121, 120, 122),
@@ -216,6 +216,7 @@ namespace MathAnalyser
 
             Scene=Painter.BuildNet(colorNet, scale, 0, 0);
             Scene = Painter.BuildAxes(colorAxes, 2, 0, 0);
+            Scene = Painter.SetNumberNet(scale);
         }
 
 

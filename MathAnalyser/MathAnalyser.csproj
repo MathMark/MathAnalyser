@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Build.cs" />
+    <Compile Include="Depiction.cs" />
     <Compile Include="Curve.cs" />
     <Compile Include="ParametricFunctionForm.cs">
       <SubType>Form</SubType>

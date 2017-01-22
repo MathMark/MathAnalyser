@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
 
 namespace MathAnalyser
@@ -63,7 +62,7 @@ namespace MathAnalyser
             this.Height = 2*screenSize.Size.Height/3;
             this.Width= 2*screenSize.Size.Width / 3;
 
-            Build p = new Build(pictureBox.Width, pictureBox.Height);
+            Depiction p = new Depiction(pictureBox.Width, pictureBox.Height);
             Sheet = p.BuildAxes(Color.FromArgb(155,121,120,122),2,0,0);
             Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), 25,0,0);
 
@@ -118,7 +117,7 @@ namespace MathAnalyser
             
 
             if ((functionListBox.Items.Count != 0)&&
-                (!TraceMode))
+                (!TraceMode)&&(CheckExplicitFunctionInFunctionListBox()))
             {
                 tracingForm = new TracingForm(this, functionListBox.Items);
                 tracingForm.OkPressed += TracingForm_OkPressed;
@@ -131,6 +130,19 @@ namespace MathAnalyser
             {
                 MessageBoard += "Nothing to trace";
             }
+        }
+        bool CheckExplicitFunctionInFunctionListBox()
+        {
+            int counter = 0;
+            foreach(ListViewItem item in functionListBox.Items)
+            {
+                if(!item.Text.Contains("["))
+                {
+                    counter++;
+                }
+            }
+            if (counter != 0) return true;
+            return false;
         }
 
         private void TracingForm_OkPressed(string function, decimal step)

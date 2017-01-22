@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MathAnalyser
@@ -32,13 +25,17 @@ namespace MathAnalyser
 
             foreach (ListViewItem item in items)
             {
-                if(!item.Text.Contains("["))
+                //if(!item.Text.Contains("["))
                 {
                     comboBox.Items.Add(item.Text);
                 }
                 
             }
-            this.comboBox.SelectedItem = comboBox.Items[0];
+           // if(comboBox.Items.Count!=0)
+            {
+                this.comboBox.SelectedItem = comboBox.Items[0];
+            }
+            
 
             this.OkButton.Click += OkButton_Click;
             this.CancelButton.Click += CancelButton_Click;

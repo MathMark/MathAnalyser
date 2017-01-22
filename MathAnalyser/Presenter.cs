@@ -10,7 +10,7 @@ namespace MathAnalyser
     class Presenter
     {
         IMainForm View;
-        Build p;
+        Depiction p;
 
         int scale = 25;
 
@@ -50,7 +50,7 @@ namespace MathAnalyser
 
 
             FunctionsToDraw = new List<Curve>();
-            p = new Build(View.SheetWidth, View.SheetHeight);
+            p = new Depiction(View.SheetWidth, View.SheetHeight);
             pen = new Pen(Color.Red,2);
             colordialog = new ColorDialog();
 
@@ -147,8 +147,17 @@ namespace MathAnalyser
             {
                 foreach (Curve function in FunctionsToDraw)
                 {
-                    View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                    if(function.Type=="explicit")
+                    {
+                        View.Sheet = p.DrawCurve(function.CurvePen, scale,
                         function.FirstPostfixExpression);
+                    }
+                    else
+                    {
+                        View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                        function.FirstPostfixExpression,function.SecondPostfixExpression);
+                    }
+                    
                 }
             }
 
@@ -233,7 +242,7 @@ namespace MathAnalyser
 
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
-            p = new Build(View.SheetWidth, View.SheetHeight);
+            p = new Depiction(View.SheetWidth, View.SheetHeight);
             p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);

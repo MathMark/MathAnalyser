@@ -7,7 +7,7 @@ using BL;
 
 namespace MathAnalyser
 {
-    class Build
+    class Depiction
     {
         private int Width;
         private int Height;
@@ -69,7 +69,7 @@ namespace MathAnalyser
             }
         }
 
-        public Build(int Width,int Height)
+        public Depiction(int Width,int Height)
         {
             this.Width = Width;
             this.Height = Height;
@@ -137,7 +137,6 @@ namespace MathAnalyser
         public Bitmap DrawCurve(Pen pen,int scale, string PostfixFunction)
         {
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            // Painter.DrawCurve(new Pen(Color.Blue), new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 20) });
             float functionValue;
 
             PointF[] coordinates;
@@ -198,7 +197,7 @@ namespace MathAnalyser
         public Bitmap DrawCurve(Pen pen, int scale, string PostfixFunction_1, string PostfixFunction_2)
         {
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            // Painter.DrawCurve(new Pen(Color.Blue), new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 20) });
+
             float functionValue_1;
             float functionValue_2;
 
@@ -278,6 +277,32 @@ namespace MathAnalyser
             {
                 return e;
             }
+        }
+
+        public Bitmap SetNumberNet(float scale)
+        {
+            Font font = new Font("Consolas", 8);
+            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(100, 121, 120, 122));
+            int offset = 15;
+
+            for(float step=0,i=0;step<rightEdge-offset;i++,step+=scale)
+            {
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, bottomEdge-offset)); 
+            }
+            for (float step = -scale, i = -1; step >= leftEdge+offset; i--, step -= scale)
+            {
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, bottomEdge - offset));
+            }
+            for (float step = 0, i = 0; step < bottomEdge-offset; i++, step += scale)
+            {
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(leftEdge, step));
+            }
+            for (float step = -scale, i = 0; step >=topEdge; i--, step -= scale)
+            {
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(leftEdge, step));
+            }
+
+            return Draft;
         }
     }
 }
