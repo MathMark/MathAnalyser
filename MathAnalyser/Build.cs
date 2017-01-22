@@ -22,6 +22,17 @@ namespace MathAnalyser
         public int topEdge;
         public int bottomEdge;
 
+        public float Scale
+        {
+            get
+            {
+                return Painter.PageScale;
+            }
+            set
+            {
+                Painter.PageScale = value;
+            }
+        }
         public Point StartPosition
         {
             get
@@ -73,13 +84,10 @@ namespace MathAnalyser
             Painter = Graphics.FromImage(Draft);
 
             Painter.TranslateTransform(Width/2, Height / 2,MatrixOrder.Append);
-
-            
-
             //Fast rendering:
 
             Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
-            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
             Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
             Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
@@ -126,11 +134,11 @@ namespace MathAnalyser
             return Draft;
         }
         
-        public Bitmap DrawFunction(Pen pen,int scale, string PostfixFunction)
+        public Bitmap DrawCurve(Pen pen,int scale, string PostfixFunction)
         {
-
-           // Painter.DrawCurve(new Pen(Color.Blue), new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 20) });
-            float prototype;
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            // Painter.DrawCurve(new Pen(Color.Blue), new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 20) });
+            float functionValue;
 
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
@@ -138,10 +146,9 @@ namespace MathAnalyser
             for (double  i= -Width/2,x=leftEdge; i < Width/2;i+=0.1, x +=0.1)
             {
      
-                prototype = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
+                functionValue = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
 
-
-                if ((double.IsNaN(prototype)) || (double.IsInfinity(prototype)))
+                if ((double.IsNaN(functionValue)) || (double.IsInfinity(functionValue)))
                     {
                         if (Coordinates.Count != 0)
                         {
@@ -162,7 +169,7 @@ namespace MathAnalyser
                     else
                     {
                     Coordinates.Add(new PointF(Convert.ToSingle(x),
-                        Convert.ToSingle(scale* prototype)));
+                        Convert.ToSingle(scale* functionValue)));
                     }
                     
                 }
@@ -171,9 +178,8 @@ namespace MathAnalyser
                     if (Coordinates.Count != 0)
                     {
                         coordinates = new PointF[Coordinates.Count];
-                        coordinates = Coordinates.ToArray();
-                       //Painter.DrawLines(pen, coordinates);
-                    Painter.DrawCurve(pen, coordinates);
+                        coordinates = Coordinates.ToArray();;
+                        Painter.DrawCurve(pen, coordinates);
                     }
                 }
             catch (OverflowException)
@@ -184,10 +190,73 @@ namespace MathAnalyser
             {
                 //return;
             }
-
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             return Draft;
 
         }
+
+        public Bitmap DrawCurve(Pen pen, int scale, string PostfixFunction_1, string PostfixFunction_2)
+        {
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            // Painter.DrawCurve(new Pen(Color.Blue), new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 20) });
+            float functionValue_1;
+            float functionValue_2;
+
+            PointF[] coordinates;
+            List<PointF> Coordinates = new List<PointF>();
+
+            for (double i = -Width/2, t = leftEdge; i <Width/2; i += 0.1, t += 0.1)
+            {
+
+                functionValue_1 = -Parser.GetValue(PostfixFunction_1, Math.Round(t / scale, 2));
+                functionValue_2= -Parser.GetValue(PostfixFunction_2, Math.Round(t / scale, 2));
+
+                if ((double.IsNaN(functionValue_1)) || (double.IsInfinity(functionValue_1)))
+                {
+                    if (Coordinates.Count != 0)
+                    {
+                        coordinates = new PointF[Coordinates.Count];
+                        coordinates = Coordinates.ToArray();
+                        try
+                        {
+                            Painter.DrawLines(pen, coordinates);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        Coordinates.Clear();
+                    }
+                    continue;
+                }
+                else
+                {
+                    Coordinates.Add(new PointF(Convert.ToSingle(scale*functionValue_1),
+                        Convert.ToSingle(scale * functionValue_2)));
+                }
+
+            }
+            try
+            {
+                if (Coordinates.Count != 0)
+                {
+                    coordinates = new PointF[Coordinates.Count];
+                    coordinates = Coordinates.ToArray(); ;
+                    Painter.DrawCurve(pen, coordinates);
+                }
+            }
+            catch (OverflowException)
+            {
+                Painter.DrawLine(pen, 0, 0, 50, 50);
+            }
+            catch (ArgumentException)
+            {
+                //return;
+            }
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            return Draft;
+        }
+ 
 
         public Bitmap SetCross(Bitmap d,Pen pen,float offset, float crossPoint)
         {

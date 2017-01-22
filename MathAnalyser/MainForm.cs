@@ -25,16 +25,18 @@ namespace MathAnalyser
         event EventHandler SetDashStyle;
         event EventHandler DeleteFunctionsButtonPressed;
         event Action<string> DeleteFunctionButtonPressed;
+        event Action<string> ChangeColorButtonPressed;
 
         event Action<int,int> MoveGraph;
         event Action<int, int> FinishMoving;
 
         event Action<string, decimal> ChildFormOkPressed;
-
+        event Action<string, string> ParametricFunctionFormOkPressed; 
     }
     public partial class MainForm : Form,IMainForm
     {
         TracingForm tracingForm;
+        ParametricFunctionForm parametricFunctionFrom;
 
         public event KeyPressEventHandler EnterPressed;
         public event EventHandler SheetSizeChanged;
@@ -43,16 +45,18 @@ namespace MathAnalyser
         public event EventHandler SetDashStyle;
         public event EventHandler DeleteFunctionsButtonPressed;
         public event Action<string> DeleteFunctionButtonPressed;
+        public event Action<string> ChangeColorButtonPressed;
 
         public event Action<int, int> MoveGraph;
         public event Action<int, int> FinishMoving;
         public event Action<string, decimal> ChildFormOkPressed;
+        public event Action<string, string> ParametricFunctionFormOkPressed;
 
         public MainForm()
         {
             InitializeComponent();
             tracingForm = new TracingForm();
-
+            parametricFunctionFrom = new ParametricFunctionForm();
 
 
             Rectangle screenSize = Screen.PrimaryScreen.Bounds;
@@ -77,8 +81,20 @@ namespace MathAnalyser
             DeleteFunctionsButton.Click += DeleteFunctionsButton_Click;
 
             traceButton.Click += TraceButton_Click;
-            DeleteFunctionFromListButton.Click += DeleteFunctionFromListButton_Click; ;
+            DeleteFunctionFromListButton.Click += DeleteFunctionFromListButton_Click;
+            ChangeColorButton.Click += ChangeColorButton_Click;
+            ParametricFunctionButton.Click += ParametricFunctionButton_Click;
 
+        }
+
+       
+
+        private void ChangeColorButton_Click(object sender, EventArgs e)
+        {
+            if (functionListBox.SelectedItems.Count != 0)
+            {
+                ChangeColorButtonPressed(functionListBox.SelectedItems[0].Text);
+            }
         }
 
         private void DeleteFunctionFromListButton_Click(object sender, EventArgs e)
@@ -121,16 +137,26 @@ namespace MathAnalyser
         {
             ChildFormOkPressed(function, step);
         }
+        private void ParametricFunctionButton_Click(object sender, EventArgs e)
+        {
+            parametricFunctionFrom = new ParametricFunctionForm();
+            parametricFunctionFrom.OkPressed += ParametricFunctionFrom_OkPressed;
+            parametricFunctionFrom.Show();
+        }
 
+        private void ParametricFunctionFrom_OkPressed(string function_1, string function_2)
+        {
+            ParametricFunctionFormOkPressed(function_1, function_2);
+        }
         #region Functions which changes controls on the main form
 
         public void AddfunctionInListBox(string function,Color backgroundColor)
         {
-            functionListBox.Items.Add(InputData);
+            functionListBox.Items.Add(function);
 
             foreach (ListViewItem item in functionListBox.Items)
             {
-                if (item.Text == InputData)
+                if (item.Text == function)
                 {
                     item.BackColor = backgroundColor;
                 }

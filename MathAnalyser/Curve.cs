@@ -6,15 +6,25 @@ namespace MathAnalyser
 {
     class Curve
     {
-        string name;
-        string postfixNotation;
+        string firstExpression;
+        string secondExpression;
+        string firstPostfixExpression;
+        string secondPostfixExpression;
+        string type;
         Pen pen;
 
-        public string PostfixNotation
+        public string FirstPostfixExpression
         {
             get
             {
-                return postfixNotation;
+                return firstPostfixExpression;
+            }
+        }
+        public string SecondPostfixExpression
+        {
+            get
+            {
+                return secondPostfixExpression;
             }
         }
         public Pen CurvePen
@@ -24,28 +34,66 @@ namespace MathAnalyser
                 return pen;
             }
         }
-        public Curve(string name)
+        public string Type
         {
-            this.name = name;
+            get
+            {
+                return type;
+            }
         }
-        public Curve(string name,string PostfixFunction,Color color,float CurveWidth,DashStyle dashStyle)
+        public Curve(string firstExpression)
         {
-            this.name = name;
-            postfixNotation = PostfixFunction;
+            this.firstExpression = firstExpression;
+            this.secondExpression = string.Empty;
+            this.type = "explicit";
+        }
+        public Curve(string firstExpression,string secondExpression)
+        {
+            this.firstExpression = firstExpression;
+            this.secondExpression = secondExpression;
+            this.type = "parametric";
+        }
+        public Curve(string firstExpression,string PostfixExpression,Color color,float CurveWidth,DashStyle dashStyle)
+        {
+            this.firstExpression = firstExpression;
+            this.secondExpression = string.Empty;
+            this.firstPostfixExpression = PostfixExpression;
+            this.secondPostfixExpression = string.Empty;
             pen = new Pen(color);
             pen.Width = CurveWidth;
             pen.DashStyle = dashStyle;
+            this.type = "explicit";
+
+        }
+        public Curve(string firstExpression, string secondExpression,
+            string firstPostfixExpression, string secondPostfixExpression, Color color, float CurveWidth, DashStyle dashStyle)
+        {
+            this.firstExpression = firstExpression;
+            this.secondExpression = secondExpression;
+            this.firstPostfixExpression = firstPostfixExpression;
+            this.secondPostfixExpression = secondPostfixExpression;
+            pen = new Pen(color);
+            pen.Width = CurveWidth;
+            pen.DashStyle = dashStyle;
+            this.type = "parametric";
         }
         public override string ToString()
         {
-            return postfixNotation;
+            if(Type=="explicit")
+            {
+                return firstPostfixExpression;
+            }
+            return firstPostfixExpression+" "+secondPostfixExpression;
+
+            
         }
         public override bool Equals(object inputFunction)
         {
             if ((inputFunction is Curve) && (inputFunction != null))
             {
                 Curve tempInputFunction = (Curve)inputFunction;
-                if (this.name.Equals(tempInputFunction.name))
+                if ((this.firstExpression.Equals(tempInputFunction.firstExpression))&&
+                    (this.secondExpression.Equals(tempInputFunction.secondExpression)))
                 {
                     return true;
                 }
@@ -54,11 +102,11 @@ namespace MathAnalyser
         }
         public override int GetHashCode()
         {
-            return postfixNotation.GetHashCode();
+            return ToString().GetHashCode();
         }
         public static bool operator !=(Curve a, Curve b)
         {
-            if(a.name != b.name)
+            if((a.firstExpression != b.firstExpression)&&(a.secondExpression!=b.secondExpression))
             {
                 return true;
             }
@@ -66,7 +114,7 @@ namespace MathAnalyser
         }
         public static bool operator ==(Curve a,Curve b)
         {
-            if (a.name == b.name)
+            if ((a.firstExpression == b.firstExpression)&&(a.secondExpression==b.secondExpression))
             {
                 return true;
             }

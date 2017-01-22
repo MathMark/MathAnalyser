@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace BL
 {
     /*This class is in charge of converting a function written in Infix notation (It is characterized 
@@ -259,7 +260,7 @@ namespace BL
                                 stack.Push(Math.Log(Convert.ToDouble(stack.Pop()), variable));
                                 break;
                             case "sign":
-                                stack.Push(Math.Sign(variable));
+                                stack.Push(Functions.Sign(variable));
                                 break;
                             case "rem":
                                 stack.Push(Convert.ToDouble(stack.Pop()) % variable);
@@ -346,6 +347,22 @@ namespace BL
 
             //return (float)Math.Round(stack.Pop(),2);
             return (float)stack.Pop();
+        }
+
+        public static float[,] GetDataSet(string RPNfunction,int from,int to,float increment)
+        {
+            int dimention_0 = (int)((to - from) / increment);
+            const int dimention_1 = 2;
+
+            float[,] DataSet = new float[dimention_0, dimention_1];
+
+            int counter = 0;
+            for(float i=from;i<to;i+=increment,counter++)
+            {
+                DataSet[counter, 0] = i;
+                DataSet[counter, 1] = GetValue(RPNfunction, i);
+            }
+            return DataSet;
         }
 
     }

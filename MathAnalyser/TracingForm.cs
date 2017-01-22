@@ -32,7 +32,11 @@ namespace MathAnalyser
 
             foreach (ListViewItem item in items)
             {
-                comboBox.Items.Add(item.Text);
+                if(!item.Text.Contains("["))
+                {
+                    comboBox.Items.Add(item.Text);
+                }
+                
             }
             this.comboBox.SelectedItem = comboBox.Items[0];
 

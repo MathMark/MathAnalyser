@@ -56,6 +56,9 @@ namespace MathAnalyser
         decimal offset;
         float functionValue;
 
+        Pen penForCurve;
+        Pen penForCross;
+
         Build Painter;
         IMainForm View;
 
@@ -68,6 +71,10 @@ namespace MathAnalyser
         public TracingDataForm(IMainForm View,string function,decimal Increment,int scale,int dx,int dy)
         {
             InitializeComponent();
+
+            penForCurve = new Pen(Color.Blue, 2);
+            penForCross = new Pen(Color.Red, 2);
+            penForCross.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
 
             Scale = scale;
             this.View = View;
@@ -85,7 +92,7 @@ namespace MathAnalyser
                       dx,
                       dy);
 
-            Scene = Painter.DrawFunction(new Pen(Color.Blue, 2), scale, FunctionPostfix);
+            Scene = Painter.DrawCurve(penForCurve, scale, FunctionPostfix);
             buffer =new Bitmap(Scene);
 
             this.MouseDown += TracingDataForm_MouseDown;
@@ -101,6 +108,8 @@ namespace MathAnalyser
 
 
             this.LostFocus += TracingDataForm_LostFocus;
+
+            
         }
 
         private void TracingDataForm_LostFocus(object sender, EventArgs e)
@@ -145,7 +154,7 @@ namespace MathAnalyser
                              (double)offset/Scale);
 
             Scene = Painter.SetCross(buffer,
-                             new Pen(Color.Brown, 2),
+                             penForCross,
                              (float)offset,
                              -Scale * Parser.GetValue(FunctionPostfix,
                              (double)offset / Scale));
@@ -162,7 +171,7 @@ namespace MathAnalyser
                             (double)offset/Scale);
 
             Scene = Painter.SetCross(buffer,
-                             new Pen(Color.Brown, 2),
+                             penForCross,
                              (float)offset,
                              -Scale * Parser.GetValue(FunctionPostfix,
                              (double)offset / Scale));

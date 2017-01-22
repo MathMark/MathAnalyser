@@ -29,5 +29,18 @@ namespace BL
             double e = Math.Round(Math.E, 1);
             return (Math.Pow(e,x)-Math.Pow(e,-x))/2;
         }
+        public static double Sign(double x)
+        {
+            if(x>0)
+            {
+                return 1;
+            }
+            else if(x==0)
+            {
+                return double.NaN;
+            }
+            return -1;
+            
+        }
     }
 }

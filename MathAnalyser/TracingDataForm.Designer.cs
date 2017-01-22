@@ -76,7 +76,7 @@
             this.scene.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.scene.Location = new System.Drawing.Point(12, 38);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(562, 364);
+            this.scene.Size = new System.Drawing.Size(564, 364);
             this.scene.TabIndex = 3;
             this.scene.TabStop = false;
             // 

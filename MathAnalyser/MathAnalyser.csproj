@@ -49,11 +49,11 @@
   <ItemGroup>
     <Compile Include="Build.cs" />
     <Compile Include="Curve.cs" />
-    <Compile Include="HyperbolicalStatementsPanel.cs">
+    <Compile Include="ParametricFunctionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HyperbolicalStatementsPanel.Designer.cs">
-      <DependentUpon>HyperbolicalStatementsPanel.cs</DependentUpon>
+    <Compile Include="ParametricFunctionForm.Designer.cs">
+      <DependentUpon>ParametricFunctionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -76,8 +76,8 @@
     <Compile Include="TracingDataForm.Designer.cs">
       <DependentUpon>TracingDataForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="HyperbolicalStatementsPanel.resx">
-      <DependentUpon>HyperbolicalStatementsPanel.cs</DependentUpon>
+    <EmbeddedResource Include="ParametricFunctionForm.resx">
+      <DependentUpon>ParametricFunctionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

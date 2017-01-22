@@ -45,6 +45,9 @@ namespace MathAnalyser
 
             View.ChildFormOkPressed += View_ChildFormOkPressed;
             View.DeleteFunctionButtonPressed += View_DeleteFunctionButtonPressed;
+            View.ChangeColorButtonPressed += View_ChangeColorButtonPressed;
+            View.ParametricFunctionFormOkPressed += View_ParametricFunctionFormOkPressed;
+
 
             FunctionsToDraw = new List<Curve>();
             p = new Build(View.SheetWidth, View.SheetHeight);
@@ -54,6 +57,39 @@ namespace MathAnalyser
             DX = 0;
             DY = 0;
         }
+
+        private void View_ParametricFunctionFormOkPressed(string arg1, string arg2)
+        {
+            try
+            {
+                string PostfixExpression_1;
+                string PostfixExpression_2;
+
+                if (!Exists($"[{arg1};{arg2}]"))
+                {
+                    PostfixExpression_1 = Parser.ConvertToPostfix(arg1);
+                    PostfixExpression_2 = Parser.ConvertToPostfix(arg2);
+
+                    View.Sheet = p.DrawCurve(pen, scale, PostfixExpression_1,PostfixExpression_2);
+
+                    FunctionsToDraw.Add(new Curve(arg1, arg2, PostfixExpression_1, PostfixExpression_2, pen.Color, pen.Width, pen.DashStyle));
+
+                    View.MessageBoard += $"Set Parametric function: [{arg1};{arg2}]";
+
+                    View.AddfunctionInListBox("["+arg1+";"+arg2+"]", pen.Color);
+                }
+            }
+            catch(Exception exception)
+            {
+                View.MessageBoard += exception.Message;
+            }
+        }
+
+        private void View_ChangeColorButtonPressed(string FunctionToChangeColor)
+        {
+            
+        }
+
         private bool Exists(string InputFunctionName)
         {
             /*Checks if input function has already existed in list or not*/
@@ -69,12 +105,39 @@ namespace MathAnalyser
             }
             return false;
         }
-        //private 
+        private void DrawFunctionsInList()
+        {
+            if (FunctionsToDraw.Count != 0)
+            {
+                foreach (Curve function in FunctionsToDraw)
+                {
+                    if(function.Type=="explicit")
+                    {
+                        View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                            function.FirstPostfixExpression);
+                    }
+                    else
+                    {
+                        View.Sheet = p.DrawCurve(function.CurvePen, scale, function.FirstPostfixExpression, function.SecondPostfixExpression);
+                    }
+                    
+                }
+            }
+        }
         private void View_DeleteFunctionButtonPressed(string FunctionToDelete)
         {
-            FunctionsToDraw.Remove(new Curve(FunctionToDelete,string.Empty,
-                                             Color.AliceBlue, 0, DashStyle.Custom));
-
+            if(FunctionToDelete.Contains("["))
+            {
+                /* if the line contains '[' symbol it means that it's parametric function
+                 which contains two functions*/
+                string[] parts = FunctionToDelete.Split('[', ';', ']');//here the functions is taken from the line and put in array
+                FunctionsToDraw.Remove(new Curve(parts[1], parts[2]));
+            }
+            else
+            {
+                FunctionsToDraw.Remove(new Curve(FunctionToDelete));
+            }
+            
             View.MessageBoard += $"Delete {FunctionToDelete}";
 
             p.Clear();
@@ -84,8 +147,8 @@ namespace MathAnalyser
             {
                 foreach (Curve function in FunctionsToDraw)
                 {
-                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
-                        function.PostfixNotation);
+                    View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                        function.FirstPostfixExpression);
                 }
             }
 
@@ -102,12 +165,16 @@ namespace MathAnalyser
 
         private void View_DeleteFunctionsButtonPressed(object sender, EventArgs e)
         {
-            FunctionsToDraw.Clear();
-            View.MessageBoard += "Delete all functions";
+            if(FunctionsToDraw.Count!=0)
+            {
+                FunctionsToDraw.Clear();
+                View.MessageBoard += "Delete all functions";
 
-            p.Clear();
-            View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
-            View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
+                p.Clear();
+                View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
+                View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
+            }
+            
         }
 
         private void View_FinishMoving(int dx, int dy)
@@ -116,14 +183,7 @@ namespace MathAnalyser
             DX = dx;
             DY = dy;
 
-            if(FunctionsToDraw.Count!=0)
-            {
-                foreach (Curve function in FunctionsToDraw)
-                {
-                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
-                        function.PostfixNotation);
-                }
-            }
+            DrawFunctionsInList();
 
         }
 
@@ -166,14 +226,8 @@ namespace MathAnalyser
                 }
             }
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);
-            if (FunctionsToDraw.Count != 0)
-            {
-                foreach (Curve function in FunctionsToDraw)
-                {
-                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
-                        function.PostfixNotation);
-                }
-            }
+ 
+            DrawFunctionsInList();
 
         }
 
@@ -184,14 +238,7 @@ namespace MathAnalyser
             View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);
 
-            if (FunctionsToDraw.Count != 0)
-            {
-                foreach (Curve function in FunctionsToDraw)
-                {
-                    View.Sheet = p.DrawFunction(function.CurvePen, scale,
-                        function.PostfixNotation);
-                }
-            }
+            DrawFunctionsInList();
         }
 
         private void View_EnterPressed(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -199,10 +246,10 @@ namespace MathAnalyser
 
             try
             {
-               // if(!Exists(View.InputData))
+                if(!Exists(View.InputData))
                 {
                     Postfix = Parser.ConvertToPostfix(View.InputData);
-                    View.Sheet = p.DrawFunction(pen, scale, Postfix);
+                    View.Sheet = p.DrawCurve(pen, scale, Postfix);
 
                     FunctionsToDraw.Add(new Curve(View.InputData, Postfix, pen.Color, pen.Width, pen.DashStyle));
 
