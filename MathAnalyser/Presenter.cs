@@ -52,6 +52,7 @@ namespace MathAnalyser
             FunctionsToDraw = new List<Curve>();
             p = new Depiction(View.SheetWidth, View.SheetHeight);
             pen = new Pen(Color.Red,2);
+            //View.ColorLabel = pen.Color;
             colordialog = new ColorDialog();
 
             DX = 0;
@@ -143,6 +144,7 @@ namespace MathAnalyser
             p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
             View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
+            View.Sheet = p.SetNumberNet(scale);
             if (FunctionsToDraw.Count != 0)
             {
                 foreach (Curve function in FunctionsToDraw)
@@ -182,6 +184,8 @@ namespace MathAnalyser
                 p.Clear();
                 View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
                 View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
+
+                View.Sheet = p.SetNumberNet(scale);
             }
             
         }
@@ -200,7 +204,9 @@ namespace MathAnalyser
         {
             p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2, dx, dy);
-            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);             
+            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);
+
+          //  View.Sheet = p.SetNumberNet(scale,dx,dy);           
         }
 
         private void View_SetDashStyle(object sender, EventArgs e)
@@ -213,6 +219,11 @@ namespace MathAnalyser
            if( colordialog.ShowDialog()==DialogResult.OK)
             {
                 pen.Color = colordialog.Color;
+                Bitmap q = new Bitmap(86, 27);
+                Graphics i = Graphics.FromImage(q);
+                i.DrawLine(pen, 0, 13, 86, 13);
+                View.ColorLabel = q;
+                   
             }
         }
 
@@ -220,6 +231,7 @@ namespace MathAnalyser
         {
             p.Clear();
             View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
+            
             if (e.Delta>0)
             {
                 if(scale<50)
@@ -235,7 +247,8 @@ namespace MathAnalyser
                 }
             }
             View.Sheet = p.BuildNet(ColorNet, scale,0,0);
- 
+            View.Sheet = p.SetNumberNet(scale);
+
             DrawFunctionsInList();
 
         }

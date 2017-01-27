@@ -13,6 +13,7 @@ namespace MathAnalyser
         int SheetWidth { get; }
         int SheetHeight { get; }
         bool TraceMode { get; set; }
+        Bitmap ColorLabel { set; }
 
 
         void AddfunctionInListBox(string function, Color backgroundColor);
@@ -54,6 +55,13 @@ namespace MathAnalyser
         public MainForm()
         {
             InitializeComponent();
+
+            ///signs for panel buttons 
+            panelButtonPI.Text = "\u03c0";
+            panelButtonMultiplication.Text = "\u00d7";
+            ///
+            Searcher(this);
+
             tracingForm = new TracingForm();
             parametricFunctionFrom = new ParametricFunctionForm();
 
@@ -85,8 +93,65 @@ namespace MathAnalyser
             ParametricFunctionButton.Click += ParametricFunctionButton_Click;
 
         }
+        private void Searcher(Control control)
+        {
+            foreach (Control c in control.Controls)
+            {
+                if (c.Controls.Count > 0)
+                    Searcher(c);
+                var button = c as Button;
+                if (button != null)
+                {
+                    switch(button.Text)
+                    {
+                        case "Enter":
+                            button.Click += panelButtonEnter_Click;
+                            break;
+                        case "<--":
+                            button.Click += panelButtonArrow_Click;
+                            break;
+                        case "C":
+                            button.Click += panelButtonC_Click;
+                            break;
+                        default: button.Click += PanelButton_Click;
+                            break;
+                    }
+                    
+                }
+                    
+            }
+        }
 
-       
+        private void panelButtonC_Click(object sender, EventArgs e)
+        {
+            textBox_Function.ResetText();
+        }
+
+        private void panelButtonArrow_Click(object sender, EventArgs e)
+        {
+            if (textBox_Function.SelectionStart != 0)
+            {
+                var selectionIndex = textBox_Function.SelectionStart;
+                textBox_Function.Text = textBox_Function.Text.Remove(textBox_Function.SelectionStart - 1, 1);
+                textBox_Function.SelectionStart = selectionIndex--;
+            }
+                
+        }
+
+        private void panelButtonEnter_Click(object sender, EventArgs e)
+        {
+            ///To Do
+        }
+
+        private void PanelButton_Click(object sender, EventArgs e)
+        {
+            string buttonText = sender.ToString();
+            string insertText = buttonText.Substring(buttonText .IndexOf(": ")+2);
+
+            var selectionIndex = textBox_Function.SelectionStart;
+            textBox_Function.Text = textBox_Function.Text.Insert(selectionIndex, insertText);
+            textBox_Function.SelectionStart = selectionIndex + insertText.Length;
+        }
 
         private void ChangeColorButton_Click(object sender, EventArgs e)
         {
@@ -114,7 +179,6 @@ namespace MathAnalyser
         private void TraceButton_Click(object sender, EventArgs e)
         {
             this.Focus();
-            
 
             if ((functionListBox.Items.Count != 0)&&
                 (!TraceMode)&&(CheckExplicitFunctionInFunctionListBox()))
@@ -315,7 +379,13 @@ namespace MathAnalyser
                 return textBox_Function.Text;
             }
         }
-
+        public Bitmap ColorLabel
+        {
+            set
+            {
+                colorLabel.Image = value;
+            }
+        }
 
 
 
@@ -385,6 +455,16 @@ namespace MathAnalyser
         private void ClearMessageBoardButton_Click(object sender, EventArgs e)
         {
             MessageBoard = string.Empty;
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

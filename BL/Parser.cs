@@ -16,8 +16,8 @@ namespace BL
             "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
             "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch"};
 
-        static char[] Constants = { 'x', 'p', 'e' };
-        static char[] Operators = { '~','+', '-', '/', '*', '^' };
+        static char[] Constants = { 'x', 'p', 'e', '\u03c0' };
+        static char[] Operators = { '~','+', '-', '/', '*', '^' , '\u00d7' };
 
 
         private static short GetPriority(string InputStatement)//returnes priority of function
@@ -302,6 +302,8 @@ namespace BL
                             case 'e':
                                 stack.Push(Math.E);
                                 break;
+                        case '\u03c0':
+                            goto case 'p';
                             case 'p':
                                 stack.Push(Math.PI);
                                 break;
@@ -323,6 +325,8 @@ namespace BL
                                 number1 = Convert.ToDouble(stack.Pop());
                                 stack.Push(number1 - number2);
                                     break;
+                        case '\u00d7':
+                            goto case '*';
                                 case '*':
                                 number2 = Convert.ToDouble(stack.Pop());
                                 number1 = Convert.ToDouble(stack.Pop());

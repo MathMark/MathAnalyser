@@ -112,6 +112,11 @@ namespace MathAnalyser
             
         }
 
+        private void FunctionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("");
+        }
+
         private void TracingDataForm_LostFocus(object sender, EventArgs e)
         {
             if((MoveLeftButton.Focused)||

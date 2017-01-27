@@ -83,6 +83,11 @@ namespace MathAnalyser
             Draft = new Bitmap(Width, Height);
             Painter = Graphics.FromImage(Draft);
 
+            //The drawing area restriction
+            int offset = 20;
+            //Painter.Clip = new Region(new RectangleF(offset, offset, Width-2*offset, Height-2*offset));
+
+
             Painter.TranslateTransform(Width/2, Height / 2,MatrixOrder.Append);
             //Fast rendering:
 
@@ -304,5 +309,6 @@ namespace MathAnalyser
 
             return Draft;
         }
+        
     }
 }
