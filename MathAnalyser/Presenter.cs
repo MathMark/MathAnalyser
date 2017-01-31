@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using BL;
 using System.Windows.Forms;
 
@@ -10,7 +9,7 @@ namespace MathAnalyser
     class Presenter
     {
         IMainForm View;
-        Depiction p;
+        Depiction depiction;
 
         int scale = 25;
 
@@ -50,9 +49,8 @@ namespace MathAnalyser
 
 
             FunctionsToDraw = new List<Curve>();
-            p = new Depiction(View.SheetWidth, View.SheetHeight);
+            depiction = new Depiction(View.SheetWidth, View.SheetHeight);
             pen = new Pen(Color.Red,2);
-            //View.ColorLabel = pen.Color;
             colordialog = new ColorDialog();
 
             DX = 0;
@@ -71,7 +69,7 @@ namespace MathAnalyser
                     PostfixExpression_1 = Parser.ConvertToPostfix(arg1);
                     PostfixExpression_2 = Parser.ConvertToPostfix(arg2);
 
-                    View.Sheet = p.DrawCurve(pen, scale, PostfixExpression_1,PostfixExpression_2);
+                    View.Sheet = depiction.DrawCurve(pen, scale, PostfixExpression_1,PostfixExpression_2);
 
                     FunctionsToDraw.Add(new Curve(arg1, arg2, PostfixExpression_1, PostfixExpression_2, pen.Color, pen.Width, pen.DashStyle));
 
@@ -114,12 +112,12 @@ namespace MathAnalyser
                 {
                     if(function.Type=="explicit")
                     {
-                        View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
                             function.FirstPostfixExpression);
                     }
                     else
                     {
-                        View.Sheet = p.DrawCurve(function.CurvePen, scale, function.FirstPostfixExpression, function.SecondPostfixExpression);
+                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale, function.FirstPostfixExpression, function.SecondPostfixExpression);
                     }
                     
                 }
@@ -141,22 +139,22 @@ namespace MathAnalyser
             
             View.MessageBoard += $"Delete {FunctionToDelete}";
 
-            p.Clear();
-            View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
-            View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
-            View.Sheet = p.SetNumberNet(scale);
+            depiction.Clear();
+            View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
+            View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
+            View.Sheet = depiction.SetNumberNet(scale);
             if (FunctionsToDraw.Count != 0)
             {
                 foreach (Curve function in FunctionsToDraw)
                 {
                     if(function.Type=="explicit")
                     {
-                        View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
                         function.FirstPostfixExpression);
                     }
                     else
                     {
-                        View.Sheet = p.DrawCurve(function.CurvePen, scale,
+                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
                         function.FirstPostfixExpression,function.SecondPostfixExpression);
                     }
                     
@@ -169,7 +167,7 @@ namespace MathAnalyser
 
         private void View_ChildFormOkPressed(string function, decimal step)
         {
-            TracingDataForm tracingDataForm = new TracingDataForm(View,function, step, scale, DX, DY);
+            TracingDataForm tracingDataForm = new TracingDataForm(View,function, step, scale, depiction.CoordinatePlaneLocation);
             tracingDataForm.Show();
         }
   
@@ -181,18 +179,18 @@ namespace MathAnalyser
                 FunctionsToDraw.Clear();
                 View.MessageBoard += "Delete all functions";
 
-                p.Clear();
-                View.Sheet = p.BuildAxes(ColorAxes, 2, 0, 0);
-                View.Sheet = p.BuildNet(ColorNet, scale, 0, 0);
+                depiction.Clear();
+                View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
+                View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
 
-                View.Sheet = p.SetNumberNet(scale);
+                View.Sheet = depiction.SetNumberNet(scale);
             }
             
         }
 
         private void View_FinishMoving(int dx, int dy)
         {
-            p.StartPosition = new Point(dx,dy);
+            depiction.StartPosition = new Point(dx,dy);
             DX = dx;
             DY = dy;
 
@@ -202,9 +200,9 @@ namespace MathAnalyser
 
         private void View_MoveGraph(int dx, int dy)
         {
-            p.Clear();
-            View.Sheet = p.BuildAxes(ColorAxes, 2, dx, dy);
-            View.Sheet = p.BuildNet(ColorNet, scale,dx,dy);
+            depiction.Clear();
+            View.Sheet = depiction.BuildAxes(ColorAxes, 2, dx, dy);
+            View.Sheet = depiction.BuildNet(ColorNet, scale,dx,dy);
 
           //  View.Sheet = p.SetNumberNet(scale,dx,dy);           
         }
@@ -229,8 +227,8 @@ namespace MathAnalyser
 
         private void View_SheetMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            p.Clear();
-            View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
+            depiction.Clear();
+            View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
             
             if (e.Delta>0)
             {
@@ -246,8 +244,8 @@ namespace MathAnalyser
                     scale--;
                 }
             }
-            View.Sheet = p.BuildNet(ColorNet, scale,0,0);
-            View.Sheet = p.SetNumberNet(scale);
+            View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
+            View.Sheet = depiction.SetNumberNet(scale);
 
             DrawFunctionsInList();
 
@@ -255,10 +253,10 @@ namespace MathAnalyser
 
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
-            p = new Depiction(View.SheetWidth, View.SheetHeight);
-            p.Clear();
-            View.Sheet = p.BuildAxes(ColorAxes, 2,0,0);
-            View.Sheet = p.BuildNet(ColorNet, scale,0,0);
+            depiction = new Depiction(View.SheetWidth, View.SheetHeight);
+            depiction.Clear();
+            View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
+            View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
 
             DrawFunctionsInList();
         }
@@ -271,13 +269,15 @@ namespace MathAnalyser
                 if(!Exists(View.InputData))
                 {
                     Postfix = Parser.ConvertToPostfix(View.InputData);
-                    View.Sheet = p.DrawCurve(pen, scale, Postfix);
+                    View.Sheet = depiction.DrawCurve(pen, scale, Postfix);
 
                     FunctionsToDraw.Add(new Curve(View.InputData, Postfix, pen.Color, pen.Width, pen.DashStyle));
 
                     View.MessageBoard += $"Input Line: {View.InputData} Output Line: {Postfix}";
 
                     View.AddfunctionInListBox(View.InputData, pen.Color);
+
+                    View.Sheet = depiction.DrawDot(10, Color.SkyBlue, new Point(0, 0));
                 }
 
             }

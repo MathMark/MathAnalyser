@@ -67,7 +67,7 @@
             this.labelY.AutoSize = true;
             this.labelY.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelY.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelY.Location = new System.Drawing.Point(480, 75);
+            this.labelY.Location = new System.Drawing.Point(483, 74);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(28, 15);
             this.labelY.TabIndex = 2;

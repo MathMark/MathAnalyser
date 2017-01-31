@@ -7,20 +7,53 @@ using BL;
 
 namespace MathAnalyser
 {
-    class Depiction
+    public class CoordinatePlane
     {
-        private int Width;
-        private int Height;
-        Graphics Painter;
-        Bitmap Draft;
-
-        Point start;
-
-
+        public Matrix transform;
         public int leftEdge;
         public int rightEdge;
         public int topEdge;
         public int bottomEdge;
+
+        public CoordinatePlane(Matrix transform, int leftEdge, int rightEdge, int bottomEdge, int topEdge)
+        {
+            this.transform = transform;
+            this.leftEdge = leftEdge;
+            this.rightEdge = rightEdge;
+            this.bottomEdge = bottomEdge;
+            this.topEdge = topEdge;
+        }
+    }
+    class Depiction
+    {
+        private int ViewPortWidth;
+        private int ViewPortHeight;
+
+        Graphics Painter;
+        Bitmap Buffer;
+
+        Point CoordinatePlaneCenter;
+
+        public CoordinatePlane CoordinatePlaneLocation
+        {
+            get
+            {
+                return new CoordinatePlane(Painter.Transform, viewPortLeftEdge, viewPortRightEdge, viewPortBottomEdge, viewPortTopEdge);
+            }
+            set
+            {
+                Painter.Transform = value.transform;
+                viewPortLeftEdge = value.leftEdge;
+                viewPortRightEdge = value.rightEdge;
+                viewPortBottomEdge = value.bottomEdge;
+                viewPortTopEdge = value.topEdge;
+            }
+        }
+
+        int viewPortLeftEdge;
+        int viewPortRightEdge;
+        int viewPortTopEdge;
+        int viewPortBottomEdge;
 
         public float Scale
         {
@@ -37,59 +70,70 @@ namespace MathAnalyser
         {
             get
             {
-                return start;
+                return CoordinatePlaneCenter;
             }
             set
             {
-                start = value;
+                CoordinatePlaneCenter = value;
                 Painter.TranslateTransform(value.X,value.Y);
 
                 if(value.X>0)
                 {
-                    rightEdge -= Math.Abs(value.X);
-                    leftEdge -= Math.Abs(value.X);
+                    viewPortRightEdge -= Math.Abs(value.X);
+                    viewPortLeftEdge -= Math.Abs(value.X);
                 }
                 else
                 {
-                    rightEdge += Math.Abs(value.X);
-                    leftEdge += Math.Abs(value.X);
+                    viewPortRightEdge += Math.Abs(value.X);
+                    viewPortLeftEdge += Math.Abs(value.X);
                 }
                 if(value.Y>0)
                 {
-                    topEdge -= Math.Abs(value.Y);
-                    bottomEdge -= Math.Abs(value.Y);
+                    viewPortTopEdge -= Math.Abs(value.Y);
+                    viewPortBottomEdge -= Math.Abs(value.Y);
                 }
                 else
                 {
-                    topEdge += Math.Abs(value.Y);
-                    bottomEdge += Math.Abs(value.Y);
+                    viewPortTopEdge += Math.Abs(value.Y);
+                    viewPortBottomEdge += Math.Abs(value.Y);
                 }
 
 
             }
         }
 
-        public Depiction(int Width,int Height)
+        public Depiction(int ViewPortWidth,int ViewPortHeight)
         {
-            this.Width = Width;
-            this.Height = Height;
+            this.ViewPortWidth = ViewPortWidth;
+            this.ViewPortHeight = ViewPortHeight;
 
-            leftEdge=-Width/2;
-            rightEdge=Width/2;
-            topEdge=-Height/2;
-            bottomEdge=Height/2;
-
-
-            Draft = new Bitmap(Width, Height);
-            Painter = Graphics.FromImage(Draft);
-
-            //The drawing area restriction
-            int offset = 20;
-            //Painter.Clip = new Region(new RectangleF(offset, offset, Width-2*offset, Height-2*offset));
+            viewPortLeftEdge=-ViewPortWidth/2;
+            viewPortRightEdge=ViewPortWidth/2;
+            viewPortTopEdge=-ViewPortHeight/2;
+            viewPortBottomEdge=ViewPortHeight/2;
 
 
-            Painter.TranslateTransform(Width/2, Height / 2,MatrixOrder.Append);
+            Buffer = new Bitmap(ViewPortWidth, ViewPortHeight);
+            Painter = Graphics.FromImage(Buffer);
+
+            Painter.TranslateTransform(ViewPortWidth/2, ViewPortHeight / 2,MatrixOrder.Append);
             //Fast rendering:
+
+            Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
+            Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+
+        }
+        public Depiction(int Width, int Height, CoordinatePlane offsets)
+        {
+            this.ViewPortWidth = Width;
+            this.ViewPortHeight = Height;
+            Buffer = new Bitmap(Width, Height);
+            Painter = Graphics.FromImage(Buffer);
+
+            CoordinatePlaneLocation = offsets; 
 
             Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
@@ -106,10 +150,10 @@ namespace MathAnalyser
         {
             Pen pen = new Pen(colorPen,width);
 
-            Painter.DrawLine(pen, dx, topEdge, dx, bottomEdge);//Y
-            Painter.DrawLine(pen, leftEdge, dy, rightEdge, dy);//X
+            Painter.DrawLine(pen, dx, viewPortTopEdge, dx, viewPortBottomEdge);//Y
+            Painter.DrawLine(pen, viewPortLeftEdge, dy, viewPortRightEdge, dy);//X
 
-            return Draft;
+            return Buffer;
             
         }
         public Bitmap BuildNet(Color colorPen,float scale,int dx,int dy)
@@ -117,26 +161,26 @@ namespace MathAnalyser
             Pen penNet = new Pen(colorPen);
    
             //Vertical
-            for (float i = 0; i <rightEdge ; i += scale)
+            for (float i = 0; i <viewPortRightEdge ; i += scale)
             {
-                Painter.DrawLine(penNet, i+dx, topEdge, i+dx, bottomEdge);
+                Painter.DrawLine(penNet, i+dx, viewPortTopEdge, i+dx, viewPortBottomEdge);
             }
-            for (float i = 0; i >= leftEdge; i -= scale)
+            for (float i = 0; i >= viewPortLeftEdge; i -= scale)
             {
-                 Painter.DrawLine(penNet, i+dx, topEdge, i+dx, bottomEdge);
+                 Painter.DrawLine(penNet, i+dx, viewPortTopEdge, i+dx, viewPortBottomEdge);
             }
 
             //Horizontal
-            for (float i = 0; i < bottomEdge; i += scale)
+            for (float i = 0; i < viewPortBottomEdge; i += scale)
             {
-                Painter.DrawLine(penNet, leftEdge, i+dy, rightEdge, i+dy);
+                Painter.DrawLine(penNet, viewPortLeftEdge, i+dy, viewPortRightEdge, i+dy);
             }
-            for (float i = 0; i >= topEdge; i -= scale)
+            for (float i = 0; i >= viewPortTopEdge; i -= scale)
             {
-                 Painter.DrawLine(penNet, leftEdge, i+dy, rightEdge, i+dy);
+                 Painter.DrawLine(penNet, viewPortLeftEdge, i+dy, viewPortRightEdge, i+dy);
             }
 
-            return Draft;
+            return Buffer;
         }
         
         public Bitmap DrawCurve(Pen pen,int scale, string PostfixFunction)
@@ -147,7 +191,7 @@ namespace MathAnalyser
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
 
-            for (double  i= -Width/2,x=leftEdge; i < Width/2;i+=0.1, x +=0.1)
+            for (double  i= -ViewPortWidth/2,x=viewPortLeftEdge; i < ViewPortWidth/2;i+=0.1, x +=0.1)
             {
      
                 functionValue = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
@@ -195,7 +239,7 @@ namespace MathAnalyser
                 //return;
             }
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-            return Draft;
+            return Buffer;
 
         }
 
@@ -209,7 +253,7 @@ namespace MathAnalyser
             PointF[] coordinates;
             List<PointF> Coordinates = new List<PointF>();
 
-            for (double i = -Width/2, t = leftEdge; i <Width/2; i += 0.1, t += 0.1)
+            for (double i = -ViewPortWidth/2, t = viewPortLeftEdge; i <ViewPortWidth/2; i += 0.1, t += 0.1)
             {
 
                 functionValue_1 = -Parser.GetValue(PostfixFunction_1, Math.Round(t / scale, 2));
@@ -258,11 +302,11 @@ namespace MathAnalyser
                 //return;
             }
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-            return Draft;
+            return Buffer;
         }
  
 
-        public Bitmap SetCross(Bitmap d,Pen pen,float offset, float crossPoint)
+        public Bitmap SetCross(Bitmap d,Pen pen,int offset, float crossPoint)
         {
             Bitmap e =new Bitmap(d);
             try
@@ -270,11 +314,9 @@ namespace MathAnalyser
                 
                 Graphics s = Graphics.FromImage(e);
                 s.TranslateTransform(Painter.Transform.OffsetX, Painter.Transform.OffsetY);
-
-                //s.DrawLine(pen, -Width / 2, crossPoint, Width, crossPoint);
                 s.DrawLine(pen, offset, 0, offset, crossPoint);
-                //s.DrawLine(pen, offset, -Height / 2, offset, Height / 2);
                 s.DrawLine(pen, 0, crossPoint, offset, crossPoint);
+                DrawDot(s,8, Color.Red, new PointF(offset, crossPoint));
                 s.Dispose();
                 return e;
             }
@@ -290,25 +332,38 @@ namespace MathAnalyser
             SolidBrush solidBrush = new SolidBrush(Color.FromArgb(100, 121, 120, 122));
             int offset = 15;
 
-            for(float step=0,i=0;step<rightEdge-offset;i++,step+=scale)
+            for(float step=0,i=0;step<viewPortRightEdge-offset;i++,step+=scale)
             {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, bottomEdge-offset)); 
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, viewPortBottomEdge-offset)); 
             }
-            for (float step = -scale, i = -1; step >= leftEdge+offset; i--, step -= scale)
+            for (float step = -scale, i = -1; step >= viewPortLeftEdge+offset; i--, step -= scale)
             {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, bottomEdge - offset));
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, viewPortBottomEdge - offset));
             }
-            for (float step = 0, i = 0; step < bottomEdge-offset; i++, step += scale)
+            for (float step = 0, i = 0; step < viewPortBottomEdge-offset; i++, step += scale)
             {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(leftEdge, step));
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(viewPortLeftEdge, step));
             }
-            for (float step = -scale, i = 0; step >=topEdge; i--, step -= scale)
+            for (float step = -scale, i = 0; step >=viewPortTopEdge; i--, step -= scale)
             {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(leftEdge, step));
+                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(viewPortLeftEdge, step));
             }
 
-            return Draft;
+            return Buffer;
         }
         
+        public void DrawDot(Graphics s,int size, Color color, PointF position)
+        {
+            SolidBrush brush = new SolidBrush(color);
+            RectangleF positionRectangle = new RectangleF(position.X - size / 2, position.Y - size / 2, size, size);
+            s.FillEllipse(brush, positionRectangle);
+        }
+        public Bitmap DrawDot(int size,Color color,Point position)
+        {
+            SolidBrush brush = new SolidBrush(color);
+            Rectangle positionRectangle = new Rectangle(position.X-size/2, position.Y-size/2, size, size);
+            Painter.FillEllipse(brush, positionRectangle);
+            return Buffer;
+        }
     }
 }

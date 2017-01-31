@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using BL;
+using System.Drawing.Drawing2D;
 
 namespace MathAnalyser
 {
@@ -68,7 +69,7 @@ namespace MathAnalyser
         {
             InitializeComponent();
         }
-        public TracingDataForm(IMainForm View,string function,decimal Increment,int scale,int dx,int dy)
+        public TracingDataForm(IMainForm View,string function,decimal Increment,int scale,CoordinatePlane offets)
         {
             InitializeComponent();
 
@@ -84,13 +85,11 @@ namespace MathAnalyser
 
             functionLabel.Text = $"f(x) = {function}";
 
-            Painter = new Depiction(scene.Width, scene.Height);
+            Painter = new Depiction(scene.Width, scene.Height, offets);
 
             DrawScene(Color.FromArgb(30, 121, 120, 122), 
                       Color.FromArgb(155, 121, 120, 122),
-                      scale,
-                      dx,
-                      dy);
+                      scale);
 
             Scene = Painter.DrawCurve(penForCurve, scale, FunctionPostfix);
             buffer =new Bitmap(Scene);
@@ -160,7 +159,7 @@ namespace MathAnalyser
 
             Scene = Painter.SetCross(buffer,
                              penForCross,
-                             (float)offset,
+                             (int)offset,
                              -Scale * Parser.GetValue(FunctionPostfix,
                              (double)offset / Scale));
 
@@ -177,7 +176,7 @@ namespace MathAnalyser
 
             Scene = Painter.SetCross(buffer,
                              penForCross,
-                             (float)offset,
+                             (int)offset,
                              -Scale * Parser.GetValue(FunctionPostfix,
                              (double)offset / Scale));
 
@@ -214,10 +213,10 @@ namespace MathAnalyser
             this.Close();
         }
 
-        public void DrawScene(Color colorNet,Color colorAxes,int scale,int dx,int dy)
+        public void DrawScene(Color colorNet,Color colorAxes,int scale/*int dx,int dy*/)
         {
             Painter.Clear();
-            Painter.StartPosition = new Point(dx, dy);
+           // Painter.StartPosition = new Point(dx, dy);
 
             Scene=Painter.BuildNet(colorNet, scale, 0, 0);
             Scene = Painter.BuildAxes(colorAxes, 2, 0, 0);
