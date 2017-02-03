@@ -165,6 +165,7 @@ namespace MathAnalyser
 
             X = (offset/Scale).ToString();
             Y = (functionValue).ToString();
+            derivativeLabel.Text = $"f'(x): {Parser.FindDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
         }
 
         void MoveLineRight()
@@ -182,6 +183,7 @@ namespace MathAnalyser
 
             X = (offset / Scale).ToString();
             Y = (functionValue).ToString();
+            derivativeLabel.Text = $"f'(x): {Parser.FindDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
         }
         bool TogMove;
         int MValX;

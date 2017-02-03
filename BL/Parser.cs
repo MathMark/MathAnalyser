@@ -368,7 +368,12 @@ namespace BL
             }
             return DataSet;
         }
-
+        public static float FindDerivativeInPoint(string RPNfunction, float point)
+        {
+            float result=(float)((GetValue(RPNfunction,point+0.0001)- GetValue(RPNfunction, point))/0.0001);
+            return (float)Math.Round(result,2);
+        }
+       // public static float[] FindDerivativeValues(string RPNfunction);
     }
 }
 

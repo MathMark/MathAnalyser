@@ -159,25 +159,25 @@ namespace MathAnalyser
         public Bitmap BuildNet(Color colorPen,float scale,int dx,int dy)
         {
             Pen penNet = new Pen(colorPen);
-   
+
             //Vertical
-            for (float i = 0; i <viewPortRightEdge ; i += scale)
+            for (float i = 0; i < viewPortRightEdge; i += scale)
             {
-                Painter.DrawLine(penNet, i+dx, viewPortTopEdge, i+dx, viewPortBottomEdge);
+                Painter.DrawLine(penNet, i + dx, viewPortTopEdge, i + dx, viewPortBottomEdge);
             }
             for (float i = 0; i >= viewPortLeftEdge; i -= scale)
             {
-                 Painter.DrawLine(penNet, i+dx, viewPortTopEdge, i+dx, viewPortBottomEdge);
+                Painter.DrawLine(penNet, i + dx, viewPortTopEdge, i + dx, viewPortBottomEdge);
             }
 
             //Horizontal
             for (float i = 0; i < viewPortBottomEdge; i += scale)
             {
-                Painter.DrawLine(penNet, viewPortLeftEdge, i+dy, viewPortRightEdge, i+dy);
+                Painter.DrawLine(penNet, viewPortLeftEdge, i + dy, viewPortRightEdge, i + dy);
             }
             for (float i = 0; i >= viewPortTopEdge; i -= scale)
             {
-                 Painter.DrawLine(penNet, viewPortLeftEdge, i+dy, viewPortRightEdge, i+dy);
+                Painter.DrawLine(penNet, viewPortLeftEdge, i + dy, viewPortRightEdge, i + dy);
             }
 
             return Buffer;
@@ -361,7 +361,7 @@ namespace MathAnalyser
         public Bitmap DrawDot(int size,Color color,Point position)
         {
             SolidBrush brush = new SolidBrush(color);
-            Rectangle positionRectangle = new Rectangle(position.X-size/2, position.Y-size/2, size, size);
+            Rectangle positionRectangle = new Rectangle(position.X - size / 2, position.Y - size / 2, size, size);
             Painter.FillEllipse(brush, positionRectangle);
             return Buffer;
         }

@@ -18,7 +18,7 @@ namespace MathAnalyser
 
         void AddfunctionInListBox(string function, Color backgroundColor);
 
-        event KeyPressEventHandler EnterPressed;
+        event EventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
         event MouseEventHandler SheetMouseWheel;
         event EventHandler SetColor;
@@ -38,7 +38,7 @@ namespace MathAnalyser
         TracingForm tracingForm;
         ParametricFunctionForm parametricFunctionFrom;
 
-        public event KeyPressEventHandler EnterPressed;
+        public event EventHandler EnterPressed;
         public event EventHandler SheetSizeChanged;
         public event MouseEventHandler SheetMouseWheel;
         public event EventHandler SetColor;
@@ -140,7 +140,7 @@ namespace MathAnalyser
 
         private void panelButtonEnter_Click(object sender, EventArgs e)
         {
-            ///To Do
+            EnterPressed(this, e);
         }
 
         private void PanelButton_Click(object sender, EventArgs e)
@@ -306,7 +306,7 @@ namespace MathAnalyser
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                EnterPressed(this, e);
+                EnterPressed(this, EventArgs.Empty);
 
             }
             

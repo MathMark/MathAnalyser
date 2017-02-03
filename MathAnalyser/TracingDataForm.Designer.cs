@@ -36,6 +36,7 @@
             this.MoveLeftButton = new System.Windows.Forms.Button();
             this.MoveRightButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.derivativeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scene)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -47,9 +48,9 @@
             this.functionLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.functionLabel.Location = new System.Drawing.Point(3, 13);
             this.functionLabel.Name = "functionLabel";
-            this.functionLabel.Size = new System.Drawing.Size(49, 15);
+            this.functionLabel.Size = new System.Drawing.Size(42, 15);
             this.functionLabel.TabIndex = 0;
-            this.functionLabel.Text = "label1";
+            this.functionLabel.Text = "f(x):";
             // 
             // labelX
             // 
@@ -124,6 +125,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.panel1.Controls.Add(this.derivativeLabel);
             this.panel1.Controls.Add(this.scene);
             this.panel1.Controls.Add(this.labelX);
             this.panel1.Controls.Add(this.labelY);
@@ -132,6 +134,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(580, 386);
             this.panel1.TabIndex = 7;
+            // 
+            // derivativeLabel
+            // 
+            this.derivativeLabel.AutoSize = true;
+            this.derivativeLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.derivativeLabel.ForeColor = System.Drawing.Color.White;
+            this.derivativeLabel.Location = new System.Drawing.Point(480, 105);
+            this.derivativeLabel.Name = "derivativeLabel";
+            this.derivativeLabel.Size = new System.Drawing.Size(56, 15);
+            this.derivativeLabel.TabIndex = 8;
+            this.derivativeLabel.Text = "f\'(x): ";
             // 
             // TracingDataForm
             // 
@@ -164,5 +177,6 @@
         private System.Windows.Forms.Button MoveLeftButton;
         private System.Windows.Forms.Button MoveRightButton;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label derivativeLabel;
     }
 }

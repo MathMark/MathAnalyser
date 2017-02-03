@@ -13,7 +13,6 @@ namespace MathAnalyser
 
         int scale = 25;
 
-
         Color ColorNet = Color.FromArgb(30, 121, 120, 122);
         Color ColorAxes = Color.FromArgb(155, 121, 120, 122);
 
@@ -261,12 +260,12 @@ namespace MathAnalyser
             DrawFunctionsInList();
         }
 
-        private void View_EnterPressed(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void View_EnterPressed(object sender, EventArgs e)
         {
 
             try
             {
-                if(!Exists(View.InputData))
+                if (!Exists(View.InputData))
                 {
                     Postfix = Parser.ConvertToPostfix(View.InputData);
                     View.Sheet = depiction.DrawCurve(pen, scale, Postfix);
@@ -277,7 +276,6 @@ namespace MathAnalyser
 
                     View.AddfunctionInListBox(View.InputData, pen.Color);
 
-                    View.Sheet = depiction.DrawDot(10, Color.SkyBlue, new Point(0, 0));
                 }
 
             }
