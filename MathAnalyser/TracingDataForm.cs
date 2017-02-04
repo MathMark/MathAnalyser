@@ -65,6 +65,9 @@ namespace MathAnalyser
 
         Bitmap buffer;
 
+        bool derivativeDepiction;
+        Pen penForDerivativeCurve;
+
         public TracingDataForm()
         {
             InitializeComponent();
@@ -108,7 +111,28 @@ namespace MathAnalyser
 
             this.LostFocus += TracingDataForm_LostFocus;
 
-            
+            derivativeDepiction = false;
+            checkBox.CheckedChanged += CheckBox_CheckedChanged;
+            penForDerivativeCurve = new Pen(Color.CadetBlue, 2);
+            penForDerivativeCurve.DashStyle=DashStyle.Dash;
+        }
+
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            derivativeDepiction = !derivativeDepiction;
+            if (derivativeDepiction)
+            {
+                Scene = Painter.DrawCurve(penForDerivativeCurve, Parser.FindDerivativeValues(FunctionPostfix, Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+                buffer = new Bitmap(Scene);
+            }
+            else
+            {
+                DrawScene(Color.FromArgb(30, 121, 120, 122),
+                       Color.FromArgb(155, 121, 120, 122),
+                       Scale);
+                Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
+                buffer = new Bitmap(Scene);
+            }
         }
 
         private void FunctionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,8 +142,9 @@ namespace MathAnalyser
 
         private void TracingDataForm_LostFocus(object sender, EventArgs e)
         {
+            //the code keeps focus only on the form
             if((MoveLeftButton.Focused)||
-                (MoveRightButton.Focused))
+                (MoveRightButton.Focused)||checkBox.Focused)
             {
                 Focus();
             }   
@@ -157,12 +182,13 @@ namespace MathAnalyser
             functionValue = Parser.GetValue(FunctionPostfix,
                              (double)offset/Scale);
 
+            
             Scene = Painter.SetCross(buffer,
                              penForCross,
                              (int)offset,
                              -Scale * Parser.GetValue(FunctionPostfix,
                              (double)offset / Scale));
-
+            
             X = (offset/Scale).ToString();
             Y = (functionValue).ToString();
             derivativeLabel.Text = $"f'(x): {Parser.FindDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
@@ -180,6 +206,7 @@ namespace MathAnalyser
                              (int)offset,
                              -Scale * Parser.GetValue(FunctionPostfix,
                              (double)offset / Scale));
+            
 
             X = (offset / Scale).ToString();
             Y = (functionValue).ToString();
@@ -224,7 +251,6 @@ namespace MathAnalyser
             Scene = Painter.BuildAxes(colorAxes, 2, 0, 0);
             Scene = Painter.SetNumberNet(scale);
         }
-
 
     }
 }

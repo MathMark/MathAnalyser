@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using BL;
 
 
@@ -104,21 +105,26 @@ namespace MathAnalyser
 
         public Depiction(int ViewPortWidth,int ViewPortHeight)
         {
+            //StreamWriter w = new StreamWriter("D:\\out.txt");
             this.ViewPortWidth = ViewPortWidth;
             this.ViewPortHeight = ViewPortHeight;
 
-            viewPortLeftEdge=-ViewPortWidth/2;
-            viewPortRightEdge=ViewPortWidth/2;
-            viewPortTopEdge=-ViewPortHeight/2;
-            viewPortBottomEdge=ViewPortHeight/2;
-
+            //w.WriteLine($"left: {-ViewPortWidth / 2}; right: {ViewPortWidth / 2}; top: {-ViewPortHeight / 2}; bottom: {ViewPortHeight / 2}");
+           // w.WriteLine();
 
             Buffer = new Bitmap(ViewPortWidth, ViewPortHeight);
             Painter = Graphics.FromImage(Buffer);
 
             Painter.TranslateTransform(ViewPortWidth/2, ViewPortHeight / 2,MatrixOrder.Append);
-            //Fast rendering:
 
+            viewPortLeftEdge = (int)Painter.VisibleClipBounds.X;
+            viewPortRightEdge = (int)(Painter.VisibleClipBounds.X+Painter.VisibleClipBounds.Width);
+            viewPortTopEdge = (int)Painter.VisibleClipBounds.Y;
+            viewPortBottomEdge = (int)(Painter.VisibleClipBounds.Height+ Painter.VisibleClipBounds.Y);
+
+            //w.WriteLine($"left: {(int)Painter.VisibleClipBounds.X}; right: {(int)(Painter.VisibleClipBounds.X + Painter.VisibleClipBounds.Width)}; top: {(int)Painter.VisibleClipBounds.Y}; bottom: {(int)(Painter.VisibleClipBounds.Y+Painter.VisibleClipBounds.Height)}");
+            //Fast rendering:
+           // w.Close();
             Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
@@ -156,8 +162,10 @@ namespace MathAnalyser
             return Buffer;
             
         }
+        //Depicts coordinate net
         public Bitmap BuildNet(Color colorPen,float scale,int dx,int dy)
         {
+            
             Pen penNet = new Pen(colorPen);
 
             //Vertical
@@ -169,7 +177,6 @@ namespace MathAnalyser
             {
                 Painter.DrawLine(penNet, i + dx, viewPortTopEdge, i + dx, viewPortBottomEdge);
             }
-
             //Horizontal
             for (float i = 0; i < viewPortBottomEdge; i += scale)
             {
@@ -189,19 +196,29 @@ namespace MathAnalyser
             float functionValue;
 
             PointF[] coordinates;
-            List<PointF> Coordinates = new List<PointF>();
-
+            List<PointF> coordinatesList = new List<PointF>();
+            StreamWriter w = new StreamWriter("D:\\out.txt");
             for (double  i= -ViewPortWidth/2,x=viewPortLeftEdge; i < ViewPortWidth/2;i+=0.1, x +=0.1)
             {
-     
+
                 functionValue = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
+                functionValue =(float) Math.Round(functionValue, 4);
+                
+                if(functionValue<-200000)
+                {
+                    functionValue = -200000;
+                }
+                else if(functionValue>200000)
+                {
+                    functionValue = 200000;
+                }
 
                 if ((double.IsNaN(functionValue)) || (double.IsInfinity(functionValue)))
                     {
-                        if (Coordinates.Count != 0)
+                        if (coordinatesList.Count != 0)
                         {
-                            coordinates = new PointF[Coordinates.Count];
-                            coordinates = Coordinates.ToArray();
+                            coordinates = new PointF[coordinatesList.Count];
+                            coordinates = coordinatesList.ToArray();
                             try
                             {
                                 Painter.DrawLines(pen, coordinates);
@@ -210,34 +227,38 @@ namespace MathAnalyser
                             {
                                 continue;
                             }
-                            Coordinates.Clear();
+                            coordinatesList.Clear();
                         }
                         continue;
                     }
                     else
                     {
-                    Coordinates.Add(new PointF(Convert.ToSingle(x),
+                    coordinatesList.Add(new PointF(Convert.ToSingle(x),
                         Convert.ToSingle(scale* functionValue)));
                     }
-                    
-                }
+                w.WriteLine($"{i} - {functionValue}");
+
+            }
                 try
                 {
-                    if (Coordinates.Count != 0)
+                    if (coordinatesList.Count != 0)
                     {
-                        coordinates = new PointF[Coordinates.Count];
-                        coordinates = Coordinates.ToArray();;
+                        coordinates = new PointF[coordinatesList.Count];
+                        coordinates = coordinatesList.ToArray();;
                         Painter.DrawCurve(pen, coordinates);
                     }
                 }
             catch (OverflowException)
             {
-                Painter.DrawLine(pen, 0,0,50,50);
+                //Painter.DrawLine(pen, 0,0,50,50);
             }
             catch (ArgumentException)
             {
                 //return;
             }
+            
+            w.WriteLine($"X: {Painter.VisibleClipBounds.X}; Y: {Painter.VisibleClipBounds.Y}; Width: {Painter.VisibleClipBounds.Width}; Height: {Painter.VisibleClipBounds.Height}");
+            w.Close();
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             return Buffer;
 
@@ -251,7 +272,7 @@ namespace MathAnalyser
             float functionValue_2;
 
             PointF[] coordinates;
-            List<PointF> Coordinates = new List<PointF>();
+            List<PointF> coordinatesList = new List<PointF>();
 
             for (double i = -ViewPortWidth/2, t = viewPortLeftEdge; i <ViewPortWidth/2; i += 0.1, t += 0.1)
             {
@@ -261,10 +282,10 @@ namespace MathAnalyser
 
                 if ((double.IsNaN(functionValue_1)) || (double.IsInfinity(functionValue_1)))
                 {
-                    if (Coordinates.Count != 0)
+                    if (coordinatesList.Count != 0)
                     {
-                        coordinates = new PointF[Coordinates.Count];
-                        coordinates = Coordinates.ToArray();
+                        coordinates = new PointF[coordinatesList.Count];
+                        coordinates = coordinatesList.ToArray();
                         try
                         {
                             Painter.DrawLines(pen, coordinates);
@@ -273,23 +294,23 @@ namespace MathAnalyser
                         {
                             continue;
                         }
-                        Coordinates.Clear();
+                        coordinatesList.Clear();
                     }
                     continue;
                 }
                 else
                 {
-                    Coordinates.Add(new PointF(Convert.ToSingle(scale*functionValue_1),
+                    coordinatesList.Add(new PointF(Convert.ToSingle(scale*functionValue_1),
                         Convert.ToSingle(scale * functionValue_2)));
                 }
 
             }
             try
             {
-                if (Coordinates.Count != 0)
+                if (coordinatesList.Count != 0)
                 {
-                    coordinates = new PointF[Coordinates.Count];
-                    coordinates = Coordinates.ToArray(); ;
+                    coordinates = new PointF[coordinatesList.Count];
+                    coordinates = coordinatesList.ToArray(); ;
                     Painter.DrawCurve(pen, coordinates);
                 }
             }
@@ -301,6 +322,14 @@ namespace MathAnalyser
             {
                 //return;
             }
+            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            return Buffer;
+        }
+
+        public Bitmap DrawCurve(Pen pen,PointF[]Points)
+        {
+            Painter.SmoothingMode = SmoothingMode.AntiAlias;
+            Painter.DrawLines(pen, Points);
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             return Buffer;
         }

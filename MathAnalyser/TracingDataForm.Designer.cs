@@ -37,6 +37,7 @@
             this.MoveRightButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.derivativeLabel = new System.Windows.Forms.Label();
+            this.checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.scene)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             this.labelX.AutoSize = true;
             this.labelX.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelX.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelX.Location = new System.Drawing.Point(483, 44);
+            this.labelX.Location = new System.Drawing.Point(17, 336);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(28, 15);
             this.labelX.TabIndex = 1;
@@ -68,7 +69,7 @@
             this.labelY.AutoSize = true;
             this.labelY.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelY.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelY.Location = new System.Drawing.Point(483, 74);
+            this.labelY.Location = new System.Drawing.Point(17, 362);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(28, 15);
             this.labelY.TabIndex = 2;
@@ -77,31 +78,32 @@
             // scene
             // 
             this.scene.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.scene.Location = new System.Drawing.Point(3, 44);
+            this.scene.Location = new System.Drawing.Point(3, 33);
             this.scene.Name = "scene";
-            this.scene.Size = new System.Drawing.Size(474, 337);
+            this.scene.Size = new System.Drawing.Size(574, 289);
             this.scene.TabIndex = 3;
             this.scene.TabStop = false;
             // 
             // DoneButton
             // 
+            this.DoneButton.BackColor = System.Drawing.Color.Red;
             this.DoneButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.DoneButton.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DoneButton.ForeColor = System.Drawing.Color.White;
-            this.DoneButton.Location = new System.Drawing.Point(517, 451);
+            this.DoneButton.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DoneButton.ForeColor = System.Drawing.Color.DarkRed;
+            this.DoneButton.Location = new System.Drawing.Point(551, 3);
             this.DoneButton.Name = "DoneButton";
-            this.DoneButton.Size = new System.Drawing.Size(75, 31);
+            this.DoneButton.Size = new System.Drawing.Size(26, 25);
             this.DoneButton.TabIndex = 4;
             this.DoneButton.TabStop = false;
-            this.DoneButton.Text = "Done";
-            this.DoneButton.UseVisualStyleBackColor = true;
+            this.DoneButton.Text = "X";
+            this.DoneButton.UseVisualStyleBackColor = false;
             // 
             // MoveLeftButton
             // 
             this.MoveLeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.MoveLeftButton.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MoveLeftButton.ForeColor = System.Drawing.Color.White;
-            this.MoveLeftButton.Location = new System.Drawing.Point(392, 415);
+            this.MoveLeftButton.Location = new System.Drawing.Point(392, 404);
             this.MoveLeftButton.Name = "MoveLeftButton";
             this.MoveLeftButton.Size = new System.Drawing.Size(97, 30);
             this.MoveLeftButton.TabIndex = 5;
@@ -114,7 +116,7 @@
             this.MoveRightButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.MoveRightButton.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MoveRightButton.ForeColor = System.Drawing.Color.White;
-            this.MoveRightButton.Location = new System.Drawing.Point(495, 415);
+            this.MoveRightButton.Location = new System.Drawing.Point(495, 404);
             this.MoveRightButton.Name = "MoveRightButton";
             this.MoveRightButton.Size = new System.Drawing.Size(97, 30);
             this.MoveRightButton.TabIndex = 6;
@@ -127,10 +129,11 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.panel1.Controls.Add(this.derivativeLabel);
             this.panel1.Controls.Add(this.scene);
-            this.panel1.Controls.Add(this.labelX);
-            this.panel1.Controls.Add(this.labelY);
             this.panel1.Controls.Add(this.functionLabel);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Controls.Add(this.labelX);
+            this.panel1.Controls.Add(this.DoneButton);
+            this.panel1.Controls.Add(this.labelY);
+            this.panel1.Location = new System.Drawing.Point(10, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(580, 386);
             this.panel1.TabIndex = 7;
@@ -140,22 +143,34 @@
             this.derivativeLabel.AutoSize = true;
             this.derivativeLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.derivativeLabel.ForeColor = System.Drawing.Color.White;
-            this.derivativeLabel.Location = new System.Drawing.Point(480, 105);
+            this.derivativeLabel.Location = new System.Drawing.Point(450, 336);
             this.derivativeLabel.Name = "derivativeLabel";
             this.derivativeLabel.Size = new System.Drawing.Size(56, 15);
             this.derivativeLabel.TabIndex = 8;
             this.derivativeLabel.Text = "f\'(x): ";
+            // 
+            // checkBox
+            // 
+            this.checkBox.AutoSize = true;
+            this.checkBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox.ForeColor = System.Drawing.Color.White;
+            this.checkBox.Location = new System.Drawing.Point(16, 404);
+            this.checkBox.Name = "checkBox";
+            this.checkBox.Size = new System.Drawing.Size(187, 19);
+            this.checkBox.TabIndex = 8;
+            this.checkBox.Text = "Depict derivative curve";
+            this.checkBox.UseVisualStyleBackColor = true;
             // 
             // TracingDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(604, 493);
+            this.ClientSize = new System.Drawing.Size(604, 461);
+            this.Controls.Add(this.checkBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MoveRightButton);
             this.Controls.Add(this.MoveLeftButton);
-            this.Controls.Add(this.DoneButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "TracingDataForm";
@@ -165,6 +180,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -178,5 +194,6 @@
         private System.Windows.Forms.Button MoveRightButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label derivativeLabel;
+        private System.Windows.Forms.CheckBox checkBox;
     }
 }

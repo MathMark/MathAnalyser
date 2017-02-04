@@ -4,6 +4,10 @@ namespace BL
 {
     static class Functions
     {
+        public static double Cos(double x)
+        {
+            return Math.Round(Math.Cos(x), 2);
+        }
         public static double Tan(double x)
         {
             return Math.Sin(x) / Math.Round(Math.Cos(x), 2); 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 
@@ -212,7 +213,7 @@ namespace BL
                                 stack.Push(Math.Cosh(variable));
                                 break;
                             case "cos":
-                                stack.Push(Math.Cos(variable));
+                                stack.Push(Functions.Cos(variable));
                                 break;
                             case "cth":
                                 stack.Push(1 / Math.Tanh(variable));
@@ -371,9 +372,26 @@ namespace BL
         public static float FindDerivativeInPoint(string RPNfunction, float point)
         {
             float result=(float)((GetValue(RPNfunction,point+0.0001)- GetValue(RPNfunction, point))/0.0001);
-            return (float)Math.Round(result,2);
+            return (float)Math.Round(result,4);
         }
-       // public static float[] FindDerivativeValues(string RPNfunction);
+       public static PointF[] FindDerivativeValues(string RPNfunction,int scale,int from,int to)
+        {
+            List<PointF> coordinates = new List<PointF>();
+            int i=0;
+            float value;
+            for (double x = from; x <to; i ++, x += 0.1)
+            {
+                //calculate values
+                value = -scale * FindDerivativeInPoint(RPNfunction, (float)(x / scale));
+                //filer the NaN values 
+                if(value.ToString()!="NaN")
+                {
+                    coordinates.Add(new PointF((float)(x), value));
+                }
+            }
+            PointF[] result=coordinates.ToArray();
+            return result;
+        }
     }
 }
 

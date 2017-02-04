@@ -31,22 +31,6 @@ namespace BL.Tests
             Assert.That(Parser.GetValue(InputExpression, point), Is.EqualTo(EXPECTED_RESULT));
 
         }
-        //[Test]
-        //public void ConvertToPostfix_CheckTheLineIsEmptyException()
-        //{
-        //    string InputExpression = string.Empty;
-        //    string EXPECTED_MESSAGE = "Input line is empty";
-        //    try
-        //    {
-        //        Converter.ConvertToPostfix(InputExpression);
-        //        Assert.Fail("The exception must have been thrown");
-        //    }
-        //    catch(Exception exception)
-        //    {
-        //        Assert.AreEqual(EXPECTED_MESSAGE, exception.Message);
-        //    }
-        //}
-        
 
     }
 }
