@@ -10,11 +10,9 @@ namespace BL.Tests
         public void ConvertToPostfix_Test()
         {
             const string InputExpression = "2*sin(x)/3+5*x-1";
-          // const string InputExpression = "-sin(-x)";
-
             string EXPECTED_RESULT = "2 x sin * 3 / 5 x * + 1 - ";
-
-            Assert.That(Parser.ConvertToPostfix(InputExpression), Is.EqualTo(EXPECTED_RESULT));
+            string obtaintedResult = Parser.ConvertToPostfix(InputExpression);
+            Assert.That(obtaintedResult, Is.EqualTo(EXPECTED_RESULT));
         }
         [Test]
         public void GetValue_Test()

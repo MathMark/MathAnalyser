@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
 using BL;
 
 
@@ -98,20 +97,13 @@ namespace MathAnalyser
                     viewPortTopEdge += Math.Abs(value.Y);
                     viewPortBottomEdge += Math.Abs(value.Y);
                 }
-
-
             }
         }
 
         public Depiction(int ViewPortWidth,int ViewPortHeight)
         {
-            //StreamWriter w = new StreamWriter("D:\\out.txt");
             this.ViewPortWidth = ViewPortWidth;
             this.ViewPortHeight = ViewPortHeight;
-
-            //w.WriteLine($"left: {-ViewPortWidth / 2}; right: {ViewPortWidth / 2}; top: {-ViewPortHeight / 2}; bottom: {ViewPortHeight / 2}");
-           // w.WriteLine();
-
             Buffer = new Bitmap(ViewPortWidth, ViewPortHeight);
             Painter = Graphics.FromImage(Buffer);
 
@@ -122,13 +114,17 @@ namespace MathAnalyser
             viewPortTopEdge = (int)Painter.VisibleClipBounds.Y;
             viewPortBottomEdge = (int)(Painter.VisibleClipBounds.Height+ Painter.VisibleClipBounds.Y);
 
-            //w.WriteLine($"left: {(int)Painter.VisibleClipBounds.X}; right: {(int)(Painter.VisibleClipBounds.X + Painter.VisibleClipBounds.Width)}; top: {(int)Painter.VisibleClipBounds.Y}; bottom: {(int)(Painter.VisibleClipBounds.Y+Painter.VisibleClipBounds.Height)}");
-            //Fast rendering:
-           // w.Close();
-            Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
-            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-            Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
-            Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            //Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
+            //Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            //Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
+            //Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            //Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+
+            //High quality
+            Painter.InterpolationMode = InterpolationMode.High; // or NearestNeighbour
+            Painter.SmoothingMode = SmoothingMode.HighQuality;
+            Painter.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            Painter.CompositingQuality = CompositingQuality.HighQuality;
             Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
         }
@@ -197,18 +193,19 @@ namespace MathAnalyser
 
             PointF[] coordinates;
             List<PointF> coordinatesList = new List<PointF>();
-            StreamWriter w = new StreamWriter("D:\\out.txt");
+
+            //StreamWriter w = new StreamWriter("D:\\out.txt");
             for (double  i= -ViewPortWidth/2,x=viewPortLeftEdge; i < ViewPortWidth/2;i+=0.1, x +=0.1)
             {
 
                 functionValue = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
                 functionValue =(float) Math.Round(functionValue, 4);
-                
-                if(functionValue<-200000)
+                //w.WriteLine($"{functionValue}");
+                if (!float.IsNegativeInfinity(functionValue)&& functionValue < -200000)
                 {
                     functionValue = -200000;
                 }
-                else if(functionValue>200000)
+                else if (!float.IsInfinity(functionValue)&&functionValue > 200000)
                 {
                     functionValue = 200000;
                 }
@@ -236,7 +233,6 @@ namespace MathAnalyser
                     coordinatesList.Add(new PointF(Convert.ToSingle(x),
                         Convert.ToSingle(scale* functionValue)));
                     }
-                w.WriteLine($"{i} - {functionValue}");
 
             }
                 try
@@ -256,10 +252,8 @@ namespace MathAnalyser
             {
                 //return;
             }
-            
-            w.WriteLine($"X: {Painter.VisibleClipBounds.X}; Y: {Painter.VisibleClipBounds.Y}; Width: {Painter.VisibleClipBounds.Width}; Height: {Painter.VisibleClipBounds.Height}");
-            w.Close();
-            Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+           // w.Close();
+            Painter.SmoothingMode = SmoothingMode.HighSpeed;
             return Buffer;
 
         }
@@ -329,6 +323,7 @@ namespace MathAnalyser
         public Bitmap DrawCurve(Pen pen,PointF[]Points)
         {
             Painter.SmoothingMode = SmoothingMode.AntiAlias;
+
             Painter.DrawLines(pen, Points);
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             return Buffer;
@@ -393,6 +388,20 @@ namespace MathAnalyser
             Rectangle positionRectangle = new Rectangle(position.X - size / 2, position.Y - size / 2, size, size);
             Painter.FillEllipse(brush, positionRectangle);
             return Buffer;
+        }
+        public Bitmap DrawDots(Depiction p,Bitmap buffer, int size, Color color, PointF[] locations)
+        {
+            Pen pen = new Pen(Color.Yellow);
+            Graphics s = Graphics.FromImage(buffer);
+            s.TranslateTransform(p.CoordinatePlaneLocation.transform.OffsetX, 
+                p.CoordinatePlaneLocation.transform.OffsetY);
+            foreach (PointF location in locations)
+            {
+                RectangleF positionRectangle = new RectangleF(location.X - size / 2, location.Y - size / 2, size, size);
+                s.DrawEllipse(pen, positionRectangle);
+            }
+                return buffer;
+            
         }
     }
 }

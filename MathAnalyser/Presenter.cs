@@ -49,7 +49,7 @@ namespace MathAnalyser
 
             FunctionsToDraw = new List<Curve>();
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
-            pen = new Pen(Color.Red,2);
+            pen = new Pen(Color.YellowGreen,2);
             colordialog = new ColorDialog();
 
             DX = 0;

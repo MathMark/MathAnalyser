@@ -42,6 +42,7 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.colorLabel = new System.Windows.Forms.ToolStripLabel();
+            this.scaleLabel = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -51,6 +52,7 @@
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.SetColorButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripSeparator();
+            this.SetDashStyleButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripSeparator();
             this.traceButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -71,7 +73,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.enterButton = new System.Windows.Forms.Button();
             this.panelButtonLog = new System.Windows.Forms.Button();
             this.panelButtonC = new System.Windows.Forms.Button();
             this.panelButtonArrow = new System.Windows.Forms.Button();
@@ -126,8 +128,6 @@
             this.button49 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
             this.button51 = new System.Windows.Forms.Button();
-            this.SetDashStyleButton = new System.Windows.Forms.ToolStripButton();
-            this.scaleLabel = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -278,6 +278,15 @@
             this.colorLabel.Name = "colorLabel";
             this.colorLabel.Size = new System.Drawing.Size(86, 27);
             // 
+            // scaleLabel
+            // 
+            this.scaleLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.scaleLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.scaleLabel.ForeColor = System.Drawing.SystemColors.Window;
+            this.scaleLabel.Name = "scaleLabel";
+            this.scaleLabel.Size = new System.Drawing.Size(77, 27);
+            this.scaleLabel.Text = "ScaleLabel";
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -389,6 +398,18 @@
             this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // SetDashStyleButton
+            // 
+            this.SetDashStyleButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.SetDashStyleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SetDashStyleButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SetDashStyleButton.ForeColor = System.Drawing.Color.White;
+            this.SetDashStyleButton.Image = ((System.Drawing.Image)(resources.GetObject("SetDashStyleButton.Image")));
+            this.SetDashStyleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SetDashStyleButton.Name = "SetDashStyleButton";
+            this.SetDashStyleButton.Size = new System.Drawing.Size(95, 22);
+            this.SetDashStyleButton.Text = "Set Dash Style";
             // 
             // toolStripButton6
             // 
@@ -599,7 +620,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.enterButton);
             this.tabPage1.Controls.Add(this.panelButtonLog);
             this.tabPage1.Controls.Add(this.panelButtonC);
             this.tabPage1.Controls.Add(this.panelButtonArrow);
@@ -635,17 +656,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             // 
-            // button1
+            // enterButton
             // 
-            this.button1.BackColor = System.Drawing.Color.SteelBlue;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(186, 122);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(53, 23);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "Enter";
-            this.button1.UseVisualStyleBackColor = false;
+            this.enterButton.BackColor = System.Drawing.Color.SteelBlue;
+            this.enterButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.enterButton.ForeColor = System.Drawing.Color.White;
+            this.enterButton.Location = new System.Drawing.Point(186, 122);
+            this.enterButton.Name = "enterButton";
+            this.enterButton.Size = new System.Drawing.Size(53, 23);
+            this.enterButton.TabIndex = 29;
+            this.enterButton.Text = "Enter";
+            this.enterButton.UseVisualStyleBackColor = false;
             // 
             // panelButtonLog
             // 
@@ -1317,27 +1338,6 @@
             this.button51.Text = "sinh";
             this.button51.UseVisualStyleBackColor = false;
             // 
-            // SetDashStyleButton
-            // 
-            this.SetDashStyleButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.SetDashStyleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.SetDashStyleButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SetDashStyleButton.ForeColor = System.Drawing.Color.White;
-            this.SetDashStyleButton.Image = ((System.Drawing.Image)(resources.GetObject("SetDashStyleButton.Image")));
-            this.SetDashStyleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SetDashStyleButton.Name = "SetDashStyleButton";
-            this.SetDashStyleButton.Size = new System.Drawing.Size(95, 22);
-            this.SetDashStyleButton.Text = "Set Dash Style";
-            // 
-            // scaleLabel
-            // 
-            this.scaleLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.scaleLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.scaleLabel.ForeColor = System.Drawing.SystemColors.Window;
-            this.scaleLabel.Name = "scaleLabel";
-            this.scaleLabel.Size = new System.Drawing.Size(77, 27);
-            this.scaleLabel.Text = "ScaleLabel";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1477,7 +1477,7 @@
         private System.Windows.Forms.Button button49;
         private System.Windows.Forms.Button button50;
         private System.Windows.Forms.Button button51;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button enterButton;
         private System.Windows.Forms.ToolStripButton SetDashStyleButton;
         private System.Windows.Forms.ToolStripLabel scaleLabel;
     }

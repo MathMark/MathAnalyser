@@ -102,16 +102,20 @@ namespace MathAnalyser
                 var button = c as Button;
                 if (button != null)
                 {
-                    switch(button.Text)
+                    switch(button.Name)
                     {
-                        case "Enter":
+                        case "enterButton":
                             button.Click += panelButtonEnter_Click;
                             break;
-                        case "<--":
+                        case "panelButtonArrow":
                             button.Click += panelButtonArrow_Click;
                             break;
-                        case "C":
+                        case "panelButtonC":
                             button.Click += panelButtonC_Click;
+                            break;
+                        case "HideWindowButton":
+                            break;
+                        case "MaximizeWindowButton":
                             break;
                         default: button.Click += PanelButton_Click;
                             break;
@@ -301,7 +305,7 @@ namespace MathAnalyser
             SheetSizeChanged(this, e);
         }
 
-        //occurs when user presses some button as textBox is in focus
+        //occurs when user presses some button in case if textBox is focused
         private void TextBox_Function_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)

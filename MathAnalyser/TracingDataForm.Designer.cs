@@ -37,7 +37,8 @@
             this.MoveRightButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.derivativeLabel = new System.Windows.Forms.Label();
-            this.checkBox = new System.Windows.Forms.CheckBox();
+            this.checkBoxDerivative = new System.Windows.Forms.CheckBox();
+            this.checkBoxExt = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.scene)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -149,17 +150,29 @@
             this.derivativeLabel.TabIndex = 8;
             this.derivativeLabel.Text = "f\'(x): ";
             // 
-            // checkBox
+            // checkBoxDerivative
             // 
-            this.checkBox.AutoSize = true;
-            this.checkBox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox.ForeColor = System.Drawing.Color.White;
-            this.checkBox.Location = new System.Drawing.Point(16, 404);
-            this.checkBox.Name = "checkBox";
-            this.checkBox.Size = new System.Drawing.Size(187, 19);
-            this.checkBox.TabIndex = 8;
-            this.checkBox.Text = "Depict derivative curve";
-            this.checkBox.UseVisualStyleBackColor = true;
+            this.checkBoxDerivative.AutoSize = true;
+            this.checkBoxDerivative.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDerivative.ForeColor = System.Drawing.Color.White;
+            this.checkBoxDerivative.Location = new System.Drawing.Point(16, 404);
+            this.checkBoxDerivative.Name = "checkBoxDerivative";
+            this.checkBoxDerivative.Size = new System.Drawing.Size(187, 19);
+            this.checkBoxDerivative.TabIndex = 8;
+            this.checkBoxDerivative.Text = "Depict derivative curve";
+            this.checkBoxDerivative.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxExt
+            // 
+            this.checkBoxExt.AutoSize = true;
+            this.checkBoxExt.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxExt.ForeColor = System.Drawing.Color.White;
+            this.checkBoxExt.Location = new System.Drawing.Point(16, 430);
+            this.checkBoxExt.Name = "checkBoxExt";
+            this.checkBoxExt.Size = new System.Drawing.Size(138, 19);
+            this.checkBoxExt.TabIndex = 9;
+            this.checkBoxExt.Text = "Depict extremums";
+            this.checkBoxExt.UseVisualStyleBackColor = true;
             // 
             // TracingDataForm
             // 
@@ -167,7 +180,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(604, 461);
-            this.Controls.Add(this.checkBox);
+            this.Controls.Add(this.checkBoxExt);
+            this.Controls.Add(this.checkBoxDerivative);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MoveRightButton);
             this.Controls.Add(this.MoveLeftButton);
@@ -194,6 +208,7 @@
         private System.Windows.Forms.Button MoveRightButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label derivativeLabel;
-        private System.Windows.Forms.CheckBox checkBox;
+        private System.Windows.Forms.CheckBox checkBoxDerivative;
+        private System.Windows.Forms.CheckBox checkBoxExt;
     }
 }

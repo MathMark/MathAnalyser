@@ -66,7 +66,11 @@ namespace MathAnalyser
         Bitmap buffer;
 
         bool derivativeDepiction;
+        bool extremumDepiction;
         Pen penForDerivativeCurve;
+
+        PointF[] derivativeValues;
+        PointF[] extremumValues;
 
         public TracingDataForm()
         {
@@ -112,9 +116,34 @@ namespace MathAnalyser
             this.LostFocus += TracingDataForm_LostFocus;
 
             derivativeDepiction = false;
-            checkBox.CheckedChanged += CheckBox_CheckedChanged;
+            extremumDepiction = false;
+            checkBoxDerivative.CheckedChanged += CheckBox_CheckedChanged;
+            checkBoxExt.CheckedChanged += CheckBoxExt_CheckedChanged;
+
             penForDerivativeCurve = new Pen(Color.CadetBlue, 2);
             penForDerivativeCurve.DashStyle=DashStyle.Dash;
+
+            derivativeValues = Parser.FindDerivativeValues(FunctionPostfix, Scale,
+                    Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge);
+            extremumValues = Parser.FindExtrermums(FunctionPostfix, Scale, derivativeValues);
+        }
+
+        private void CheckBoxExt_CheckedChanged(object sender, EventArgs e)
+        {
+            extremumDepiction = !extremumDepiction;
+            if(extremumDepiction)
+            {
+                Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
+            }
+            else
+            {
+                DrawScene(Color.FromArgb(30, 121, 120, 122),
+                       Color.FromArgb(155, 121, 120, 122),
+                       Scale);
+                Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
+                
+            }
+            buffer = new Bitmap(Scene);
         }
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
@@ -122,8 +151,7 @@ namespace MathAnalyser
             derivativeDepiction = !derivativeDepiction;
             if (derivativeDepiction)
             {
-                Scene = Painter.DrawCurve(penForDerivativeCurve, Parser.FindDerivativeValues(FunctionPostfix, Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
-                buffer = new Bitmap(Scene);
+                Scene = Painter.DrawCurve(penForDerivativeCurve, derivativeValues);
             }
             else
             {
@@ -133,6 +161,9 @@ namespace MathAnalyser
                 Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
                 buffer = new Bitmap(Scene);
             }
+            
+
+
         }
 
         private void FunctionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -144,9 +175,12 @@ namespace MathAnalyser
         {
             //the code keeps focus only on the form
             if((MoveLeftButton.Focused)||
-                (MoveRightButton.Focused)||checkBox.Focused)
+                (MoveRightButton.Focused)||
+                checkBoxDerivative.Focused||
+                checkBoxExt.Focused
+                )
             {
-                Focus();
+                this.Focus();
             }   
         }
 

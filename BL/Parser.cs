@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 
 
 namespace BL
@@ -349,7 +350,10 @@ namespace BL
                             }
                         }
                     }
-
+            //if(stack.Count!=1)
+            //{
+            //    throw new Exception("Wrong line");
+            //}
             //return (float)Math.Round(stack.Pop(),2);
             return (float)stack.Pop();
         }
@@ -371,25 +375,55 @@ namespace BL
         }
         public static float FindDerivativeInPoint(string RPNfunction, float point)
         {
-            float result=(float)((GetValue(RPNfunction,point+0.0001)- GetValue(RPNfunction, point))/0.0001);
-            return (float)Math.Round(result,4);
+            float dx = 0.001f;
+
+            float result=(float)((GetValue(RPNfunction,point+dx)- GetValue(RPNfunction, point))/dx);
+            return result;
+           // return (float)Math.Round(result + 0.001, 3);
         }
        public static PointF[] FindDerivativeValues(string RPNfunction,int scale,int from,int to)
         {
             List<PointF> coordinates = new List<PointF>();
             int i=0;
             float value;
+            StreamWriter w = new StreamWriter("D:\\outx.txt");
             for (double x = from; x <to; i ++, x += 0.1)
             {
                 //calculate values
                 value = -scale * FindDerivativeInPoint(RPNfunction, (float)(x / scale));
-                //filer the NaN values 
-                if(value.ToString()!="NaN")
+                //filer the NaN values
+                w.WriteLine(value);
+                if (value>1000&&!float.IsInfinity(value))
                 {
-                    coordinates.Add(new PointF((float)(x), value));
+                    value = 1000;
+                }
+                else if(value<-1000 && !float.IsInfinity(value))
+                {
+                    value = -1000;
+                }
+                 
+                if(value.ToString()!="NaN"||float.IsInfinity(value))
+                {
+                    coordinates.Add(new PointF((float)(x),value));
+                    
                 }
             }
+            w.Close();
             PointF[] result=coordinates.ToArray();
+            return result;
+        }
+        public static PointF[]FindExtrermums(string RPNfunction,int scale,PointF[]derivativeValues)
+        {
+            List<PointF> extremumPointsList = new List<PointF>();
+            float EPS = 0.1f;
+            foreach(PointF point in derivativeValues)
+            {
+                if(Math.Abs(point.Y)<EPS)
+                {
+                    extremumPointsList.Add(new PointF(point.X, -scale*GetValue(RPNfunction, point.X/scale)));
+                }
+            }
+            PointF[] result = extremumPointsList.ToArray();
             return result;
         }
     }
