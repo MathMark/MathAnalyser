@@ -52,8 +52,20 @@ namespace MathAnalyser
             pen = new Pen(Color.YellowGreen,2);
             colordialog = new ColorDialog();
 
+            View.CenterButtonClick += View_CenterButtonClick;
+
             DX = 0;
             DY = 0;
+        }
+
+        private void View_CenterButtonClick(object sender, EventArgs e)
+        {
+            depiction = new Depiction(View.SheetWidth, View.SheetHeight);
+            depiction.Clear();
+            View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
+            View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
+
+            DrawFunctionsInList();
         }
 
         private void View_ParametricFunctionFormOkPressed(string arg1, string arg2)
@@ -111,8 +123,10 @@ namespace MathAnalyser
                 {
                     if(function.Type=="explicit")
                     {
-                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
-                            function.FirstPostfixExpression);
+                        // View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
+                        // function.FirstPostfixExpression);
+                        View.Sheet = depiction.DrawCurve(function.CurvePen, Parser.GetValues(function.FirstPostfixExpression,
+                            scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
                     }
                     else
                     {
@@ -148,8 +162,10 @@ namespace MathAnalyser
                 {
                     if(function.Type=="explicit")
                     {
-                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
-                        function.FirstPostfixExpression);
+                        //View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
+                        // function.FirstPostfixExpression);
+                        View.Sheet = depiction.DrawCurve(function.CurvePen, Parser.GetValues(function.FirstPostfixExpression,
+                             scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
                     }
                     else
                     {
@@ -268,7 +284,9 @@ namespace MathAnalyser
                 if (!Exists(View.InputData))
                 {
                     Postfix = Parser.ConvertToPostfix(View.InputData);
-                    View.Sheet = depiction.DrawCurve(pen, scale, Postfix);
+                    // View.Sheet = depiction.DrawCurve(pen, scale, Postfix);
+                    View.Sheet = depiction.DrawCurve(pen, Parser.GetValues(Postfix,
+                             scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
 
                     FunctionsToDraw.Add(new Curve(View.InputData, Postfix, pen.Color, pen.Width, pen.DashStyle));
 
@@ -281,8 +299,8 @@ namespace MathAnalyser
             }
             catch(InvalidOperationException)
             {
-                View.MessageBoard += "InvalidOperationException - Stack is empty";
-                View.MessageBoard += "Hint: The argument might have been forgotten";
+               // View.MessageBoard += "InvalidOperationException - Stack is empty";
+                //View.MessageBoard += "Hint: The argument might have been forgotten";
             }
             catch(Exception exception)
             {

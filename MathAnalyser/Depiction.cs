@@ -186,7 +186,7 @@ namespace MathAnalyser
             return Buffer;
         }
         
-        public Bitmap DrawCurve(Pen pen,int scale, string PostfixFunction)
+        public Bitmap DrawCurveq(Pen pen,int scale, string PostfixFunction)
         {
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             float functionValue;
@@ -323,12 +323,46 @@ namespace MathAnalyser
         public Bitmap DrawCurve(Pen pen,PointF[]Points)
         {
             Painter.SmoothingMode = SmoothingMode.AntiAlias;
+            List<PointF> coordinatesList = new List<PointF>();
+            PointF[] coordinates;
+            foreach (PointF point in Points)
+            {
+                if ((float.IsInfinity(point.Y)) || (point.Y.ToString() == "NaN"))
+                {
+                    if (coordinatesList.Count != 0)
+                    {
+                        coordinates = new PointF[coordinatesList.Count];
+                        coordinates = coordinatesList.ToArray();
+                        try
+                        {
+                            Painter.DrawLines(pen, coordinates);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        coordinatesList.Clear();
 
-            Painter.DrawLines(pen, Points);
+                    }
+                    continue;
+                }
+                else
+                {
+                    coordinatesList.Add(point);
+                }
+            }
+            if (coordinatesList.Count != 0)
+            {
+                coordinates = new PointF[coordinatesList.Count];
+                coordinates = coordinatesList.ToArray();
+                Painter.DrawCurve(pen, coordinates);
+            }
+            // Painter.DrawLines(pen, Points);
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             return Buffer;
         }
- 
+
+
 
         public Bitmap SetCross(Bitmap d,Pen pen,int offset, float crossPoint)
         {

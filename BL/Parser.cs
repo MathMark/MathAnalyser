@@ -357,7 +357,32 @@ namespace BL
             //return (float)Math.Round(stack.Pop(),2);
             return (float)stack.Pop();
         }
-
+        public static PointF[] GetValues(string PostfixExpression,int scale,int from,int to)
+        {
+            List<PointF> coordinates = new List<PointF>();
+            float argument;
+            float value;
+            StreamWriter w = new StreamWriter("D:\\o.txt");
+            for (float x = from; x < to; x += 0.1f)
+            {
+                argument = (float)Math.Round(x / scale, 2);
+                value=(-scale * GetValue(PostfixExpression, argument));
+                if(Single.IsInfinity(value))
+                {
+                    coordinates.Add(new PointF(x, value));
+                }
+                else
+                {
+                    if (value < 1073741951 && value > -1073741760)
+                    {
+                        coordinates.Add(new PointF(x, value));
+                    }
+                }
+                
+            }
+            w.Close();
+            return coordinates.ToArray();
+        }
         public static float[,] GetDataSet(string RPNfunction,int from,int to,float increment)
         {
             int dimention_0 = (int)((to - from) / increment);
@@ -386,13 +411,13 @@ namespace BL
             List<PointF> coordinates = new List<PointF>();
             int i=0;
             float value;
-            StreamWriter w = new StreamWriter("D:\\outx.txt");
+            
             for (double x = from; x <to; i ++, x += 0.1)
             {
                 //calculate values
                 value = -scale * FindDerivativeInPoint(RPNfunction, (float)(x / scale));
                 //filer the NaN values
-                w.WriteLine(value);
+                
                 if (value>1000&&!float.IsInfinity(value))
                 {
                     value = 1000;
@@ -408,7 +433,7 @@ namespace BL
                     
                 }
             }
-            w.Close();
+            
             PointF[] result=coordinates.ToArray();
             return result;
         }

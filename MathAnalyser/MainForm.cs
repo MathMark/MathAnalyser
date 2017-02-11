@@ -26,12 +26,14 @@ namespace MathAnalyser
         event EventHandler DeleteFunctionsButtonPressed;
         event Action<string> DeleteFunctionButtonPressed;
         event Action<string> ChangeColorButtonPressed;
-
+        
         event Action<int,int> MoveGraph;
         event Action<int, int> FinishMoving;
 
         event Action<string, decimal> ChildFormOkPressed;
-        event Action<string, string> ParametricFunctionFormOkPressed; 
+        event Action<string, string> ParametricFunctionFormOkPressed;
+
+        event EventHandler CenterButtonClick;
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -51,6 +53,8 @@ namespace MathAnalyser
         public event Action<int, int> FinishMoving;
         public event Action<string, decimal> ChildFormOkPressed;
         public event Action<string, string> ParametricFunctionFormOkPressed;
+
+        public event EventHandler CenterButtonClick;
 
         public MainForm()
         {
@@ -91,8 +95,15 @@ namespace MathAnalyser
             DeleteFunctionFromListButton.Click += DeleteFunctionFromListButton_Click;
             ChangeColorButton.Click += ChangeColorButton_Click;
             ParametricFunctionButton.Click += ParametricFunctionButton_Click;
+            centerButton.Click += CenterButton_Click;
 
         }
+
+        private void CenterButton_Click(object sender, EventArgs e)
+        {
+            CenterButtonClick(this, e);
+        }
+
         private void Searcher(Control control)
         {
             foreach (Control c in control.Controls)

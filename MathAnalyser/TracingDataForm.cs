@@ -98,7 +98,11 @@ namespace MathAnalyser
                       Color.FromArgb(155, 121, 120, 122),
                       scale);
 
-            Scene = Painter.DrawCurve(penForCurve, scale, FunctionPostfix);
+            //////Scene = Painter.DrawCurve(penForCurve, scale, FunctionPostfix);
+
+            Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
+                            scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+
             buffer =new Bitmap(Scene);
 
             this.MouseDown += TracingDataForm_MouseDown;
@@ -140,8 +144,10 @@ namespace MathAnalyser
                 DrawScene(Color.FromArgb(30, 121, 120, 122),
                        Color.FromArgb(155, 121, 120, 122),
                        Scale);
-                Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
-                
+                //// Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
+                Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
+                             Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+
             }
             buffer = new Bitmap(Scene);
         }
@@ -158,7 +164,9 @@ namespace MathAnalyser
                 DrawScene(Color.FromArgb(30, 121, 120, 122),
                        Color.FromArgb(155, 121, 120, 122),
                        Scale);
-                Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
+                /// Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
+                Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
+                             Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                 buffer = new Bitmap(Scene);
             }
             

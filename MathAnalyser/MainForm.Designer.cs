@@ -40,7 +40,7 @@
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.centerButton = new System.Windows.Forms.ToolStripButton();
             this.colorLabel = new System.Windows.Forms.ToolStripLabel();
             this.scaleLabel = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -236,7 +236,7 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator3,
             this.toolStripLabel2,
-            this.toolStripButton4,
+            this.centerButton,
             this.colorLabel,
             this.scaleLabel});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
@@ -259,17 +259,17 @@
             this.toolStripLabel2.Size = new System.Drawing.Size(105, 27);
             this.toolStripLabel2.Text = "Graph Explorer";
             // 
-            // toolStripButton4
+            // centerButton
             // 
-            this.toolStripButton4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripButton4.ForeColor = System.Drawing.Color.White;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(47, 27);
-            this.toolStripButton4.Text = "Center";
+            this.centerButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.centerButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.centerButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.centerButton.ForeColor = System.Drawing.Color.White;
+            this.centerButton.Image = ((System.Drawing.Image)(resources.GetObject("centerButton.Image")));
+            this.centerButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.centerButton.Name = "centerButton";
+            this.centerButton.Size = new System.Drawing.Size(47, 27);
+            this.centerButton.Text = "Center";
             // 
             // colorLabel
             // 
@@ -1415,7 +1415,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripButton1;
         private System.Windows.Forms.ToolStripButton ChangeColorButton;
         private System.Windows.Forms.ToolStripSeparator toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripButton centerButton;
         private System.Windows.Forms.ToolStripSeparator toolStripButton5;
         private System.Windows.Forms.ToolStripSeparator toolStripButton6;
         private System.Windows.Forms.ToolStripButton ParametricFunctionButton;
