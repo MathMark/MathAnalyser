@@ -155,7 +155,21 @@ namespace MathAnalyser
 
         private void panelButtonEnter_Click(object sender, EventArgs e)
         {
-            EnterPressed(this, e);
+            if (CheckClosedBrackets(InputData) == true)
+            {
+                EnterPressed(this, EventArgs.Empty);
+            }
+            else
+            {
+                try
+                {
+                    throw new Exception("Cannot depict function: amount of opened and closed brackets doesn't coinside");
+                }
+                catch (Exception exception)
+                {
+                    MessageBoard += exception.Message;
+                }
+            }
         }
 
         private void PanelButton_Click(object sender, EventArgs e)
@@ -183,6 +197,25 @@ namespace MathAnalyser
                 DeleteFunctionButtonPressed(functionListBox.SelectedItems[0].Text);
                 functionListBox.Items.Remove(functionListBox.SelectedItems[0]);
             }
+        }
+        private bool CheckClosedBrackets(string line)
+        {
+            int counter = 0;
+            foreach(char token in line)
+            {
+                switch(token)
+                {
+                    case '(':
+                        counter++;
+                        break;
+                    case ')':
+                        counter--;
+                        break;
+                    default:break;
+                }
+            }
+            if (counter != 0) return false;
+            return true;
         }
 
         private void FunctionsForTrace_SelectedIndexChanged(object sender, EventArgs e)
@@ -321,8 +354,21 @@ namespace MathAnalyser
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                EnterPressed(this, EventArgs.Empty);
-
+                if(CheckClosedBrackets(InputData)==true)
+                {
+                    EnterPressed(this, EventArgs.Empty);
+                }
+                else
+                {
+                    try
+                    {
+                        throw new Exception("Cannot depict function: amount of opened and closed brackets doesn't coinside");
+                    }
+                    catch(Exception exception)
+                    {
+                        MessageBoard += exception.Message;
+                    }
+                }
             }
             
         }

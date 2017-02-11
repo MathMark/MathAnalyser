@@ -16,7 +16,7 @@ namespace BL
     {
         static string[] Statements = {"sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
             "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
-            "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch"};
+            "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch","lg"};
 
         static char[] Constants = { 'x', 'p', 'e', '\u03c0' };
         static char[] Operators = { '~','+', '-', '/', '*', '^' , '\u00d7' };
@@ -228,6 +228,9 @@ namespace BL
                             case "cot":
                             stack.Push(Functions.Cotan(variable));
                             break;
+                        case "lg":
+                            stack.Push(Math.Log10(variable));
+                            break;
                             case "аbs":
                                 stack.Push(Math.Abs(variable));
                                 break;
@@ -375,6 +378,7 @@ namespace BL
                 {
                     if (value < 1073741951 && value > -1073741760)
                     {
+                        w.WriteLine(value);
                         coordinates.Add(new PointF(x, value));
                     }
                 }
