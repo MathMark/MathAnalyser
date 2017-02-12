@@ -55,7 +55,6 @@ namespace MathAnalyser
         }
         private Color GenerateColor()
         {
-            List<Color> colors = new List<Color>();
             Random randomColor = new Random();
             int red = randomColor.Next(0, 255);
             int green = randomColor.Next(0, 255);
@@ -127,8 +126,6 @@ namespace MathAnalyser
                 {
                     if(function.Type=="explicit")
                     {
-                        // View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
-                        // function.FirstPostfixExpression);
                         View.Sheet = depiction.DrawCurve(function.CurvePen, Parser.GetValues(function.FirstPostfixExpression,
                             scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
                     }
@@ -166,8 +163,6 @@ namespace MathAnalyser
                 {
                     if(function.Type=="explicit")
                     {
-                        //View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
-                        // function.FirstPostfixExpression);
                         View.Sheet = depiction.DrawCurve(function.CurvePen, Parser.GetValues(function.FirstPostfixExpression,
                              scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
                     }
@@ -210,11 +205,7 @@ namespace MathAnalyser
         private void View_FinishMoving(int dx, int dy)
         {
             depiction.StartPosition = new Point(dx,dy);
-           // DX = dx;
-           // DY = dy;
-
             DrawFunctionsInList();
-
         }
 
         private void View_MoveGraph(int dx, int dy)
@@ -222,8 +213,7 @@ namespace MathAnalyser
             depiction.Clear();
             View.Sheet = depiction.BuildAxes(ColorAxes, 2, dx, dy);
             View.Sheet = depiction.BuildNet(ColorNet, scale,dx,dy);
-
-          //  View.Sheet = p.SetNumberNet(scale,dx,dy);           
+          
         }
 
         private void View_SetDashStyle(object sender, EventArgs e)
@@ -292,7 +282,6 @@ namespace MathAnalyser
                         colorIsSet = false;
                     }
                     Postfix = Parser.ConvertToPostfix(View.InputData);
-                    // View.Sheet = depiction.DrawCurve(pen, scale, Postfix);
                     View.Sheet = depiction.DrawCurve(pen, Parser.GetValues(Postfix,
                              scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
 
@@ -307,8 +296,8 @@ namespace MathAnalyser
             }
             catch(InvalidOperationException)
             {
-               // View.MessageBoard += "InvalidOperationException - Stack is empty";
-                //View.MessageBoard += "Hint: The argument might have been forgotten";
+                View.MessageBoard += "InvalidOperationException - Stack is empty";
+                View.MessageBoard += "Hint: The argument might have been forgotten";
             }
             catch(Exception exception)
             {

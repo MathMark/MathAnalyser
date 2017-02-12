@@ -13,8 +13,6 @@ namespace MathAnalyser
         int SheetWidth { get; }
         int SheetHeight { get; }
         bool TraceMode { get; set; }
-        Bitmap ColorLabel { set; }
-
 
         void AddfunctionInListBox(string function, Color backgroundColor);
 
@@ -440,31 +438,10 @@ namespace MathAnalyser
                 return textBox_Function.Text;
             }
         }
-        public Bitmap ColorLabel
-        {
-            set
-            {
-                colorLabel.Image = value;
-            }
-        }
-
-
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             
-        }
-
-        private void TrigonometryStatementsButton_Click(object sender, EventArgs e)
-        {
-           // TrigonometryStatementsPanel statementsPanel = new TrigonometryStatementsPanel(this);
-            //statementsPanel.Show();
-        }
-
-        private void HyperbolicalStatementsButton_Click(object sender, EventArgs e)
-        {
-           // HyperbolicalStatementsPanel hyperbolicalPanel = new HyperbolicalStatementsPanel(this);
-           // hyperbolicalPanel.Show();
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -518,14 +495,5 @@ namespace MathAnalyser
             MessageBoard = string.Empty;
         }
 
-        private void button30_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

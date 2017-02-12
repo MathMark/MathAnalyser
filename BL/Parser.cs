@@ -14,9 +14,9 @@ namespace BL
 
     public class Parser 
     {
-        static string[] Statements = {"sqrt","abs","sin","cos","tan","cot","arcsin","arccos","arctan","arccot","sinh","cosh",
+        static string[] Statements = {"sqrt","abs","sin","cos","tan","cot","asin","acos","atan","acot","sinh","cosh",
             "tanh","cth","arsinh","arcosh","artanh","arcth","ln","log","sign","rem",
-            "sec","csc","arcsec","arcsc","sech","csch","arsech","arcsch","lg"};
+            "sec","csc","asec","acsc","sech","csch","arsech","arcsch","lg","trun"};
 
         static char[] Constants = { 'x', 'p', 'e', '\u03c0' };
         static char[] Operators = { '~','+', '-', '/', '*', '^' , '\u00d7' };
@@ -198,6 +198,9 @@ namespace BL
                         double variable = Convert.ToDouble(stack.Pop());
                         switch (token)
                         {
+                            case "trun":
+                                stack.Push(MathFunctions.Trun(variable));
+                                break;
                             case "sqrt":
                                 stack.Push(Math.Sqrt(variable));
                                 break;
@@ -205,28 +208,28 @@ namespace BL
                                 stack.Push(Math.Abs(variable));
                                 break;
                             case "sin":
-                                stack.Push(Math.Sin(variable));
+                                stack.Push(MathFunctions.Sin(variable));
                                 break;
                             case "sinh":
-                                stack.Push(Functions.Sinh(variable));
+                                stack.Push(MathFunctions.Sinh(variable));
                                 break;
                             case "cosh":
                                 stack.Push(Math.Cosh(variable));
                                 break;
                             case "cos":
-                                stack.Push(Functions.Cos(variable));
+                                stack.Push(MathFunctions.Cos(variable));
                                 break;
                             case "cth":
-                                stack.Push(1 / Math.Tanh(variable));
+                                stack.Push(MathFunctions.Cth(variable));
                                 break;
                             case "tanh":
                                 stack.Push(Math.Tanh(variable));
                                 break;
                             case "tan":
-                                stack.Push(Functions.Tan(variable));
+                                stack.Push(MathFunctions.Tan(variable));
                                 break;
                             case "cot":
-                            stack.Push(Functions.Cotan(variable));
+                            stack.Push(MathFunctions.Cotan(variable));
                             break;
                         case "lg":
                             stack.Push(Math.Log10(variable));
@@ -238,61 +241,61 @@ namespace BL
                                 stack.Push(Math.Log(variable));
                                 break;
                             case "arsinh":
-                                stack.Push(Math.Log(variable + Math.Sqrt(variable * variable + 1)));
+                                stack.Push(MathFunctions.Arsinh(variable));
                                 break;
-                            case "arcsin":
+                            case "asin":
                                 stack.Push(Math.Asin(variable));
                                 break;
                             case "arcosh":
-                                stack.Push(Math.Log(variable + Math.Sqrt(variable + 1) * Math.Sqrt(variable - 1)));
+                                stack.Push(MathFunctions.Arcosh(variable));
                                 break;
-                            case "arccos":
+                            case "acos":
                                 stack.Push(Math.Acos(variable));
                                 break;
                             case "artanh":
-                                stack.Push(Math.Log((variable + 1) / (variable - 1)) / 2);
+                                stack.Push(MathFunctions.Artanh(variable));
                                 break;
-                            case "arccot":
-                                stack.Push(Math.Atan(-1 * variable) + Math.PI / 2);
+                            case "acot":
+                                stack.Push(MathFunctions.Acot(variable));
                                 break;
                             case "arcth":
-                                stack.Push(Math.Log((variable + 1) / (1 - variable)) / 2);
+                                stack.Push(MathFunctions.Arcth(variable));
                                 break;
-                            case "arctan":
+                            case "atan":
                                 stack.Push(Math.Atan(variable));
                                 break;
                             case "log":
                                 stack.Push(Math.Log(Convert.ToDouble(stack.Pop()), variable));
                                 break;
                             case "sign":
-                                stack.Push(Functions.Sign(variable));
+                                stack.Push(MathFunctions.Sign(variable));
                                 break;
                             case "rem":
-                                stack.Push(Convert.ToDouble(stack.Pop()) % variable);
-                                break;
+                            stack.Push(MathFunctions.Rem(stack.Pop(),variable));
+                            break;
                             case "sec":
-                                stack.Push(Functions.Sec(variable));
+                                stack.Push(MathFunctions.Sec(variable));
                                 break;
                             case "csc":
-                                stack.Push(Functions.Csc(variable));
+                                stack.Push(MathFunctions.Csc(variable));
                                 break;
-                            case "arcsec":
-                                stack.Push(Functions.Arcsec(variable));
+                            case "asec":
+                                stack.Push(MathFunctions.Arcsec(variable));
                                 break;
-                            case "arccsc":
-                                stack.Push(Math.Asin(1 / variable));
+                            case "acsc":
+                                stack.Push(MathFunctions.Acsc(variable));
                                 break;
                             case "sech":
-                                stack.Push(1 / Math.Cosh(variable));
+                                stack.Push(MathFunctions.Sech(variable));
                                 break;
                             case "csch":
-                                stack.Push(1 / Math.Sinh(variable));
+                                stack.Push(MathFunctions.Csch(variable));
                                 break;
                             case "arsech":
-                                stack.Push(Math.Log(1 / variable + Math.Sqrt(1 / variable + 1) * Math.Sqrt(1 / variable - 1)));
+                                stack.Push(MathFunctions.Arsech(variable));
                                 break;
                             case "arcsch":
-                                stack.Push(Math.Log(1 / variable + Math.Sqrt(1 / variable * variable + 1)));
+                                stack.Push(MathFunctions.Arcsch(variable));
                                 break;
                             default:
                                 throw new Exception(String.Format("The line contains unknown operator: {0}",token));
@@ -369,18 +372,20 @@ namespace BL
             StreamWriter w = new StreamWriter("D:\\o.txt");
             for (float x = from; x < to; x += 0.1f)
             {
-                argument = (float)Math.Round(x / scale, 2);
+                argument = (float)Math.Round((float)Math.Round(x, 1) / scale, 2);
+                argument = (float)Math.Round(x, 1) / scale;
                 value=(-scale * GetValue(PostfixExpression, argument));
                 value = (float)Math.Round(value, 6);
-                if(Single.IsInfinity(value))
+               // w.WriteLine($"{argument} - {value}");
+                if (Single.IsInfinity(value))
                 {
                     coordinates.Add(new PointF(x, value));
                 }
                 else
                 {
-                    if (value < MaxValue && value > MinValue)
+                    if (value.ToString()=="NaN"||(value < MaxValue && value > MinValue))
                     {
-                        w.WriteLine(value);
+                        w.WriteLine($"{argument} - {value}");
                         coordinates.Add(new PointF(x, value));
                     }
                 }

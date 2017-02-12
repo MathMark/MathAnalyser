@@ -41,8 +41,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.centerButton = new System.Windows.Forms.ToolStripButton();
-            this.colorLabel = new System.Windows.Forms.ToolStripLabel();
-            this.scaleLabel = new System.Windows.Forms.ToolStripLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -236,9 +234,7 @@
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator3,
             this.toolStripLabel2,
-            this.centerButton,
-            this.colorLabel,
-            this.scaleLabel});
+            this.centerButton});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -270,22 +266,6 @@
             this.centerButton.Name = "centerButton";
             this.centerButton.Size = new System.Drawing.Size(47, 27);
             this.centerButton.Text = "Center";
-            // 
-            // colorLabel
-            // 
-            this.colorLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.colorLabel.AutoSize = false;
-            this.colorLabel.Name = "colorLabel";
-            this.colorLabel.Size = new System.Drawing.Size(86, 27);
-            // 
-            // scaleLabel
-            // 
-            this.scaleLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.scaleLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.scaleLabel.ForeColor = System.Drawing.SystemColors.Window;
-            this.scaleLabel.Name = "scaleLabel";
-            this.scaleLabel.Size = new System.Drawing.Size(77, 27);
-            this.scaleLabel.Text = "ScaleLabel";
             // 
             // tableLayoutPanel1
             // 
@@ -1025,7 +1005,6 @@
             this.tabPage2.Size = new System.Drawing.Size(247, 152);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Trig";
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // button34
             // 
@@ -1036,7 +1015,7 @@
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(69, 23);
             this.button34.TabIndex = 34;
-            this.button34.Text = "arccot";
+            this.button34.Text = "acot";
             this.button34.UseVisualStyleBackColor = false;
             // 
             // button35
@@ -1060,7 +1039,7 @@
             this.button36.Name = "button36";
             this.button36.Size = new System.Drawing.Size(69, 23);
             this.button36.TabIndex = 32;
-            this.button36.Text = "arctan";
+            this.button36.Text = "atan";
             this.button36.UseVisualStyleBackColor = false;
             // 
             // button37
@@ -1072,7 +1051,7 @@
             this.button37.Name = "button37";
             this.button37.Size = new System.Drawing.Size(68, 23);
             this.button37.TabIndex = 31;
-            this.button37.Text = "arccos";
+            this.button37.Text = "acos";
             this.button37.UseVisualStyleBackColor = false;
             // 
             // button38
@@ -1084,7 +1063,7 @@
             this.button38.Name = "button38";
             this.button38.Size = new System.Drawing.Size(69, 23);
             this.button38.TabIndex = 30;
-            this.button38.Text = "arcsin";
+            this.button38.Text = "asin";
             this.button38.UseVisualStyleBackColor = false;
             // 
             // button39
@@ -1132,7 +1111,7 @@
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(69, 23);
             this.button31.TabIndex = 26;
-            this.button31.Text = "arcsec";
+            this.button31.Text = "asec";
             this.button31.UseVisualStyleBackColor = false;
             // 
             // button30
@@ -1144,9 +1123,8 @@
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(69, 23);
             this.button30.TabIndex = 25;
-            this.button30.Text = "arccsc";
+            this.button30.Text = "acsc";
             this.button30.UseVisualStyleBackColor = false;
-            this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
             // button29
             // 
@@ -1203,7 +1181,7 @@
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(69, 23);
             this.button40.TabIndex = 46;
-            this.button40.Text = "arccot";
+            this.button40.Text = "arcth";
             this.button40.UseVisualStyleBackColor = false;
             // 
             // button41
@@ -1227,7 +1205,7 @@
             this.button42.Name = "button42";
             this.button42.Size = new System.Drawing.Size(69, 23);
             this.button42.TabIndex = 44;
-            this.button42.Text = "arctan";
+            this.button42.Text = "artanh";
             this.button42.UseVisualStyleBackColor = false;
             // 
             // button43
@@ -1239,7 +1217,7 @@
             this.button43.Name = "button43";
             this.button43.Size = new System.Drawing.Size(68, 23);
             this.button43.TabIndex = 43;
-            this.button43.Text = "arccos";
+            this.button43.Text = "arcosh";
             this.button43.UseVisualStyleBackColor = false;
             // 
             // button44
@@ -1251,7 +1229,7 @@
             this.button44.Name = "button44";
             this.button44.Size = new System.Drawing.Size(69, 23);
             this.button44.TabIndex = 42;
-            this.button44.Text = "arcsin";
+            this.button44.Text = "arsinh";
             this.button44.UseVisualStyleBackColor = false;
             // 
             // button45
@@ -1273,9 +1251,9 @@
             this.button46.ForeColor = System.Drawing.Color.White;
             this.button46.Location = new System.Drawing.Point(150, 21);
             this.button46.Name = "button46";
-            this.button46.Size = new System.Drawing.Size(41, 23);
+            this.button46.Size = new System.Drawing.Size(65, 23);
             this.button46.TabIndex = 40;
-            this.button46.Text = "csc";
+            this.button46.Text = "sech";
             this.button46.UseVisualStyleBackColor = false;
             // 
             // button47
@@ -1299,7 +1277,7 @@
             this.button48.Name = "button48";
             this.button48.Size = new System.Drawing.Size(69, 23);
             this.button48.TabIndex = 38;
-            this.button48.Text = "arcsec";
+            this.button48.Text = "arsech";
             this.button48.UseVisualStyleBackColor = false;
             // 
             // button49
@@ -1311,7 +1289,7 @@
             this.button49.Name = "button49";
             this.button49.Size = new System.Drawing.Size(69, 23);
             this.button49.TabIndex = 37;
-            this.button49.Text = "arccsc";
+            this.button49.Text = "arcsch";
             this.button49.UseVisualStyleBackColor = false;
             // 
             // button50
@@ -1321,9 +1299,9 @@
             this.button50.ForeColor = System.Drawing.Color.White;
             this.button50.Location = new System.Drawing.Point(151, 50);
             this.button50.Name = "button50";
-            this.button50.Size = new System.Drawing.Size(41, 23);
+            this.button50.Size = new System.Drawing.Size(64, 23);
             this.button50.TabIndex = 36;
-            this.button50.Text = "sec";
+            this.button50.Text = "csch";
             this.button50.UseVisualStyleBackColor = false;
             // 
             // button51
@@ -1444,7 +1422,6 @@
         private System.Windows.Forms.Button panelButtonPlus;
         private System.Windows.Forms.Button panelButtonRoot;
         private System.Windows.Forms.Button panelButtonX;
-        private System.Windows.Forms.ToolStripLabel colorLabel;
         private System.Windows.Forms.Button panelButtonLn;
         private System.Windows.Forms.Button panelButtonLg;
         private System.Windows.Forms.Button panelButtonLog;
@@ -1479,7 +1456,6 @@
         private System.Windows.Forms.Button button51;
         private System.Windows.Forms.Button enterButton;
         private System.Windows.Forms.ToolStripButton SetDashStyleButton;
-        private System.Windows.Forms.ToolStripLabel scaleLabel;
     }
 }
 
