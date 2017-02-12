@@ -126,6 +126,8 @@
             this.button49 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
             this.button51 = new System.Windows.Forms.Button();
+            this.panelButtonRem = new System.Windows.Forms.Button();
+            this.panelButtonTrun = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -600,6 +602,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.tabPage1.Controls.Add(this.panelButtonTrun);
+            this.tabPage1.Controls.Add(this.panelButtonRem);
             this.tabPage1.Controls.Add(this.enterButton);
             this.tabPage1.Controls.Add(this.panelButtonLog);
             this.tabPage1.Controls.Add(this.panelButtonC);
@@ -1316,6 +1320,30 @@
             this.button51.Text = "sinh";
             this.button51.UseVisualStyleBackColor = false;
             // 
+            // panelButtonRem
+            // 
+            this.panelButtonRem.BackColor = System.Drawing.Color.SteelBlue;
+            this.panelButtonRem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.panelButtonRem.ForeColor = System.Drawing.Color.White;
+            this.panelButtonRem.Location = new System.Drawing.Point(186, 64);
+            this.panelButtonRem.Name = "panelButtonRem";
+            this.panelButtonRem.Size = new System.Drawing.Size(53, 23);
+            this.panelButtonRem.TabIndex = 30;
+            this.panelButtonRem.Text = "rem";
+            this.panelButtonRem.UseVisualStyleBackColor = false;
+            // 
+            // panelButtonTrun
+            // 
+            this.panelButtonTrun.BackColor = System.Drawing.Color.SteelBlue;
+            this.panelButtonTrun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.panelButtonTrun.ForeColor = System.Drawing.Color.White;
+            this.panelButtonTrun.Location = new System.Drawing.Point(186, 93);
+            this.panelButtonTrun.Name = "panelButtonTrun";
+            this.panelButtonTrun.Size = new System.Drawing.Size(53, 23);
+            this.panelButtonTrun.TabIndex = 31;
+            this.panelButtonTrun.Text = "trun";
+            this.panelButtonTrun.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1456,6 +1484,8 @@
         private System.Windows.Forms.Button button51;
         private System.Windows.Forms.Button enterButton;
         private System.Windows.Forms.ToolStripButton SetDashStyleButton;
+        private System.Windows.Forms.Button panelButtonTrun;
+        private System.Windows.Forms.Button panelButtonRem;
     }
 }
 
