@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using BL;
+using System.IO;
 
 
 namespace MathAnalyser

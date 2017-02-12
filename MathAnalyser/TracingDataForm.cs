@@ -137,6 +137,7 @@ namespace MathAnalyser
             extremumDepiction = !extremumDepiction;
             if(extremumDepiction)
             {
+                buffer = new Bitmap(Scene);
                 Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
             }
             else
@@ -144,9 +145,14 @@ namespace MathAnalyser
                 DrawScene(Color.FromArgb(30, 121, 120, 122),
                        Color.FromArgb(155, 121, 120, 122),
                        Scale);
-                //// Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
                 Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
                              Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+                
+                if (derivativeDepiction)
+                {
+                    buffer = new Bitmap(Scene);
+                    Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
+                }
 
             }
             buffer = new Bitmap(Scene);
@@ -157,6 +163,7 @@ namespace MathAnalyser
             derivativeDepiction = !derivativeDepiction;
             if (derivativeDepiction)
             {
+                buffer = new Bitmap(Scene);
                 Scene = Painter.DrawCurve(penForDerivativeCurve, derivativeValues);
             }
             else
@@ -164,12 +171,17 @@ namespace MathAnalyser
                 DrawScene(Color.FromArgb(30, 121, 120, 122),
                        Color.FromArgb(155, 121, 120, 122),
                        Scale);
-                /// Scene = Painter.DrawCurve(penForCurve, Scale, FunctionPostfix);
                 Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
                              Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
-                buffer = new Bitmap(Scene);
+                
+                if (extremumDepiction)
+                {
+                    buffer = new Bitmap(Scene);
+                    Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
+                }
+                
             }
-            
+            buffer = new Bitmap(Scene);
 
 
         }
@@ -233,7 +245,7 @@ namespace MathAnalyser
             
             X = (offset/Scale).ToString();
             Y = (functionValue).ToString();
-            derivativeLabel.Text = $"f'(x): {Parser.FindDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
+            derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
         }
 
         void MoveLineRight()
@@ -252,7 +264,7 @@ namespace MathAnalyser
 
             X = (offset / Scale).ToString();
             Y = (functionValue).ToString();
-            derivativeLabel.Text = $"f'(x): {Parser.FindDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
+            derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
         }
         bool TogMove;
         int MValX;

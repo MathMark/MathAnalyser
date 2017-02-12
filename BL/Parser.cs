@@ -353,11 +353,10 @@ namespace BL
                             }
                         }
                     }
-            //if(stack.Count!=1)
-            //{
-            //    throw new Exception("Wrong line");
-            //}
-            //return (float)Math.Round(stack.Pop(),2);
+            if (stack.Count != 1)
+            {
+                throw new Exception("Wrong line");
+            }
             return (float)stack.Pop();
         }
         public static PointF[] GetValues(string PostfixExpression,int scale,int from,int to)
@@ -365,18 +364,21 @@ namespace BL
             List<PointF> coordinates = new List<PointF>();
             float argument;
             float value;
+            int MinValue = -10000000;
+            int MaxValue = 10000000;
             StreamWriter w = new StreamWriter("D:\\o.txt");
             for (float x = from; x < to; x += 0.1f)
             {
                 argument = (float)Math.Round(x / scale, 2);
                 value=(-scale * GetValue(PostfixExpression, argument));
+                value = (float)Math.Round(value, 6);
                 if(Single.IsInfinity(value))
                 {
                     coordinates.Add(new PointF(x, value));
                 }
                 else
                 {
-                    if (value < 1073741951 && value > -1073741760)
+                    if (value < MaxValue && value > MinValue)
                     {
                         w.WriteLine(value);
                         coordinates.Add(new PointF(x, value));
@@ -402,7 +404,7 @@ namespace BL
             }
             return DataSet;
         }
-        public static float FindDerivativeInPoint(string RPNfunction, float point)
+        public static float GetDerivativeInPoint(string RPNfunction, float point)
         {
             float dx = 0.001f;
 
@@ -419,7 +421,7 @@ namespace BL
             for (double x = from; x <to; i ++, x += 0.1)
             {
                 //calculate values
-                value = -scale * FindDerivativeInPoint(RPNfunction, (float)(x / scale));
+                value = -scale * GetDerivativeInPoint(RPNfunction, (float)(x / scale));
                 //filer the NaN values
                 
                 if (value>1000&&!float.IsInfinity(value))
