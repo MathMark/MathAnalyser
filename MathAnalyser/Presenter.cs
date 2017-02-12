@@ -21,9 +21,7 @@ namespace MathAnalyser
         string Postfix;
 
         List<Curve> FunctionsToDraw;
-        int DX;
-        int DY;
-
+        bool colorIsSet;
 
         public Presenter(IMainForm View)
         {
@@ -53,11 +51,17 @@ namespace MathAnalyser
             colordialog = new ColorDialog();
 
             View.CenterButtonClick += View_CenterButtonClick;
-
-            DX = 0;
-            DY = 0;
+            colorIsSet = false;
         }
-
+        private Color GenerateColor()
+        {
+            List<Color> colors = new List<Color>();
+            Random randomColor = new Random();
+            int red = randomColor.Next(0, 255);
+            int green = randomColor.Next(0, 255);
+            int blue = randomColor.Next(0, 255);
+            return Color.FromArgb(red, green, blue);
+        }
         private void View_CenterButtonClick(object sender, EventArgs e)
         {
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
@@ -206,8 +210,8 @@ namespace MathAnalyser
         private void View_FinishMoving(int dx, int dy)
         {
             depiction.StartPosition = new Point(dx,dy);
-            DX = dx;
-            DY = dy;
+           // DX = dx;
+           // DY = dy;
 
             DrawFunctionsInList();
 
@@ -232,11 +236,7 @@ namespace MathAnalyser
            if( colordialog.ShowDialog()==DialogResult.OK)
             {
                 pen.Color = colordialog.Color;
-                Bitmap q = new Bitmap(86, 27);
-                Graphics i = Graphics.FromImage(q);
-                i.DrawLine(pen, 0, 13, 86, 13);
-                View.ColorLabel = q;
-                   
+                colorIsSet = true;    
             }
         }
 
@@ -283,6 +283,14 @@ namespace MathAnalyser
             {
                 if (!Exists(View.InputData))
                 {
+                    if (!colorIsSet)
+                    {
+                        pen.Color = GenerateColor();
+                    }
+                    else
+                    {
+                        colorIsSet = false;
+                    }
                     Postfix = Parser.ConvertToPostfix(View.InputData);
                     // View.Sheet = depiction.DrawCurve(pen, scale, Postfix);
                     View.Sheet = depiction.DrawCurve(pen, Parser.GetValues(Postfix,

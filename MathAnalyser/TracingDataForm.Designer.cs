@@ -144,7 +144,7 @@
             this.derivativeLabel.AutoSize = true;
             this.derivativeLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.derivativeLabel.ForeColor = System.Drawing.Color.White;
-            this.derivativeLabel.Location = new System.Drawing.Point(450, 336);
+            this.derivativeLabel.Location = new System.Drawing.Point(434, 336);
             this.derivativeLabel.Name = "derivativeLabel";
             this.derivativeLabel.Size = new System.Drawing.Size(56, 15);
             this.derivativeLabel.TabIndex = 8;
