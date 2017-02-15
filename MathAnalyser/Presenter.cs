@@ -40,7 +40,6 @@ namespace MathAnalyser
 
             View.DeleteFunctionsButtonPressed += View_DeleteFunctionsButtonPressed;
 
-            View.ChildFormOkPressed += View_ChildFormOkPressed;
             View.DeleteFunctionButtonPressed += View_DeleteFunctionButtonPressed;
             View.ChangeColorButtonPressed += View_ChangeColorButtonPressed;
             View.ParametricFunctionFormOkPressed += View_ParametricFunctionFormOkPressed;
@@ -200,12 +199,6 @@ namespace MathAnalyser
 
         }
 
-        private void View_ChildFormOkPressed(string function, decimal step)
-        {
-            TracingDataForm tracingDataForm = new TracingDataForm(View,function, step, scale, depiction.CoordinatePlaneLocation);
-            tracingDataForm.Show();
-        }
-  
 
         private void View_DeleteFunctionsButtonPressed(object sender, EventArgs e)
         {

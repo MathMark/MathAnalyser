@@ -28,14 +28,13 @@ namespace MathAnalyser
         event Action<int,int> MoveGraph;
         event Action<int, int> FinishMoving;
 
-        event Action<string, decimal> ChildFormOkPressed;
         event Action<string, string> ParametricFunctionFormOkPressed;
 
         event EventHandler CenterButtonClick;
     }
     public partial class MainForm : Form,IMainForm
     {
-        TracingForm tracingForm;
+        TracingDataForm tracingForm;
         ParametricFunctionForm parametricFunctionFrom;
 
         public event EventHandler EnterPressed;
@@ -49,7 +48,6 @@ namespace MathAnalyser
 
         public event Action<int, int> MoveGraph;
         public event Action<int, int> FinishMoving;
-        public event Action<string, decimal> ChildFormOkPressed;
         public event Action<string, string> ParametricFunctionFormOkPressed;
 
         public event EventHandler CenterButtonClick;
@@ -64,7 +62,7 @@ namespace MathAnalyser
             ///
             Searcher(this);
 
-            tracingForm = new TracingForm();
+            tracingForm = new TracingDataForm();
             parametricFunctionFrom = new ParametricFunctionForm();
 
 
@@ -238,11 +236,8 @@ namespace MathAnalyser
             if ((functionListBox.Items.Count != 0)&&
                 (!TraceMode)&&(CheckExplicitFunctionInFunctionListBox()))
             {
-                tracingForm = new TracingForm(this, functionListBox.Items);
-                tracingForm.OkPressed += TracingForm_OkPressed;
-
+                tracingForm = new TracingDataForm(this,25,functionListBox.Items);
                 TraceMode = true;
-
                 tracingForm.Show();
             }
             else
@@ -264,10 +259,6 @@ namespace MathAnalyser
             return false;
         }
 
-        private void TracingForm_OkPressed(string function, decimal step)
-        {
-            ChildFormOkPressed(function, step);
-        }
         private void ParametricFunctionButton_Click(object sender, EventArgs e)
         {
             parametricFunctionFrom = new ParametricFunctionForm();

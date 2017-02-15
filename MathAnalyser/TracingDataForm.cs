@@ -39,7 +39,7 @@ namespace MathAnalyser
             }
         }
 
-        public Bitmap Scene
+        public Bitmap ViewPort
         {
             get
             {
@@ -51,7 +51,7 @@ namespace MathAnalyser
             }
         }
 
-        string FunctionPostfix;
+        string function;
         decimal Increment;
         int Scale;
         decimal offset;
@@ -59,212 +59,149 @@ namespace MathAnalyser
 
         Pen penForCurve;
         Pen penForCross;
-
+        Color colorNet = Color.FromArgb(30, 121, 120, 122);
+        Color colorAxes = Color.FromArgb(150, 121, 120, 122);
         Depiction Painter;
         IMainForm View;
 
         Bitmap buffer;
 
-        bool derivativeDepiction;
-        bool extremumDepiction;
         Pen penForDerivativeCurve;
-
-        PointF[] derivativeValues;
-        PointF[] extremumValues;
 
         public TracingDataForm()
         {
             InitializeComponent();
         }
-        public TracingDataForm(IMainForm View,string function,decimal Increment,int scale,CoordinatePlane offets)
+        public TracingDataForm(IMainForm View,int scale, ListView.ListViewItemCollection items)
         {
             InitializeComponent();
+            ///Add all available explicit functions to the list
+            foreach (ListViewItem item in items)
+            {
+                if(!item.Text.Contains("["))
+                {
+                    comboBoxForFunctions.Items.Add(item.Text);
+                }
 
+            }
+            if(comboBoxForFunctions.Items.Count!=0)
+            {
+                this.comboBoxForFunctions.SelectedItem = comboBoxForFunctions.Items[0];
+            }
+            ///Set colors for pens
             penForCurve = new Pen(Color.Blue, 2);
             penForCross = new Pen(Color.Red, 2);
-            penForCross.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-
+            penForCross.DashStyle = DashStyle.Dash;
+            ///Set the scale
             Scale = scale;
+
             this.View = View;
-            FunctionPostfix = Parser.ConvertToPostfix(function);
-            this.Increment = Increment;
+            ///Choose the first function in the list
+            function = Parser.ConvertToPostfix(comboBoxForFunctions.Items[0].ToString());
+            this.Increment = incrementValueBox.Value;
             offset = 0;
 
             functionLabel.Text = $"f(x) = {function}";
 
-            Painter = new Depiction(scene.Width, scene.Height, offets);
+            Painter = new Depiction(scene.Width, scene.Height);
 
-            DrawScene(Color.FromArgb(30, 121, 120, 122), 
-                      Color.FromArgb(155, 121, 120, 122),
-                      scale);
+            DrawScene(colorNet, colorAxes,scale);
 
-            //////Scene = Painter.DrawCurve(penForCurve, scale, FunctionPostfix);
-
-            Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
+            ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                             scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
 
-            buffer =new Bitmap(Scene);
+            buffer =new Bitmap(ViewPort);
 
             this.MouseDown += TracingDataForm_MouseDown;
             this.MouseUp += TracingDataForm_MouseUp;
             this.MouseMove += TracingDataForm_MouseMove;
             this.DoneButton.Click += DoneButton_Click;
 
-            this.MoveLeftButton.Click += MoveLeftButton_Click;
-            this.MoveRightButton.Click += MoveRightButton_Click;
-
-            this.KeyPreview = true;
-            this.PreviewKeyDown += TracingDataForm_PreviewKeyDown;
-
-
-            this.LostFocus += TracingDataForm_LostFocus;
-
-            derivativeDepiction = false;
-            extremumDepiction = false;
-            checkBoxDerivative.CheckedChanged += CheckBox_CheckedChanged;
-            checkBoxExt.CheckedChanged += CheckBoxExt_CheckedChanged;
+            this.comboBoxForFunctions.SelectedIndexChanged += ComboBoxForFunctions_SelectedIndexChanged;
 
             penForDerivativeCurve = new Pen(Color.CadetBlue, 2);
             penForDerivativeCurve.DashStyle=DashStyle.Dash;
 
-            derivativeValues = Parser.FindDerivativeValues(FunctionPostfix, Scale,
-                    Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge);
-            extremumValues = Parser.FindExtrermums(FunctionPostfix, Scale, derivativeValues);
-        }
 
-        private void CheckBoxExt_CheckedChanged(object sender, EventArgs e)
+            comboBoxForFunctions.LostFocus += ComboBoxForFunctions_LostFocus;
+            this.KeyPreview = true;
+
+            ///Prohibit to edit the text
+            comboBoxForFunctions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            incrementValueBox.ReadOnly = true;
+
+            incrementValueBox.ValueChanged += IncrementValueBox_ValueChanged;
+        }
+        private void IncrementValueBox_ValueChanged(object sender, EventArgs e)
         {
-            extremumDepiction = !extremumDepiction;
-            if(extremumDepiction)
-            {
-                buffer = new Bitmap(Scene);
-                Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
-            }
-            else
-            {
-                DrawScene(Color.FromArgb(30, 121, 120, 122),
-                       Color.FromArgb(155, 121, 120, 122),
-                       Scale);
-                Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
-                             Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
-                
-                if (derivativeDepiction)
-                {
-                    buffer = new Bitmap(Scene);
-                    Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
-                }
-
-            }
-            buffer = new Bitmap(Scene);
+            this.Increment = incrementValueBox.Value;
         }
 
-        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        private void ComboBoxForFunctions_LostFocus(object sender, EventArgs e)
         {
-            derivativeDepiction = !derivativeDepiction;
-            if (derivativeDepiction)
-            {
-                buffer = new Bitmap(Scene);
-                Scene = Painter.DrawCurve(penForDerivativeCurve, derivativeValues);
-            }
-            else
-            {
-                DrawScene(Color.FromArgb(30, 121, 120, 122),
-                       Color.FromArgb(155, 121, 120, 122),
-                       Scale);
-                Scene = Painter.DrawCurve(penForCurve, Parser.GetValues(FunctionPostfix,
-                             Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
-                
-                if (extremumDepiction)
-                {
-                    buffer = new Bitmap(Scene);
-                    Scene = Painter.DrawDots(Painter, buffer, 5, Color.AliceBlue, extremumValues);
-                }
-                
-            }
-            buffer = new Bitmap(Scene);
-
-
+            this.Focus();
         }
 
+        private void MoveRightButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            MoveLineRight();
+        }
+
+        private void ComboBoxForFunctions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Painter = new Depiction(scene.Width, scene.Height);
+
+            DrawScene(colorNet, colorAxes, Scale);
+            function = Parser.ConvertToPostfix(comboBoxForFunctions.SelectedItem.ToString());
+            MessageBox.Show(function);
+            ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
+                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+
+            buffer = new Bitmap(ViewPort);
+        }
+
+       
         private void FunctionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MessageBox.Show("");
         }
 
-        private void TracingDataForm_LostFocus(object sender, EventArgs e)
-        {
-            //the code keeps focus only on the form
-            if((MoveLeftButton.Focused)||
-                (MoveRightButton.Focused)||
-                checkBoxDerivative.Focused||
-                checkBoxExt.Focused
-                )
-            {
-                this.Focus();
-            }   
-        }
-
-        private void TracingDataForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            e.IsInputKey = true;
-            switch (e.KeyCode)
-            {
-                case Keys.Oemcomma://<
-                    MoveLineLeft();
-                    break;
-                case Keys.OemPeriod://>
-                    MoveLineRight();
-                    break;
-            }
-
-        }
-
-
-        private void MoveRightButton_Click(object sender, EventArgs e)
-        {
-            MoveLineRight();
-        }
-
-        private void MoveLeftButton_Click(object sender, EventArgs e)
-        {
-            MoveLineLeft();
-        }
         void MoveLineLeft()
         {
             offset -= Increment * Scale;
 
-            functionValue = Parser.GetValue(FunctionPostfix,
+            functionValue = Parser.GetValue(function,
                              (double)offset/Scale);
 
             
-            Scene = Painter.SetCross(buffer,
+            ViewPort = Painter.SetCross(buffer,
                              penForCross,
                              (int)offset,
-                             -Scale * Parser.GetValue(FunctionPostfix,
+                             -Scale * Parser.GetValue(function,
                              (double)offset / Scale));
             
             X = (offset/Scale).ToString();
             Y = (functionValue).ToString();
-            derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
+            derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(function, (float)(offset / Scale))}";
         }
 
         void MoveLineRight()
         {
             offset += Increment * Scale;
 
-            functionValue = Parser.GetValue(FunctionPostfix,
+            functionValue = Parser.GetValue(function,
                             (double)offset/Scale);
 
-            Scene = Painter.SetCross(buffer,
+            ViewPort = Painter.SetCross(buffer,
                              penForCross,
                              (int)offset,
-                             -Scale * Parser.GetValue(FunctionPostfix,
+                             -Scale * Parser.GetValue(function,
                              (double)offset / Scale));
             
 
             X = (offset / Scale).ToString();
             Y = (functionValue).ToString();
-            derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(FunctionPostfix, (float)(offset / Scale))}";
+            derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(function, (float)(offset / Scale))}";
         }
         bool TogMove;
         int MValX;
@@ -296,14 +233,55 @@ namespace MathAnalyser
             this.Close();
         }
 
-        public void DrawScene(Color colorNet,Color colorAxes,int scale/*int dx,int dy*/)
+        public void DrawScene(Color colorNet,Color colorAxes,int scale)
         {
             Painter.Clear();
-           // Painter.StartPosition = new Point(dx, dy);
+            ViewPort=Painter.BuildNet(colorNet, scale, 0, 0);
+            ViewPort = Painter.BuildAxes(colorAxes, 2, 0, 0);
+            ViewPort = Painter.SetNumberNet(scale);
+        }
 
-            Scene=Painter.BuildNet(colorNet, scale, 0, 0);
-            Scene = Painter.BuildAxes(colorAxes, 2, 0, 0);
-            Scene = Painter.SetNumberNet(scale);
+        private void TracingDataForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            int offsetX = 25;
+            int offsetY = 25;
+            switch (e.KeyCode)
+            {
+                case Keys.Oemcomma://<
+                    MoveLineLeft();
+                    break;
+                case Keys.OemPeriod://>
+                    MoveLineRight();
+                    break;
+                case Keys.Left:
+                    Painter.StartPosition = new Point(offsetX,0);
+                    DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
+                           Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+                    buffer = new Bitmap(ViewPort);
+                    break;
+                case Keys.Right:
+                    Painter.StartPosition = new Point(-offsetX, 0);
+                    DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
+                           Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+                    buffer = new Bitmap(ViewPort);
+                    break;
+                case Keys.Up:
+                    Painter.StartPosition = new Point(0, offsetY);
+                    DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
+                           Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+                    buffer = new Bitmap(ViewPort);
+                    break;
+                case Keys.Down:
+                    Painter.StartPosition = new Point(0, -offsetY);
+                    DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
+                           Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
+                    buffer = new Bitmap(ViewPort);
+                    break;
+            }
         }
 
     }
