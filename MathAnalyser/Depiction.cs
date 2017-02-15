@@ -336,7 +336,7 @@ namespace MathAnalyser
                         coordinates = coordinatesList.ToArray();
                         try
                         {
-                            Painter.DrawLines(pen, coordinates);
+                            Painter.DrawCurve(pen, coordinates);
                         }
                         catch (Exception)
                         {

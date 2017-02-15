@@ -6,15 +6,15 @@ namespace BL
     {
         public static double Sin(double x)
         {
-            return Math.Round(Math.Sin(x), 2);
+             return Math.Round(Math.Sin(x),2);
         }
         public static double Cos(double x)
         {
-            return Math.Round(Math.Cos(x), 2);
+            return Math.Round(Math.Cos(x),2);
         }
         public static double Tan(double x)
         {
-            return Math.Sin(x) / Math.Round(Math.Cos(x), 2); 
+            return Math.Sin(x) / Math.Round(Math.Cos(x), 2);
         }
         public static double Cotan(double x)
         {

@@ -50,16 +50,15 @@
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.SetColorButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripSeparator();
-            this.SetDashStyleButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripSeparator();
             this.traceButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ParametricFunctionButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip5 = new System.Windows.Forms.ToolStrip();
-            this.DeleteFunctionsButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.DeleteFunctionFromListButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.DeleteFunctionsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.ChangeColorButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripSeparator();
@@ -71,6 +70,8 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panelButtonTrun = new System.Windows.Forms.Button();
+            this.panelButtonRem = new System.Windows.Forms.Button();
             this.enterButton = new System.Windows.Forms.Button();
             this.panelButtonLog = new System.Windows.Forms.Button();
             this.panelButtonC = new System.Windows.Forms.Button();
@@ -126,8 +127,11 @@
             this.button49 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
             this.button51 = new System.Windows.Forms.Button();
-            this.panelButtonRem = new System.Windows.Forms.Button();
-            this.panelButtonTrun = new System.Windows.Forms.Button();
+            this.SetDashStyleButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.solidItemButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.dashItemButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.dashDotItemButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.dashDotDotItemButton = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -153,7 +157,7 @@
             this.textBox_Function.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox_Function.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_Function.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox_Function.Location = new System.Drawing.Point(3, 28);
+            this.textBox_Function.Location = new System.Drawing.Point(3, 31);
             this.textBox_Function.Name = "textBox_Function";
             this.textBox_Function.Size = new System.Drawing.Size(858, 19);
             this.textBox_Function.TabIndex = 1;
@@ -323,7 +327,7 @@
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 31);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(864, 53);
             this.tableLayoutPanel3.TabIndex = 12;
@@ -347,86 +351,82 @@
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip4.Size = new System.Drawing.Size(864, 25);
+            this.toolStrip4.Size = new System.Drawing.Size(864, 28);
             this.toolStrip4.TabIndex = 7;
             this.toolStrip4.Text = "toolStrip4";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel3
             // 
+            this.toolStripLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripLabel3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel3.Image")));
+            this.toolStripLabel3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(63, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(32, 25);
             this.toolStripLabel3.Text = "Function";
             // 
             // SetColorButton
             // 
             this.SetColorButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.SetColorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SetColorButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.SetColorButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SetColorButton.ForeColor = System.Drawing.Color.White;
             this.SetColorButton.Image = ((System.Drawing.Image)(resources.GetObject("SetColorButton.Image")));
+            this.SetColorButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.SetColorButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SetColorButton.Name = "SetColorButton";
-            this.SetColorButton.Size = new System.Drawing.Size(65, 22);
+            this.SetColorButton.Size = new System.Drawing.Size(38, 25);
             this.SetColorButton.Text = "Set Color";
+            this.SetColorButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripButton5
             // 
             this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // SetDashStyleButton
-            // 
-            this.SetDashStyleButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.SetDashStyleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.SetDashStyleButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SetDashStyleButton.ForeColor = System.Drawing.Color.White;
-            this.SetDashStyleButton.Image = ((System.Drawing.Image)(resources.GetObject("SetDashStyleButton.Image")));
-            this.SetDashStyleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SetDashStyleButton.Name = "SetDashStyleButton";
-            this.SetDashStyleButton.Size = new System.Drawing.Size(95, 22);
-            this.SetDashStyleButton.Text = "Set Dash Style";
+            this.toolStripButton5.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripButton6
             // 
             this.toolStripButton6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripButton6.Size = new System.Drawing.Size(6, 28);
             // 
             // traceButton
             // 
             this.traceButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.traceButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.traceButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.traceButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.traceButton.ForeColor = System.Drawing.Color.White;
             this.traceButton.Image = ((System.Drawing.Image)(resources.GetObject("traceButton.Image")));
+            this.traceButton.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.traceButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.traceButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.traceButton.Name = "traceButton";
-            this.traceButton.Size = new System.Drawing.Size(41, 22);
+            this.traceButton.Size = new System.Drawing.Size(36, 25);
             this.traceButton.Text = "Trace";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
             // 
             // ParametricFunctionButton
             // 
             this.ParametricFunctionButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.ParametricFunctionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ParametricFunctionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.ParametricFunctionButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ParametricFunctionButton.ForeColor = System.Drawing.Color.White;
             this.ParametricFunctionButton.Image = ((System.Drawing.Image)(resources.GetObject("ParametricFunctionButton.Image")));
+            this.ParametricFunctionButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.ParametricFunctionButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ParametricFunctionButton.Name = "ParametricFunctionButton";
-            this.ParametricFunctionButton.Size = new System.Drawing.Size(149, 22);
+            this.ParametricFunctionButton.Size = new System.Drawing.Size(36, 25);
             this.ParametricFunctionButton.Text = "Set parametric function";
             // 
             // tableLayoutPanel4
@@ -452,9 +452,9 @@
             this.toolStrip5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip5.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip5.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DeleteFunctionsButton,
-            this.toolStripSeparator8,
             this.DeleteFunctionFromListButton,
+            this.toolStripSeparator8,
+            this.DeleteFunctionsButton,
             this.toolStripButton1,
             this.ChangeColorButton,
             this.toolStripButton3});
@@ -464,6 +464,24 @@
             this.toolStrip5.Size = new System.Drawing.Size(255, 25);
             this.toolStrip5.TabIndex = 7;
             this.toolStrip5.Text = "toolStrip5";
+            // 
+            // DeleteFunctionFromListButton
+            // 
+            this.DeleteFunctionFromListButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.DeleteFunctionFromListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DeleteFunctionFromListButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DeleteFunctionFromListButton.ForeColor = System.Drawing.Color.White;
+            this.DeleteFunctionFromListButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteFunctionFromListButton.Image")));
+            this.DeleteFunctionFromListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DeleteFunctionFromListButton.Name = "DeleteFunctionFromListButton";
+            this.DeleteFunctionFromListButton.Size = new System.Drawing.Size(23, 22);
+            this.DeleteFunctionFromListButton.Text = "X";
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
             // 
             // DeleteFunctionsButton
             // 
@@ -476,24 +494,6 @@
             this.DeleteFunctionsButton.Name = "DeleteFunctionsButton";
             this.DeleteFunctionsButton.Size = new System.Drawing.Size(71, 22);
             this.DeleteFunctionsButton.Text = "Delete all";
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
-            // 
-            // DeleteFunctionFromListButton
-            // 
-            this.DeleteFunctionFromListButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.DeleteFunctionFromListButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DeleteFunctionFromListButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DeleteFunctionFromListButton.ForeColor = System.Drawing.Color.White;
-            this.DeleteFunctionFromListButton.Image = ((System.Drawing.Image)(resources.GetObject("DeleteFunctionFromListButton.Image")));
-            this.DeleteFunctionFromListButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DeleteFunctionFromListButton.Name = "DeleteFunctionFromListButton";
-            this.DeleteFunctionFromListButton.Size = new System.Drawing.Size(23, 22);
-            this.DeleteFunctionFromListButton.Text = "X";
             // 
             // toolStripButton1
             // 
@@ -549,36 +549,37 @@
             // 
             this.HideWindowButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.HideWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.HideWindowButton.Image = ((System.Drawing.Image)(resources.GetObject("HideWindowButton.Image")));
             this.HideWindowButton.Location = new System.Drawing.Point(744, -1);
             this.HideWindowButton.Name = "HideWindowButton";
             this.HideWindowButton.Size = new System.Drawing.Size(37, 23);
             this.HideWindowButton.TabIndex = 16;
-            this.HideWindowButton.Text = "___";
-            this.HideWindowButton.UseVisualStyleBackColor = true;
+            this.HideWindowButton.UseVisualStyleBackColor = false;
             this.HideWindowButton.Click += new System.EventHandler(this.HideWindowButton_Click);
             // 
             // MaximizeWindowButton
             // 
             this.MaximizeWindowButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.MaximizeWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.MaximizeWindowButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.MaximizeWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.MaximizeWindowButton.Image = ((System.Drawing.Image)(resources.GetObject("MaximizeWindowButton.Image")));
             this.MaximizeWindowButton.Location = new System.Drawing.Point(787, -1);
             this.MaximizeWindowButton.Name = "MaximizeWindowButton";
             this.MaximizeWindowButton.Size = new System.Drawing.Size(37, 23);
             this.MaximizeWindowButton.TabIndex = 15;
-            this.MaximizeWindowButton.Text = "[__]";
-            this.MaximizeWindowButton.UseVisualStyleBackColor = true;
+            this.MaximizeWindowButton.UseVisualStyleBackColor = false;
             this.MaximizeWindowButton.Click += new System.EventHandler(this.MaximizeWindowButton_Click);
             // 
             // ExitButton
             // 
             this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ExitButton.Image = ((System.Drawing.Image)(resources.GetObject("ExitButton.Image")));
             this.ExitButton.Location = new System.Drawing.Point(830, -1);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(37, 23);
             this.ExitButton.TabIndex = 0;
-            this.ExitButton.Text = "X";
-            this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.UseVisualStyleBackColor = false;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // notifyIcon1
@@ -639,6 +640,30 @@
             this.tabPage1.Size = new System.Drawing.Size(247, 152);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
+            // 
+            // panelButtonTrun
+            // 
+            this.panelButtonTrun.BackColor = System.Drawing.Color.SteelBlue;
+            this.panelButtonTrun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.panelButtonTrun.ForeColor = System.Drawing.Color.White;
+            this.panelButtonTrun.Location = new System.Drawing.Point(186, 93);
+            this.panelButtonTrun.Name = "panelButtonTrun";
+            this.panelButtonTrun.Size = new System.Drawing.Size(53, 23);
+            this.panelButtonTrun.TabIndex = 31;
+            this.panelButtonTrun.Text = "trun";
+            this.panelButtonTrun.UseVisualStyleBackColor = false;
+            // 
+            // panelButtonRem
+            // 
+            this.panelButtonRem.BackColor = System.Drawing.Color.SteelBlue;
+            this.panelButtonRem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.panelButtonRem.ForeColor = System.Drawing.Color.White;
+            this.panelButtonRem.Location = new System.Drawing.Point(186, 64);
+            this.panelButtonRem.Name = "panelButtonRem";
+            this.panelButtonRem.Size = new System.Drawing.Size(53, 23);
+            this.panelButtonRem.TabIndex = 30;
+            this.panelButtonRem.Text = "rem";
+            this.panelButtonRem.UseVisualStyleBackColor = false;
             // 
             // enterButton
             // 
@@ -1320,29 +1345,46 @@
             this.button51.Text = "sinh";
             this.button51.UseVisualStyleBackColor = false;
             // 
-            // panelButtonRem
+            // SetDashStyleButton
             // 
-            this.panelButtonRem.BackColor = System.Drawing.Color.SteelBlue;
-            this.panelButtonRem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.panelButtonRem.ForeColor = System.Drawing.Color.White;
-            this.panelButtonRem.Location = new System.Drawing.Point(186, 64);
-            this.panelButtonRem.Name = "panelButtonRem";
-            this.panelButtonRem.Size = new System.Drawing.Size(53, 23);
-            this.panelButtonRem.TabIndex = 30;
-            this.panelButtonRem.Text = "rem";
-            this.panelButtonRem.UseVisualStyleBackColor = false;
+            this.SetDashStyleButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.SetDashStyleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SetDashStyleButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.solidItemButton,
+            this.dashItemButton,
+            this.dashDotItemButton,
+            this.dashDotDotItemButton});
+            this.SetDashStyleButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SetDashStyleButton.ForeColor = System.Drawing.Color.White;
+            this.SetDashStyleButton.Image = ((System.Drawing.Image)(resources.GetObject("SetDashStyleButton.Image")));
+            this.SetDashStyleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SetDashStyleButton.Name = "SetDashStyleButton";
+            this.SetDashStyleButton.Size = new System.Drawing.Size(32, 25);
+            this.SetDashStyleButton.Text = "Set Dash Style";
             // 
-            // panelButtonTrun
+            // solidItemButton
             // 
-            this.panelButtonTrun.BackColor = System.Drawing.Color.SteelBlue;
-            this.panelButtonTrun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.panelButtonTrun.ForeColor = System.Drawing.Color.White;
-            this.panelButtonTrun.Location = new System.Drawing.Point(186, 93);
-            this.panelButtonTrun.Name = "panelButtonTrun";
-            this.panelButtonTrun.Size = new System.Drawing.Size(53, 23);
-            this.panelButtonTrun.TabIndex = 31;
-            this.panelButtonTrun.Text = "trun";
-            this.panelButtonTrun.UseVisualStyleBackColor = false;
+            this.solidItemButton.Name = "solidItemButton";
+            this.solidItemButton.Size = new System.Drawing.Size(152, 22);
+            this.solidItemButton.Text = "Solid";
+            // 
+            // dashItemButton
+            // 
+            this.dashItemButton.Name = "dashItemButton";
+            this.dashItemButton.Size = new System.Drawing.Size(152, 22);
+            this.dashItemButton.Text = "Dash";
+            // 
+            // dashDotItemButton
+            // 
+            this.dashDotItemButton.Name = "dashDotItemButton";
+            this.dashDotItemButton.Size = new System.Drawing.Size(152, 22);
+            this.dashDotItemButton.Text = "Dash Dot";
+            // 
+            // dashDotDotItemButton
+            // 
+            this.dashDotDotItemButton.Name = "dashDotDotItemButton";
+            this.dashDotDotItemButton.Size = new System.Drawing.Size(152, 22);
+            this.dashDotDotItemButton.Text = "Dash Dot Dot";
             // 
             // MainForm
             // 
@@ -1483,9 +1525,13 @@
         private System.Windows.Forms.Button button50;
         private System.Windows.Forms.Button button51;
         private System.Windows.Forms.Button enterButton;
-        private System.Windows.Forms.ToolStripButton SetDashStyleButton;
         private System.Windows.Forms.Button panelButtonTrun;
         private System.Windows.Forms.Button panelButtonRem;
+        private System.Windows.Forms.ToolStripSplitButton SetDashStyleButton;
+        private System.Windows.Forms.ToolStripMenuItem solidItemButton;
+        private System.Windows.Forms.ToolStripMenuItem dashItemButton;
+        private System.Windows.Forms.ToolStripMenuItem dashDotItemButton;
+        private System.Windows.Forms.ToolStripMenuItem dashDotDotItemButton;
     }
 }
 

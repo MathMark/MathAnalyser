@@ -372,7 +372,6 @@ namespace BL
             StreamWriter w = new StreamWriter("D:\\o.txt");
             for (float x = from; x < to; x += 0.1f)
             {
-                argument = (float)Math.Round((float)Math.Round(x, 1) / scale, 2);
                 argument = (float)Math.Round(x, 1) / scale;
                 value=(-scale * GetValue(PostfixExpression, argument));
                 value = (float)Math.Round(value, 6);
@@ -420,31 +419,31 @@ namespace BL
        public static PointF[] FindDerivativeValues(string RPNfunction,int scale,int from,int to)
         {
             List<PointF> coordinates = new List<PointF>();
-            int i=0;
             float value;
-            
-            for (double x = from; x <to; i ++, x += 0.1)
+            int MinValue = -10000000;
+            int MaxValue = 10000000;
+            float argument;
+            StreamWriter w = new StreamWriter("D:\\derivatives.txt");
+            for (float x = from; x <to; x += 0.1f)
             {
                 //calculate values
-                value = -scale * GetDerivativeInPoint(RPNfunction, (float)(x / scale));
+                argument = (float)Math.Round(x, 1) / scale;
+                value = (-scale * GetDerivativeInPoint(RPNfunction, argument));
+                value = (float)Math.Round(value, 2);
                 //filer the NaN values
                 
-                if (value>1000&&!float.IsInfinity(value))
+                if (Single.IsInfinity(value))
                 {
-                    value = 1000;
+                    coordinates.Add(new PointF((float)x, value));
                 }
-                else if(value<-1000 && !float.IsInfinity(value))
-                {
-                    value = -1000;
-                }
-                 
-                if(value.ToString()!="NaN"||float.IsInfinity(value))
+                if (value.ToString()=="NaN"|| (value < MaxValue && value > MinValue))
                 {
                     coordinates.Add(new PointF((float)(x),value));
-                    
                 }
+                w.WriteLine($"{argument} - {value}");
+                
             }
-            
+            w.Close();
             PointF[] result=coordinates.ToArray();
             return result;
         }

@@ -20,7 +20,7 @@ namespace MathAnalyser
         event EventHandler SheetSizeChanged;
         event MouseEventHandler SheetMouseWheel;
         event EventHandler SetColor;
-        event EventHandler SetDashStyle;
+        event Action<string> SetDashStyle;
         event EventHandler DeleteFunctionsButtonPressed;
         event Action<string> DeleteFunctionButtonPressed;
         event Action<string> ChangeColorButtonPressed;
@@ -42,7 +42,7 @@ namespace MathAnalyser
         public event EventHandler SheetSizeChanged;
         public event MouseEventHandler SheetMouseWheel;
         public event EventHandler SetColor;
-        public event EventHandler SetDashStyle;
+        public event Action<string> SetDashStyle;
         public event EventHandler DeleteFunctionsButtonPressed;
         public event Action<string> DeleteFunctionButtonPressed;
         public event Action<string> ChangeColorButtonPressed;
@@ -95,6 +95,15 @@ namespace MathAnalyser
             ParametricFunctionButton.Click += ParametricFunctionButton_Click;
             centerButton.Click += CenterButton_Click;
 
+            solidItemButton.Click += ChangeDashStyleButton_Click;
+            dashItemButton.Click += ChangeDashStyleButton_Click;
+            dashDotItemButton.Click += ChangeDashStyleButton_Click;
+            dashDotDotItemButton.Click += ChangeDashStyleButton_Click;
+        }
+
+        private void ChangeDashStyleButton_Click(object sender, EventArgs e)
+        {
+            SetDashStyle(sender.ToString());
         }
 
         private void CenterButton_Click(object sender, EventArgs e)
@@ -323,7 +332,7 @@ namespace MathAnalyser
 
         private void SetDashStyleButton_Click(object sender, EventArgs e)
         {
-            SetDashStyle(this, e);
+            //SetDashStyle(this, e);
 
         }
 

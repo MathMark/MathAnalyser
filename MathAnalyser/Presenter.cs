@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using BL;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace MathAnalyser
 {
@@ -53,6 +54,26 @@ namespace MathAnalyser
             View.CenterButtonClick += View_CenterButtonClick;
             colorIsSet = false;
         }
+
+        private void View_SetDashStyle(string dashStyle)
+        {
+            switch (dashStyle)
+            {
+                case "Solid":
+                    pen.DashStyle = DashStyle.Solid;
+                    break;
+                case "Dash":
+                    pen.DashStyle = DashStyle.Dash;
+                    break;
+                case "Dash Dot":
+                    pen.DashStyle = DashStyle.DashDot;
+                    break;
+                case "Dash Dot Dot":
+                    pen.DashStyle = DashStyle.DashDotDot;
+                    break;
+            }
+        }
+
         private Color GenerateColor()
         {
             Random randomColor = new Random();
@@ -214,11 +235,6 @@ namespace MathAnalyser
             View.Sheet = depiction.BuildAxes(ColorAxes, 2, dx, dy);
             View.Sheet = depiction.BuildNet(ColorNet, scale,dx,dy);
           
-        }
-
-        private void View_SetDashStyle(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
         }
 
         private void View_SetColor(object sender, EventArgs e)
