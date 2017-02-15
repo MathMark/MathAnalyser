@@ -52,9 +52,8 @@ namespace MathAnalyser
         }
 
         string function;
-        decimal Increment;
         int Scale;
-        decimal offset;
+        float offset;
         float functionValue;
 
         Pen penForCurve;
@@ -67,7 +66,13 @@ namespace MathAnalyser
         Bitmap buffer;
 
         Pen penForDerivativeCurve;
-
+        float Increment
+        {
+            get
+            {
+                return (float)incrementValueBox.Value;
+            }
+        }
         public TracingDataForm()
         {
             InitializeComponent();
@@ -98,7 +103,7 @@ namespace MathAnalyser
             this.View = View;
             ///Choose the first function in the list
             function = Parser.ConvertToPostfix(comboBoxForFunctions.Items[0].ToString());
-            this.Increment = incrementValueBox.Value;
+
             offset = 0;
 
             functionLabel.Text = $"f(x) = {function}";
@@ -124,27 +129,25 @@ namespace MathAnalyser
 
 
             comboBoxForFunctions.LostFocus += ComboBoxForFunctions_LostFocus;
-            this.KeyPreview = true;
+           // this.KeyPreview = true;
 
             ///Prohibit to edit the text
             comboBoxForFunctions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             incrementValueBox.ReadOnly = true;
 
             incrementValueBox.ValueChanged += IncrementValueBox_ValueChanged;
+
+            segmentXLabel.Text = $"Segment X: [{Painter.CoordinatePlaneLocation.leftEdge / Scale};{Painter.CoordinatePlaneLocation.rightEdge / Scale}]";
+            segmentYLabel.Text = $"Segment Y: [{Painter.CoordinatePlaneLocation.bottomEdge / Scale};{Painter.CoordinatePlaneLocation.topEdge / Scale}]";
         }
         private void IncrementValueBox_ValueChanged(object sender, EventArgs e)
         {
-            this.Increment = incrementValueBox.Value;
+
         }
 
         private void ComboBoxForFunctions_LostFocus(object sender, EventArgs e)
         {
-            this.Focus();
-        }
-
-        private void MoveRightButton_KeyDown(object sender, KeyEventArgs e)
-        {
-            MoveLineRight();
+           // this.Focus();
         }
 
         private void ComboBoxForFunctions_SelectedIndexChanged(object sender, EventArgs e)
@@ -152,8 +155,8 @@ namespace MathAnalyser
             Painter = new Depiction(scene.Width, scene.Height);
 
             DrawScene(colorNet, colorAxes, Scale);
+            functionLabel.Text += comboBoxForFunctions.SelectedItem.ToString();
             function = Parser.ConvertToPostfix(comboBoxForFunctions.SelectedItem.ToString());
-            MessageBox.Show(function);
             ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                             Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
 
@@ -169,7 +172,7 @@ namespace MathAnalyser
         void MoveLineLeft()
         {
             offset -= Increment * Scale;
-
+            
             functionValue = Parser.GetValue(function,
                              (double)offset/Scale);
 
@@ -179,9 +182,10 @@ namespace MathAnalyser
                              (int)offset,
                              -Scale * Parser.GetValue(function,
                              (double)offset / Scale));
-            
-            X = (offset/Scale).ToString();
-            Y = (functionValue).ToString();
+
+            MessageBox.Show("" + offset + "   " + Scale);
+            X = "\n"+(offset/Scale).ToString();
+            Y = "\n"+(functionValue).ToString();
             derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(function, (float)(offset / Scale))}";
         }
 
@@ -199,8 +203,8 @@ namespace MathAnalyser
                              (double)offset / Scale));
             
 
-            X = (offset / Scale).ToString();
-            Y = (functionValue).ToString();
+            X = "\n" + (offset / Scale).ToString();
+            Y = "\n" + (functionValue).ToString();
             derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(function, (float)(offset / Scale))}";
         }
         bool TogMove;
@@ -243,8 +247,9 @@ namespace MathAnalyser
 
         private void TracingDataForm_KeyDown(object sender, KeyEventArgs e)
         {
-            int offsetX = 25;
-            int offsetY = 25;
+            int offsetX = Scale;
+            int offsetY = Scale;
+            MessageBox.Show(sender.ToString());
             switch (e.KeyCode)
             {
                 case Keys.Oemcomma://<
@@ -259,6 +264,8 @@ namespace MathAnalyser
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
+                    segmentXLabel.Text = $"Segment X: [{Painter.CoordinatePlaneLocation.leftEdge/Scale};{Painter.CoordinatePlaneLocation.rightEdge/Scale}]";
+                    segmentYLabel.Text = $"Segment Y: [{Painter.CoordinatePlaneLocation.bottomEdge / Scale};{Painter.CoordinatePlaneLocation.topEdge / Scale}]";
                     break;
                 case Keys.Right:
                     Painter.StartPosition = new Point(-offsetX, 0);
@@ -266,6 +273,8 @@ namespace MathAnalyser
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
+                    segmentXLabel.Text = $"Segment X: [{Painter.CoordinatePlaneLocation.leftEdge / Scale};{Painter.CoordinatePlaneLocation.rightEdge / Scale}]";
+                    segmentYLabel.Text = $"Segment Y: [{Painter.CoordinatePlaneLocation.bottomEdge / Scale};{Painter.CoordinatePlaneLocation.topEdge / Scale}]";
                     break;
                 case Keys.Up:
                     Painter.StartPosition = new Point(0, offsetY);
@@ -273,6 +282,8 @@ namespace MathAnalyser
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
+                    segmentXLabel.Text = $"Segment X: [{Painter.CoordinatePlaneLocation.leftEdge / Scale};{Painter.CoordinatePlaneLocation.rightEdge / Scale}]";
+                    segmentYLabel.Text = $"Segment Y: [{Painter.CoordinatePlaneLocation.bottomEdge / Scale};{Painter.CoordinatePlaneLocation.topEdge / Scale}]";
                     break;
                 case Keys.Down:
                     Painter.StartPosition = new Point(0, -offsetY);
@@ -280,6 +291,8 @@ namespace MathAnalyser
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
+                    segmentXLabel.Text = $"Segment X: [{Painter.CoordinatePlaneLocation.leftEdge / Scale};{Painter.CoordinatePlaneLocation.rightEdge / Scale}]";
+                    segmentYLabel.Text = $"Segment Y: [{Painter.CoordinatePlaneLocation.bottomEdge / Scale};{Painter.CoordinatePlaneLocation.topEdge / Scale}]";
                     break;
             }
         }
