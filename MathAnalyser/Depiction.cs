@@ -439,7 +439,7 @@ namespace MathAnalyser
             
         }
 
-        public Bitmap DrawRectangles(string function,float from,float to,int quantityOfRectangles,int scale)
+        public Bitmap DrawRectangles(string function,float from,float to,int quantityOfRectangles,int scale,out float area)
         {
             from *= scale;
             to *= scale;
@@ -447,10 +447,12 @@ namespace MathAnalyser
             float h;
             float step = from;
             float rectangleHeight;
+            area = 0;
             for(int i=0;i< quantityOfRectangles;i++)
             {
                 h = -(float)Parser.GetValue(function,step / scale);
                 rectangleHeight = Math.Abs(h * scale);
+                area += ((rectangleHeight * dx)/scale)/scale;
                 if (h<0)
                 {
                     Painter.DrawRectangle(Pens.Gold, step, h * scale, dx, rectangleHeight);
@@ -461,6 +463,7 @@ namespace MathAnalyser
                 }
                 step += dx;
             }
+            area = (float)Math.Round(area, 2);
             return Buffer;
         }
 

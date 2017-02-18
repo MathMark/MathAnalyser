@@ -32,7 +32,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.resultTextBox = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label8 = new System.Windows.Forms.Label();
             this.iterationsUpDown = new System.Windows.Forms.NumericUpDown();
@@ -48,7 +48,6 @@
             this.functionComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
-            this.viewPort = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.segmentYLabel = new System.Windows.Forms.Label();
             this.segmentXLabel = new System.Windows.Forms.Label();
@@ -56,21 +55,22 @@
             this.DoneButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.viewPort = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.x2NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.x1NUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.viewPort)).BeginInit();
             this.panel1.SuspendLayout();
             this.head.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.viewPort)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.numericUpDown);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.resultTextBox);
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.iterationsUpDown);
@@ -90,7 +90,7 @@
             this.groupBox1.Size = new System.Drawing.Size(232, 369);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Площадь криволинейной трапеции:";
+            this.groupBox1.Text = "Area of the curvilinear trapezoid:";
             // 
             // label9
             // 
@@ -132,14 +132,14 @@
             0,
             0});
             // 
-            // textBox1
+            // resultTextBox
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(88, 319);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(128, 20);
-            this.textBox1.TabIndex = 13;
+            this.resultTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.resultTextBox.Enabled = false;
+            this.resultTextBox.Location = new System.Drawing.Point(88, 319);
+            this.resultTextBox.Name = "resultTextBox";
+            this.resultTextBox.Size = new System.Drawing.Size(128, 20);
+            this.resultTextBox.TabIndex = 13;
             // 
             // progressBar1
             // 
@@ -194,7 +194,7 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(136, 40);
             this.radioButton2.TabIndex = 9;
-            this.radioButton2.Text = "Метод центральных прямоугольников";
+            this.radioButton2.Text = "Rectangles method";
             // 
             // radioButton1
             // 
@@ -220,12 +220,12 @@
             131072});
             this.x2NUD.Location = new System.Drawing.Point(112, 53);
             this.x2NUD.Maximum = new decimal(new int[] {
-            20,
+            250,
             0,
             0,
             0});
             this.x2NUD.Minimum = new decimal(new int[] {
-            20,
+            250,
             0,
             0,
             -2147483648});
@@ -250,12 +250,12 @@
             131072});
             this.x1NUD.Location = new System.Drawing.Point(40, 53);
             this.x1NUD.Maximum = new decimal(new int[] {
-            20,
+            250,
             0,
             0,
             0});
             this.x1NUD.Minimum = new decimal(new int[] {
-            20,
+            250,
             0,
             0,
             -2147483648});
@@ -271,6 +271,7 @@
             // 
             // analyzeButton
             // 
+            this.analyzeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.analyzeButton.Location = new System.Drawing.Point(6, 319);
             this.analyzeButton.Name = "analyzeButton";
             this.analyzeButton.Size = new System.Drawing.Size(76, 24);
@@ -345,15 +346,6 @@
             this.exitButton.Size = new System.Drawing.Size(60, 20);
             this.exitButton.TabIndex = 12;
             this.exitButton.Text = "Exit";
-            // 
-            // viewPort
-            // 
-            this.viewPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.viewPort.Location = new System.Drawing.Point(12, 57);
-            this.viewPort.Name = "viewPort";
-            this.viewPort.Size = new System.Drawing.Size(588, 296);
-            this.viewPort.TabIndex = 16;
-            this.viewPort.TabStop = false;
             // 
             // panel1
             // 
@@ -433,6 +425,15 @@
             this.label3.Size = new System.Drawing.Size(39, 21);
             this.label3.TabIndex = 10;
             // 
+            // viewPort
+            // 
+            this.viewPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.viewPort.Location = new System.Drawing.Point(12, 57);
+            this.viewPort.Name = "viewPort";
+            this.viewPort.Size = new System.Drawing.Size(588, 296);
+            this.viewPort.TabIndex = 16;
+            this.viewPort.TabStop = false;
+            // 
             // AreaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,15 +451,16 @@
             this.KeyPreview = true;
             this.Name = "AreaForm";
             this.Text = "AreaForm";
+            this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.x2NUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.x1NUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.viewPort)).EndInit();
             this.panel1.ResumeLayout(false);
             this.head.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.viewPort)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -468,7 +470,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDown;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown iterationsUpDown;

@@ -23,6 +23,7 @@ namespace MathAnalyser
         Color colorNet = Color.FromArgb(30, 121, 120, 122);
         Color colorAxes = Color.FromArgb(150, 121, 120, 122);
 
+        float Area;
         bool rectangleMode = false;
         public AreaForm()
         {
@@ -36,7 +37,6 @@ namespace MathAnalyser
             
             foreach (ListViewItem item in items)
             {
-                MessageBox.Show(item.Text);
                 functionComboBox.Items.Add(item.Text);
             }
             this.functionComboBox.SelectedItem = functionComboBox.Items[0];
@@ -96,6 +96,17 @@ namespace MathAnalyser
                 viewPort.Image = value;
             }
         }
+        float AreaText
+        {
+            get
+            {
+                return Convert.ToSingle(resultTextBox.Text);
+            }
+            set
+            {
+                resultTextBox.Text = value.ToString();
+            }
+        }
         private void FunctionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedfunction_Infix = functionComboBox.SelectedItem.ToString();
@@ -141,7 +152,9 @@ namespace MathAnalyser
                     ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
                                                   (float)x1NUD.Value,
                                                   (float)x2NUD.Value,
-                                                  (int)numericUpDown.Value, Scale);
+                                                  (int)numericUpDown.Value, Scale,
+                                                  out Area);
+                    AreaText = Area;
                 }
             }
 
@@ -168,7 +181,9 @@ namespace MathAnalyser
                 ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
                                                  (float)x1NUD.Value,
                                                  (float)x2NUD.Value,
-                                                 (int)numericUpDown.Value, Scale);
+                                                 (int)numericUpDown.Value, Scale,
+                                                 out Area);
+                AreaText = Area;
 
             }
         }
