@@ -106,11 +106,6 @@
             // numericUpDown
             // 
             this.numericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDown.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             this.numericUpDown.Location = new System.Drawing.Point(168, 176);
             this.numericUpDown.Maximum = new decimal(new int[] {
             1000,

@@ -61,7 +61,24 @@ namespace MathAnalyser
             iterationsUpDown.ReadOnly = true;
 
             this.DoneButton.Click += DoneButton_Click;
+            numericUpDown.ValueChanged += NumericUpDown_ValueChanged;
 
+        }
+
+        private void NumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (rectangleMode)
+            {
+                depiction.DrawScene(colorNet, colorAxes, Scale);
+                ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
+                       Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
+                ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
+                                                  (float)x1NUD.Value,
+                                                  (float)x2NUD.Value,
+                                                  (int)numericUpDown.Value, Scale,
+                                                  out Area);
+                AreaText = Area;
+            }
         }
 
         private void DoneButton_Click(object sender, EventArgs e)
