@@ -1,6 +1,6 @@
 # MathAnalyser
 
-![Screenshot](https://github.com/MathMark/MathAnalyser/blob/master/ScreenShot.png)
+![Screenshot](https://github.com/MathMark/MathAnalyser/blob/master/ScreenShot.png?raw=true)
 
 MathAnalyser represents a program which is able to analyse math functions. 
 
