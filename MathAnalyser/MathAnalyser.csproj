@@ -146,10 +146,37 @@
     <None Include="Resources\e12.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\e112.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\area.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dashStyles.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\exit.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\e112.png" />
+    <None Include="Resources\traceF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\window.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\X1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\colors.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\parametricF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Center.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -60,6 +60,13 @@ namespace MathAnalyser
             numericUpDown.ReadOnly = true;
             iterationsUpDown.ReadOnly = true;
 
+            this.DoneButton.Click += DoneButton_Click;
+
+        }
+
+        private void DoneButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -163,6 +170,30 @@ namespace MathAnalyser
                                                  (float)x2NUD.Value,
                                                  (int)numericUpDown.Value, Scale);
 
+            }
+        }
+
+        bool TogMove;
+        int MValX;
+        int MValY;
+
+        private void head_MouseUp(object sender, MouseEventArgs e)
+        {
+            TogMove = false;
+        }
+
+        private void head_MouseDown(object sender, MouseEventArgs e)
+        {
+            TogMove = true;
+            MValX = e.X;
+            MValY = e.Y;
+        }
+
+        private void head_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (TogMove)
+            {
+                this.SetDesktopLocation(MousePosition.X - MValX, MousePosition.Y - MValY);
             }
         }
     }

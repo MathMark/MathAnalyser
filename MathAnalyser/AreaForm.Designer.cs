@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AreaForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -49,8 +50,12 @@
             this.exitButton = new System.Windows.Forms.Button();
             this.viewPort = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.segmentXLabel = new System.Windows.Forms.Label();
             this.segmentYLabel = new System.Windows.Forms.Label();
+            this.segmentXLabel = new System.Windows.Forms.Label();
+            this.head = new System.Windows.Forms.Panel();
+            this.DoneButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).BeginInit();
@@ -58,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.x1NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewPort)).BeginInit();
             this.panel1.SuspendLayout();
+            this.head.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -79,7 +85,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.groupBox1.Location = new System.Drawing.Point(606, 12);
+            this.groupBox1.Location = new System.Drawing.Point(606, 57);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(232, 369);
             this.groupBox1.TabIndex = 15;
@@ -314,7 +320,7 @@
             // 
             // functionComboBox
             // 
-            this.functionComboBox.Location = new System.Drawing.Point(75, 360);
+            this.functionComboBox.Location = new System.Drawing.Point(75, 405);
             this.functionComboBox.Name = "functionComboBox";
             this.functionComboBox.Size = new System.Drawing.Size(136, 21);
             this.functionComboBox.TabIndex = 8;
@@ -323,7 +329,7 @@
             // 
             this.label1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label1.Location = new System.Drawing.Point(13, 362);
+            this.label1.Location = new System.Drawing.Point(13, 407);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 16);
             this.label1.TabIndex = 10;
@@ -334,7 +340,7 @@
             // 
             this.exitButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exitButton.ForeColor = System.Drawing.Color.White;
-            this.exitButton.Location = new System.Drawing.Point(540, 360);
+            this.exitButton.Location = new System.Drawing.Point(540, 405);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(60, 20);
             this.exitButton.TabIndex = 12;
@@ -343,7 +349,7 @@
             // viewPort
             // 
             this.viewPort.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.viewPort.Location = new System.Drawing.Point(12, 12);
+            this.viewPort.Location = new System.Drawing.Point(12, 57);
             this.viewPort.Name = "viewPort";
             this.viewPort.Size = new System.Drawing.Size(588, 296);
             this.viewPort.TabIndex = 16;
@@ -354,20 +360,10 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.panel1.Controls.Add(this.segmentYLabel);
             this.panel1.Controls.Add(this.segmentXLabel);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 57);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(588, 339);
             this.panel1.TabIndex = 17;
-            // 
-            // segmentXLabel
-            // 
-            this.segmentXLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.segmentXLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.segmentXLabel.Location = new System.Drawing.Point(3, 299);
-            this.segmentXLabel.Name = "segmentXLabel";
-            this.segmentXLabel.Size = new System.Drawing.Size(582, 16);
-            this.segmentXLabel.TabIndex = 18;
-            this.segmentXLabel.Text = "Segment X:";
             // 
             // segmentYLabel
             // 
@@ -379,18 +375,78 @@
             this.segmentYLabel.TabIndex = 19;
             this.segmentYLabel.Text = "Segment Y:";
             // 
+            // segmentXLabel
+            // 
+            this.segmentXLabel.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.segmentXLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.segmentXLabel.Location = new System.Drawing.Point(3, 299);
+            this.segmentXLabel.Name = "segmentXLabel";
+            this.segmentXLabel.Size = new System.Drawing.Size(582, 16);
+            this.segmentXLabel.TabIndex = 18;
+            this.segmentXLabel.Text = "Segment X:";
+            // 
+            // head
+            // 
+            this.head.BackColor = System.Drawing.Color.SteelBlue;
+            this.head.Controls.Add(this.DoneButton);
+            this.head.Controls.Add(this.label2);
+            this.head.Controls.Add(this.label3);
+            this.head.Location = new System.Drawing.Point(0, 0);
+            this.head.Name = "head";
+            this.head.Size = new System.Drawing.Size(850, 34);
+            this.head.TabIndex = 18;
+            this.head.MouseDown += new System.Windows.Forms.MouseEventHandler(this.head_MouseDown);
+            this.head.MouseMove += new System.Windows.Forms.MouseEventHandler(this.head_MouseMove);
+            this.head.MouseUp += new System.Windows.Forms.MouseEventHandler(this.head_MouseUp);
+            // 
+            // DoneButton
+            // 
+            this.DoneButton.BackColor = System.Drawing.Color.Red;
+            this.DoneButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.DoneButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DoneButton.ForeColor = System.Drawing.Color.White;
+            this.DoneButton.Location = new System.Drawing.Point(821, 3);
+            this.DoneButton.Name = "DoneButton";
+            this.DoneButton.Size = new System.Drawing.Size(26, 25);
+            this.DoneButton.TabIndex = 4;
+            this.DoneButton.TabStop = false;
+            this.DoneButton.Text = "X";
+            this.DoneButton.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.SystemColors.Control;
+            this.label2.Location = new System.Drawing.Point(48, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(252, 16);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Calculating area beneath curve";
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
+            this.label3.Location = new System.Drawing.Point(3, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 21);
+            this.label3.TabIndex = 10;
+            // 
             // AreaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.ClientSize = new System.Drawing.Size(850, 389);
+            this.ClientSize = new System.Drawing.Size(850, 432);
+            this.Controls.Add(this.head);
             this.Controls.Add(this.viewPort);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.functionComboBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "AreaForm";
             this.Text = "AreaForm";
@@ -402,6 +458,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.x1NUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewPort)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.head.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -431,5 +488,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label segmentYLabel;
         private System.Windows.Forms.Label segmentXLabel;
+        private System.Windows.Forms.Panel head;
+        private System.Windows.Forms.Button DoneButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

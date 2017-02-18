@@ -117,9 +117,6 @@ namespace MathAnalyser
 
             buffer =new Bitmap(ViewPort);
 
-            this.MouseDown += TracingDataForm_MouseDown;
-            this.MouseUp += TracingDataForm_MouseUp;
-            this.MouseMove += TracingDataForm_MouseMove;
             this.DoneButton.Click += DoneButton_Click;
 
             this.comboBoxForFunctions.SelectedIndexChanged += ComboBoxForFunctions_SelectedIndexChanged;
@@ -206,29 +203,7 @@ namespace MathAnalyser
             Y = "\n" + (functionValue).ToString();
             derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(function, (float)(offset / Scale))}";
         }
-        bool TogMove;
-        int MValX;
-        int MValY;
-
-        private void TracingDataForm_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (TogMove)
-            {
-                this.SetDesktopLocation(MousePosition.X - MValX, MousePosition.Y - MValY);
-            }
-        }
-
-        private void TracingDataForm_MouseUp(object sender, MouseEventArgs e)
-        {
-            TogMove = false;
-        }
-
-        private void TracingDataForm_MouseDown(object sender, MouseEventArgs e)
-        {
-            TogMove = true;
-            MValX = e.X;
-            MValY = e.Y;
-        }
+       
 
         private void DoneButton_Click(object sender, EventArgs e)
         {
@@ -287,6 +262,27 @@ namespace MathAnalyser
                     break;
             }
         }
+        bool TogMove;
+        int MValX;
+        int MValY;
+        private void head_MouseUp(object sender, MouseEventArgs e)
+        {
+            TogMove = false;
+        }
 
+        private void head_MouseDown(object sender, MouseEventArgs e)
+        {
+            TogMove = true;
+            MValX = e.X;
+            MValY = e.Y;
+        }
+
+        private void head_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (TogMove)
+            {
+                this.SetDesktopLocation(MousePosition.X - MValX, MousePosition.Y - MValY);
+            }
+        }
     }
 }
