@@ -110,7 +110,7 @@ namespace MathAnalyser
 
             Painter = new Depiction(scene.Width, scene.Height);
 
-            DrawScene(colorNet, colorAxes,scale);
+            Painter.DrawScene(colorNet, colorAxes,scale);
 
             ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                             scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
@@ -154,7 +154,7 @@ namespace MathAnalyser
         {
             Painter = new Depiction(scene.Width, scene.Height);
 
-            DrawScene(colorNet, colorAxes, Scale);
+            Painter.DrawScene(colorNet, colorAxes, Scale);
             functionLabel.Text += comboBoxForFunctions.SelectedItem.ToString();
             function = Parser.ConvertToPostfix(comboBoxForFunctions.SelectedItem.ToString());
             ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
@@ -183,7 +183,6 @@ namespace MathAnalyser
                              -Scale * Parser.GetValue(function,
                              (double)offset / Scale));
 
-            MessageBox.Show("" + offset + "   " + Scale);
             X = "\n"+(offset/Scale).ToString();
             Y = "\n"+(functionValue).ToString();
             derivativeLabel.Text = $"f'(x): {Parser.GetDerivativeInPoint(function, (float)(offset / Scale))}";
@@ -237,19 +236,11 @@ namespace MathAnalyser
             this.Close();
         }
 
-        public void DrawScene(Color colorNet,Color colorAxes,int scale)
-        {
-            Painter.Clear();
-            ViewPort=Painter.BuildNet(colorNet, scale, 0, 0);
-            ViewPort = Painter.BuildAxes(colorAxes, 2, 0, 0);
-            ViewPort = Painter.SetNumberNet(scale);
-        }
-
         private void TracingDataForm_KeyDown(object sender, KeyEventArgs e)
         {
             int offsetX = Scale;
             int offsetY = Scale;
-            MessageBox.Show(sender.ToString());
+ 
             switch (e.KeyCode)
             {
                 case Keys.Oemcomma://<
@@ -260,7 +251,7 @@ namespace MathAnalyser
                     break;
                 case Keys.Left:
                     Painter.StartPosition = new Point(offsetX,0);
-                    DrawScene(colorNet, colorAxes, Scale);
+                    Painter.DrawScene(colorNet, colorAxes, Scale);
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
@@ -269,7 +260,7 @@ namespace MathAnalyser
                     break;
                 case Keys.Right:
                     Painter.StartPosition = new Point(-offsetX, 0);
-                    DrawScene(colorNet, colorAxes, Scale);
+                    Painter.DrawScene(colorNet, colorAxes, Scale);
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
@@ -278,7 +269,7 @@ namespace MathAnalyser
                     break;
                 case Keys.Up:
                     Painter.StartPosition = new Point(0, offsetY);
-                    DrawScene(colorNet, colorAxes, Scale);
+                    Painter.DrawScene(colorNet, colorAxes, Scale);
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);
@@ -287,7 +278,7 @@ namespace MathAnalyser
                     break;
                 case Keys.Down:
                     Painter.StartPosition = new Point(0, -offsetY);
-                    DrawScene(colorNet, colorAxes, Scale);
+                    Painter.DrawScene(colorNet, colorAxes, Scale);
                     ViewPort = Painter.DrawCurve(penForCurve, Parser.GetValues(function,
                            Scale, Painter.CoordinatePlaneLocation.leftEdge, Painter.CoordinatePlaneLocation.rightEdge));
                     buffer = new Bitmap(ViewPort);

@@ -101,7 +101,6 @@ namespace BL
                     buffer += InputExpression[j];
                     if ((j == InputExpression.Length - 1) || (!char.IsDigit(InputExpression[j + 1])))
                     {
-                        //OutputExpression.Add(buffer);
                         OutputExpression += buffer+" ";
                         buffer = string.Empty;
                     }
@@ -137,7 +136,6 @@ namespace BL
                 {
                     while (GetPriority(stack.Peek()) != 1)
                     {
-                        // OutputExpression.Add(stack.Pop());
                         OutputExpression += stack.Pop() + " ";
                     }
                     stack.Pop();
@@ -157,7 +155,6 @@ namespace BL
                         while ((stack.Count != 0) && (GetPriority(stack.Peek()) >= GetPriority(InputExpression[j].ToString())))
 
                         {
-                            //OutputExpression.Add(stack.Pop());
                             OutputExpression += stack.Pop() + " ";
                         }
                         stack.Push(InputExpression[j].ToString());
@@ -173,7 +170,6 @@ namespace BL
 
             while (stack.Count() != 0)
             {
-                //OutputExpression.Add(stack.Pop());
                 OutputExpression += stack.Pop() + " ";
             }
             return OutputExpression;

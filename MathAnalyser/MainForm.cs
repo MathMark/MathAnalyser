@@ -36,7 +36,8 @@ namespace MathAnalyser
     {
         TracingDataForm tracingForm;
         ParametricFunctionForm parametricFunctionFrom;
-
+        AreaForm areaForm;
+        int Scale = 25;
         public event EventHandler EnterPressed;
         public event EventHandler SheetSizeChanged;
         public event MouseEventHandler SheetMouseWheel;
@@ -97,6 +98,22 @@ namespace MathAnalyser
             dashItemButton.Click += ChangeDashStyleButton_Click;
             dashDotItemButton.Click += ChangeDashStyleButton_Click;
             dashDotDotItemButton.Click += ChangeDashStyleButton_Click;
+
+            calculateAreaButton.Click += CalculateAreaButton_Click;
+        }
+
+        private void CalculateAreaButton_Click(object sender, EventArgs e)
+        {
+            if ((functionListBox.Items.Count != 0)
+                && (CheckExplicitFunctionInFunctionListBox()))
+            {
+                areaForm = new AreaForm(this, Scale, functionListBox.Items);
+                areaForm.Show();
+            }
+            else
+            {
+                MessageBoard += "There is no function which is set in explicit way";
+            }
         }
 
         private void ChangeDashStyleButton_Click(object sender, EventArgs e)
@@ -236,7 +253,7 @@ namespace MathAnalyser
             if ((functionListBox.Items.Count != 0)&&
                 (!TraceMode)&&(CheckExplicitFunctionInFunctionListBox()))
             {
-                tracingForm = new TracingDataForm(this,25,functionListBox.Items);
+                tracingForm = new TracingDataForm(this,Scale,functionListBox.Items);
                 TraceMode = true;
                 tracingForm.Show();
             }
@@ -339,6 +356,20 @@ namespace MathAnalyser
 
         private void PictureBox_MouseWheel(object sender, MouseEventArgs e)
         {
+            if (e.Delta > 0)
+            {
+                if (Scale < 50)
+                {
+                    Scale++;
+                }
+            }
+            else
+            {
+                if (Scale > 10)
+                {
+                    Scale--;
+                }
+            }
             SheetMouseWheel(this, e);
         }
 

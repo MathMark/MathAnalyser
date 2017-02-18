@@ -438,5 +438,38 @@ namespace MathAnalyser
                 return buffer;
             
         }
+
+        public Bitmap DrawRectangles(string function,float from,float to,int quantityOfRectangles,int scale)
+        {
+            from *= scale;
+            to *= scale;
+            float dx = (to -from) / quantityOfRectangles;
+            float h;
+            float step = from;
+            float rectangleHeight;
+            for(int i=0;i< quantityOfRectangles;i++)
+            {
+                h = -(float)Parser.GetValue(function,step / scale);
+                rectangleHeight = Math.Abs(h * scale);
+                if (h<0)
+                {
+                    Painter.DrawRectangle(Pens.Gold, step, h * scale, dx, rectangleHeight);
+                }
+                else if(h>0)
+                {
+                    Painter.DrawRectangle(Pens.Gold, step, 0, dx, rectangleHeight);
+                }
+                step += dx;
+            }
+            return Buffer;
+        }
+
+       public Bitmap DrawScene(Color colorNet,Color colorAxes,int scale)
+        {
+            Clear();
+            BuildNet(colorNet, scale, 0, 0);
+            BuildAxes(colorAxes, 2, 0, 0);
+            return Buffer;
+        }
     }
 }
