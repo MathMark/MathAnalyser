@@ -445,21 +445,26 @@ namespace MathAnalyser
             to *= scale;
             float dx = (to -from) / quantityOfRectangles;
             float h;
-            float step = from;
+             float step = from+dx/2;
             float rectangleHeight;
             area = 0;
             for(int i=0;i< quantityOfRectangles;i++)
             {
-                h = -(float)Parser.GetValue(function,step / scale);
+                h = -(float)Parser.GetValue(function,(step-dx/2) / scale);
                 rectangleHeight = Math.Abs(h * scale);
                 area += ((rectangleHeight * dx)/scale)/scale;
+               // if(float.IsInfinity(h)||h.ToString()=="NaN")
+                //{
+                    // throw new Exception("The function has a discontinuity within selected segment.");
+                    //throw new Exception(h.ToString());
+               // }
                 if (h<0)
                 {
-                    Painter.DrawRectangle(Pens.Gold, step, h * scale, dx, rectangleHeight);
+                    Painter.DrawRectangle(Pens.Gold, step-dx/2, h*scale, dx, rectangleHeight);
                 }
                 else if(h>0)
                 {
-                    Painter.DrawRectangle(Pens.Gold, step, 0, dx, rectangleHeight);
+                    Painter.DrawRectangle(Pens.Gold, step-dx/2, 0, dx, rectangleHeight);
                 }
                 step += dx;
             }

@@ -67,18 +67,39 @@ namespace MathAnalyser
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (rectangleMode)
+            if (numericUpDown.Value < 500 && numericUpDown.Value >= 100)
             {
-                depiction.DrawScene(colorNet, colorAxes, Scale);
-                ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
-                       Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
-                ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
-                                                  (float)x1NUD.Value,
-                                                  (float)x2NUD.Value,
-                                                  (int)numericUpDown.Value, Scale,
-                                                  out Area);
-                AreaText = Area;
+                numericUpDown.Increment = 10;
             }
+            else if(numericUpDown.Value<100)
+            {
+                numericUpDown.Increment = 1;
+            }
+            if(numericUpDown.Value >= 500)
+            {
+                numericUpDown.Increment = 50;
+            }
+            
+            try
+            {
+                if (rectangleMode)
+                {
+                    depiction.DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
+                           Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
+                    ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
+                                                      (float)x1NUD.Value,
+                                                      (float)x2NUD.Value,
+                                                      (int)numericUpDown.Value, Scale,
+                                                      out Area);
+                    AreaText = Area;
+                }
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
 
         private void DoneButton_Click(object sender, EventArgs e)
@@ -166,12 +187,19 @@ namespace MathAnalyser
                 
                 if (rectangleMode)
                 {
-                    ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
-                                                  (float)x1NUD.Value,
-                                                  (float)x2NUD.Value,
-                                                  (int)numericUpDown.Value, Scale,
-                                                  out Area);
-                    AreaText = Area;
+                    try
+                    {
+                        ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
+                                                 (float)x1NUD.Value,
+                                                 (float)x2NUD.Value,
+                                                 (int)numericUpDown.Value, Scale,
+                                                 out Area);
+                        AreaText = Area;
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
 
@@ -185,23 +213,31 @@ namespace MathAnalyser
             }
             if(radioButton2.Checked)
             {
-                rectangleMode = true;
+                try
+                {
+                    rectangleMode = true;
 
-                ViewPort= depiction.DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = depiction.DrawScene(colorNet, colorAxes, Scale);
 
-                ViewPort = depiction.DrawCurve(Pens.Red,
-                                               Parser.GetValues(selectedfunction_Postfix,
-                                               Scale, 
-                                               depiction.CoordinatePlaneLocation.leftEdge, 
-                                               depiction.CoordinatePlaneLocation.rightEdge));
+                    ViewPort = depiction.DrawCurve(Pens.Red,
+                                                   Parser.GetValues(selectedfunction_Postfix,
+                                                   Scale,
+                                                   depiction.CoordinatePlaneLocation.leftEdge,
+                                                   depiction.CoordinatePlaneLocation.rightEdge));
 
-                ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
-                                                 (float)x1NUD.Value,
-                                                 (float)x2NUD.Value,
-                                                 (int)numericUpDown.Value, Scale,
-                                                 out Area);
-                AreaText = Area;
+                    ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
+                                                     (float)x1NUD.Value,
+                                                     (float)x2NUD.Value,
+                                                     (int)numericUpDown.Value, Scale,
+                                                     out Area);
+                    AreaText = Area;
 
+                }
+
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message,"Error" , MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

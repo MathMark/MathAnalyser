@@ -108,7 +108,7 @@
             this.numericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.numericUpDown.Location = new System.Drawing.Point(168, 176);
             this.numericUpDown.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});
