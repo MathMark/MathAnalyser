@@ -24,7 +24,10 @@ namespace MathAnalyser
         Color colorAxes = Color.FromArgb(150, 121, 120, 122);
 
         float Area;
-        bool rectangleMode = false;
+        //flags
+        bool RM = false;//rectangles method
+        bool McM = false;//Monte-Carlo method
+        bool TM = false;//Trapezoid method
         public AreaForm()
         {
             InitializeComponent();
@@ -57,42 +60,76 @@ namespace MathAnalyser
 
             ShowVisibleSegments();
             functionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            numericUpDown.ReadOnly = true;
-            iterationsUpDown.ReadOnly = true;
+            rectanglesCount.ReadOnly = true;
+            iterationsCount.ReadOnly = true;
 
             this.DoneButton.Click += DoneButton_Click;
-            numericUpDown.ValueChanged += NumericUpDown_ValueChanged;
+            rectanglesCount.ValueChanged += NumericUpDown_ValueChanged;
+            trapezoidsCount.ValueChanged += TrapezoidsCount_ValueChanged;
+
+        }
+
+        private void TrapezoidsCount_ValueChanged(object sender, EventArgs e)
+        {
+            if (trapezoidsCount.Value < 500 && trapezoidsCount.Value >= 100)
+            {
+                trapezoidsCount.Increment = 10;
+            }
+            else if (trapezoidsCount.Value < 100)
+            {
+                trapezoidsCount.Increment = 1;
+            }
+            if (trapezoidsCount.Value >= 500)
+            {
+                trapezoidsCount.Increment = 50;
+            }
+
+            try
+            {
+                if (TM)
+                {
+                    depiction.DrawScene(colorNet, colorAxes, Scale);
+                    ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
+                           Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
+                    ViewPort = depiction.DrawVerticalLine((float)x1NUD.Value * Scale);
+                    ViewPort = depiction.DrawVerticalLine((float)x2NUD.Value * Scale);
+
+                    GetValueByTrapezoidRule();
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (numericUpDown.Value < 500 && numericUpDown.Value >= 100)
+            if (rectanglesCount.Value < 500 && rectanglesCount.Value >= 100)
             {
-                numericUpDown.Increment = 10;
+                rectanglesCount.Increment = 10;
             }
-            else if(numericUpDown.Value<100)
+            else if(rectanglesCount.Value<100)
             {
-                numericUpDown.Increment = 1;
+                rectanglesCount.Increment = 1;
             }
-            if(numericUpDown.Value >= 500)
+            if(rectanglesCount.Value >= 500)
             {
-                numericUpDown.Increment = 50;
+                rectanglesCount.Increment = 50;
             }
             
             try
             {
-                if (rectangleMode)
+                if (RM)
                 {
                     depiction.DrawScene(colorNet, colorAxes, Scale);
                     ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
                            Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
-                    ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
-                                                      (float)x1NUD.Value,
-                                                      (float)x2NUD.Value,
-                                                      (int)numericUpDown.Value, Scale,
-                                                      out Area);
-                    AreaText = Area;
+                    ViewPort = depiction.DrawVerticalLine((float)x1NUD.Value * Scale);
+                    ViewPort = depiction.DrawVerticalLine((float)x2NUD.Value * Scale);
+
+                    GetValueByRectanglesRule();
                 }
             }
             catch(Exception exception)
@@ -101,7 +138,63 @@ namespace MathAnalyser
             }
            
         }
+        void GetValueByMonteCarloRule()
+        {
+            ViewPort = depiction.DrawScene(colorNet, colorAxes, Scale);
 
+            ViewPort = depiction.DrawCurve(Pens.Red,
+                                           Parser.GetValues(selectedfunction_Postfix,
+                                           Scale,
+                                           depiction.CoordinatePlaneLocation.leftEdge,
+                                           depiction.CoordinatePlaneLocation.rightEdge));
+
+            float maxy = Math.Max(Math.Abs(Parser.GetValue(selectedfunction_Postfix, (float)x1NUD.Value)),
+                             Math.Abs(Parser.GetValue(selectedfunction_Postfix, (float)x2NUD.Value)));
+            RectangleF rectangle = new RectangleF((float)(x1NUD.Value * Scale), -maxy * Scale, (float)(x2NUD.Value - x1NUD.Value) * Scale, maxy * Scale);
+            ViewPort = depiction.DrawRectangle(new Pen(Color.White), rectangle);
+
+            float rfx = 0;
+            float rfy = 0;
+            int hits = 0;
+            Color tempColor;
+            for (int i = 0; i < iterationsCount.Value; i++)
+            {
+                rfx = (float)new Random(new Random().Next((int)(rfy * 1000))).NextDouble();
+                rfy = (float)new Random(new Random().Next((int)(rfx * 1000))).NextDouble();
+                PointF rp = new PointF(((float)x2NUD.Value - (float)x1NUD.Value) * rfx + (float)x1NUD.Value, maxy * rfy);
+                if (rp.Y > Parser.GetValue(selectedfunction_Postfix, rp.X))
+                    tempColor = Color.Pink;
+                else
+                {
+                    tempColor = Color.DeepPink;
+                    hits++;
+                }
+                
+                depiction.DrawDot(1, tempColor, new PointF(rp.X * Scale, -rp.Y * Scale));
+               progressBar1.Value = (int)(i / iterationsCount.Value * 100);
+            }
+        }
+        void GetValueByRectanglesRule()
+        {
+            ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
+                                                 (float)x1NUD.Value,
+                                                 (float)x2NUD.Value,
+                                                 (int)rectanglesCount.Value, 
+                                                 Scale,
+                                                 out Area);
+            AreaText = Area;
+        }
+        void GetValueByTrapezoidRule()
+        {
+            ViewPort = depiction.DrawPolygons(selectedfunction_Postfix,
+                                                     (float)x1NUD.Value,
+                                                     (float)x2NUD.Value,
+                                                     (int)trapezoidsCount.Value,
+                                                     Scale, 
+                                                     out Area);
+            AreaText = Area;
+
+        }
         private void DoneButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -112,7 +205,9 @@ namespace MathAnalyser
             depiction.DrawScene(colorNet, colorAxes, Scale);
             ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
                    Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
-            rectangleMode = false;
+            RM = false;
+            McM = false;
+            TM = false;
         }
 
         void ShowVisibleSegments()
@@ -185,21 +280,28 @@ namespace MathAnalyser
                 ViewPort = depiction.DrawCurve(Pens.Red, Parser.GetValues(selectedfunction_Postfix,
                        Scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
                 
-                if (rectangleMode)
+                if (RM)
                 {
                     try
                     {
-                        ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
-                                                 (float)x1NUD.Value,
-                                                 (float)x2NUD.Value,
-                                                 (int)numericUpDown.Value, Scale,
-                                                 out Area);
-                        AreaText = Area;
+                        ViewPort = depiction.DrawVerticalLine((float)x1NUD.Value * Scale);
+                        ViewPort = depiction.DrawVerticalLine((float)x2NUD.Value * Scale);
+                        GetValueByRectanglesRule();
                     }
                     catch (Exception exception)
                     {
                         MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
+                if(McM)
+                {
+                    GetValueByMonteCarloRule();
+                }
+                if(TM)
+                {
+                    ViewPort = depiction.DrawVerticalLine((float)x1NUD.Value * Scale);
+                    ViewPort = depiction.DrawVerticalLine((float)x2NUD.Value * Scale);
+                    GetValueByTrapezoidRule();
                 }
             }
 
@@ -209,14 +311,18 @@ namespace MathAnalyser
         {
             if(radioButton1.Checked)
             {
-
+                RM = false;
+                TM = false;
+                McM = true;
+                GetValueByMonteCarloRule();
             }
             if(radioButton2.Checked)
             {
                 try
                 {
-                    rectangleMode = true;
-
+                    RM = true;
+                    TM = false;
+                    McM = false;
                     ViewPort = depiction.DrawScene(colorNet, colorAxes, Scale);
 
                     ViewPort = depiction.DrawCurve(Pens.Red,
@@ -224,20 +330,32 @@ namespace MathAnalyser
                                                    Scale,
                                                    depiction.CoordinatePlaneLocation.leftEdge,
                                                    depiction.CoordinatePlaneLocation.rightEdge));
-
-                    ViewPort = depiction.DrawRectangles(selectedfunction_Postfix,
-                                                     (float)x1NUD.Value,
-                                                     (float)x2NUD.Value,
-                                                     (int)numericUpDown.Value, Scale,
-                                                     out Area);
-                    AreaText = Area;
-
+                    ViewPort = depiction.DrawVerticalLine((float)x1NUD.Value*Scale);
+                    ViewPort = depiction.DrawVerticalLine((float)x2NUD.Value*Scale);
+                    GetValueByRectanglesRule();
                 }
 
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message,"Error" , MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            if(radioButton3.Checked)
+            {
+                RM = false;
+                TM = true;
+                McM = false;
+                ViewPort = depiction.DrawScene(colorNet, colorAxes, Scale);
+
+                ViewPort = depiction.DrawCurve(Pens.Red,
+                                               Parser.GetValues(selectedfunction_Postfix,
+                                               Scale,
+                                               depiction.CoordinatePlaneLocation.leftEdge,
+                                               depiction.CoordinatePlaneLocation.rightEdge));
+                ViewPort = depiction.DrawVerticalLine((float)x1NUD.Value * Scale);
+                ViewPort = depiction.DrawVerticalLine((float)x2NUD.Value * Scale);
+
+                GetValueByTrapezoidRule();
             }
         }
 

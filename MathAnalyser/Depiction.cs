@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using BL;
-using System.IO;
 
 
 namespace MathAnalyser
@@ -152,7 +151,6 @@ namespace MathAnalyser
         public Bitmap BuildAxes(Color colorPen,int width,int dx,int dy)
         {
             Pen pen = new Pen(colorPen,width);
-
             Painter.DrawLine(pen, dx, viewPortTopEdge, dx, viewPortBottomEdge);//Y
             Painter.DrawLine(pen, viewPortLeftEdge, dy, viewPortRightEdge, dy);//X
 
@@ -417,10 +415,10 @@ namespace MathAnalyser
             RectangleF positionRectangle = new RectangleF(position.X - size / 2, position.Y - size / 2, size, size);
             s.FillEllipse(brush, positionRectangle);
         }
-        public Bitmap DrawDot(int size,Color color,Point position)
+        public Bitmap DrawDot(int size,Color color,PointF position)
         {
             SolidBrush brush = new SolidBrush(color);
-            Rectangle positionRectangle = new Rectangle(position.X - size / 2, position.Y - size / 2, size, size);
+            RectangleF positionRectangle = new RectangleF(position.X - size / 2, position.Y - size / 2, size, size);
             Painter.FillEllipse(brush, positionRectangle);
             return Buffer;
         }
@@ -468,10 +466,54 @@ namespace MathAnalyser
                 }
                 step += dx;
             }
-            area = (float)Math.Round(area, 2);
+            area = (float)Math.Round(area, 4);
             return Buffer;
         }
+        public Bitmap DrawPolygons(string function, float from, float to, int quantityOfRectangles, int scale, out float area)
+        {
+            from *= scale;
+            to *= scale;
+            float dx = (to - from) / quantityOfRectangles;
+            float h;
+            float h2;
+            float step = from;
+            PointF point1;
+            PointF point2;
+            PointF point3;
+            PointF point4;
 
+            area = 0;
+            for (int i = 0; i < quantityOfRectangles; i++)
+            {
+                h = -(float)Parser.GetValue(function, step / scale);
+                h2= -(float)Parser.GetValue(function, (step+dx) / scale);
+
+                area += (((Math.Abs(h) + Math.Abs(h2)) / 2) * dx)/scale;
+                point1 = new PointF(step, 0);
+                point2= new PointF(step + dx, 0);
+                point3 = new PointF(step, h * scale); 
+                point4=new PointF(step + dx, h2 * scale);
+
+                Painter.DrawLine(Pens.HotPink, point1,point3);
+                Painter.DrawLine(Pens.HotPink, point3, point4);
+                Painter.DrawLine(Pens.HotPink, point4, point2);
+                step += dx;
+            }
+            area = (float)Math.Round(area, 4);
+            return Buffer;
+        }
+        public Bitmap DrawVerticalLine(float point)
+        {
+            Pen pen = new Pen(Color.Moccasin);
+            pen.DashStyle = DashStyle.Dot;
+            Painter.DrawLine(pen, point, viewPortTopEdge, point, viewPortBottomEdge);
+            return Buffer;
+        }
+        public Bitmap DrawRectangle(Pen pen,RectangleF rectangle)
+        {
+            Painter.DrawRectangle(pen, rectangle.X,rectangle.Y,rectangle.Width,rectangle.Height);
+            return Buffer;
+        }
        public Bitmap DrawScene(Color colorNet,Color colorAxes,int scale)
         {
             Clear();

@@ -30,12 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AreaForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.trapezoidsCount = new System.Windows.Forms.NumericUpDown();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.rectanglesCount = new System.Windows.Forms.NumericUpDown();
             this.resultTextBox = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label8 = new System.Windows.Forms.Label();
-            this.iterationsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.iterationsCount = new System.Windows.Forms.NumericUpDown();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.x2NUD = new System.Windows.Forms.NumericUpDown();
@@ -57,8 +60,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.viewPort = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trapezoidsCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectanglesCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iterationsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.x2NUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.x1NUD)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,12 +72,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.trapezoidsCount);
+            this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.numericUpDown);
+            this.groupBox1.Controls.Add(this.rectanglesCount);
             this.groupBox1.Controls.Add(this.resultTextBox);
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.iterationsUpDown);
+            this.groupBox1.Controls.Add(this.iterationsCount);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.x2NUD);
@@ -90,38 +97,83 @@
             this.groupBox1.Size = new System.Drawing.Size(232, 369);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Area of the curvilinear trapezoid:";
+            this.groupBox1.Text = "Numerical Integration";
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label10.Location = new System.Drawing.Point(13, 259);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(151, 16);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "Quantity of trapezoids:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // trapezoidsCount
+            // 
+            this.trapezoidsCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.trapezoidsCount.Location = new System.Drawing.Point(168, 259);
+            this.trapezoidsCount.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.trapezoidsCount.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.trapezoidsCount.Name = "trapezoidsCount";
+            this.trapezoidsCount.Size = new System.Drawing.Size(48, 20);
+            this.trapezoidsCount.TabIndex = 17;
+            this.trapezoidsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.trapezoidsCount.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButton3.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.radioButton3.Location = new System.Drawing.Point(16, 208);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(136, 40);
+            this.radioButton3.TabIndex = 16;
+            this.radioButton3.Text = "Trapezoid rule";
             // 
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label9.Location = new System.Drawing.Point(13, 179);
+            this.label9.Location = new System.Drawing.Point(13, 176);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(151, 16);
             this.label9.TabIndex = 15;
             this.label9.Text = "Quantity of rectangles:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // numericUpDown
+            // rectanglesCount
             // 
-            this.numericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDown.Location = new System.Drawing.Point(168, 176);
-            this.numericUpDown.Maximum = new decimal(new int[] {
+            this.rectanglesCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rectanglesCount.Location = new System.Drawing.Point(168, 176);
+            this.rectanglesCount.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.numericUpDown.Minimum = new decimal(new int[] {
+            this.rectanglesCount.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDown.Name = "numericUpDown";
-            this.numericUpDown.Size = new System.Drawing.Size(48, 20);
-            this.numericUpDown.TabIndex = 14;
-            this.numericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown.Value = new decimal(new int[] {
+            this.rectanglesCount.Name = "rectanglesCount";
+            this.rectanglesCount.Size = new System.Drawing.Size(48, 20);
+            this.rectanglesCount.TabIndex = 14;
+            this.rectanglesCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.rectanglesCount.Value = new decimal(new int[] {
             15,
             0,
             0,
@@ -131,9 +183,9 @@
             // 
             this.resultTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.resultTextBox.Enabled = false;
-            this.resultTextBox.Location = new System.Drawing.Point(88, 319);
+            this.resultTextBox.Location = new System.Drawing.Point(126, 319);
             this.resultTextBox.Name = "resultTextBox";
-            this.resultTextBox.Size = new System.Drawing.Size(128, 20);
+            this.resultTextBox.Size = new System.Drawing.Size(96, 20);
             this.resultTextBox.TabIndex = 13;
             // 
             // progressBar1
@@ -152,30 +204,30 @@
             this.label8.Text = "Iterations:";
             this.label8.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // iterationsUpDown
+            // iterationsCount
             // 
-            this.iterationsUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.iterationsUpDown.Increment = new decimal(new int[] {
+            this.iterationsCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.iterationsCount.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.iterationsUpDown.Location = new System.Drawing.Point(104, 112);
-            this.iterationsUpDown.Maximum = new decimal(new int[] {
+            this.iterationsCount.Location = new System.Drawing.Point(152, 111);
+            this.iterationsCount.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.iterationsUpDown.Minimum = new decimal(new int[] {
+            this.iterationsCount.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.iterationsUpDown.Name = "iterationsUpDown";
-            this.iterationsUpDown.Size = new System.Drawing.Size(64, 20);
-            this.iterationsUpDown.TabIndex = 10;
-            this.iterationsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.iterationsUpDown.Value = new decimal(new int[] {
+            this.iterationsCount.Name = "iterationsCount";
+            this.iterationsCount.Size = new System.Drawing.Size(64, 20);
+            this.iterationsCount.TabIndex = 10;
+            this.iterationsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.iterationsCount.Value = new decimal(new int[] {
             1000,
             0,
             0,
@@ -189,7 +241,7 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(136, 40);
             this.radioButton2.TabIndex = 9;
-            this.radioButton2.Text = "Rectangles method";
+            this.radioButton2.Text = "Rectangles rule";
             // 
             // radioButton1
             // 
@@ -199,10 +251,10 @@
             this.radioButton1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.radioButton1.Location = new System.Drawing.Point(16, 88);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(136, 24);
+            this.radioButton1.Size = new System.Drawing.Size(168, 24);
             this.radioButton1.TabIndex = 8;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Monte-Carlo method";
+            this.radioButton1.Text = "Monte-Carlo integration";
             // 
             // x2NUD
             // 
@@ -258,18 +310,13 @@
             this.x1NUD.Size = new System.Drawing.Size(56, 20);
             this.x1NUD.TabIndex = 6;
             this.x1NUD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.x1NUD.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             // 
             // analyzeButton
             // 
             this.analyzeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.analyzeButton.Location = new System.Drawing.Point(6, 319);
             this.analyzeButton.Name = "analyzeButton";
-            this.analyzeButton.Size = new System.Drawing.Size(76, 24);
+            this.analyzeButton.Size = new System.Drawing.Size(114, 24);
             this.analyzeButton.TabIndex = 0;
             this.analyzeButton.Text = "Analyze...";
             // 
@@ -449,8 +496,9 @@
             this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trapezoidsCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectanglesCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iterationsCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.x2NUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.x1NUD)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -464,11 +512,11 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDown;
+        private System.Windows.Forms.NumericUpDown rectanglesCount;
         private System.Windows.Forms.TextBox resultTextBox;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown iterationsUpDown;
+        private System.Windows.Forms.NumericUpDown iterationsCount;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.NumericUpDown x2NUD;
@@ -489,5 +537,8 @@
         private System.Windows.Forms.Button DoneButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown trapezoidsCount;
+        private System.Windows.Forms.RadioButton radioButton3;
     }
 }
