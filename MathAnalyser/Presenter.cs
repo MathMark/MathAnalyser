@@ -52,6 +52,10 @@ namespace MathAnalyser
 
             View.CenterButtonClick += View_CenterButtonClick;
             colorIsSet = false;
+
+            View.Sheet = depiction.BuildAxes(ColorAxes,2,0,0);
+            View.Sheet = depiction.BuildNet(ColorNet, 25, 0, 0);
+            SetNumericLines(0, 0);
         }
 
         private void View_SetDashStyle(string dashStyle)
@@ -176,7 +180,7 @@ namespace MathAnalyser
             depiction.Clear();
             View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
             View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
-            View.Sheet = depiction.SetNumberNet(scale);
+            SetNumericLines(0, 0);
             if (FunctionsToDraw.Count != 0)
             {
                 foreach (Curve function in FunctionsToDraw)
@@ -211,7 +215,7 @@ namespace MathAnalyser
                 View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
                 View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
 
-                View.Sheet = depiction.SetNumberNet(scale);
+                SetNumericLines(0, 0);
             }
             
         }
@@ -219,6 +223,7 @@ namespace MathAnalyser
         private void View_FinishMoving(int dx, int dy)
         {
             depiction.StartPosition = new Point(dx,dy);
+            SetNumericLines(0,0);
             DrawFunctionsInList();
         }
 
@@ -227,7 +232,8 @@ namespace MathAnalyser
             depiction.Clear();
             View.Sheet = depiction.BuildAxes(ColorAxes, 2, dx, dy);
             View.Sheet = depiction.BuildNet(ColorNet, scale,dx,dy);
-          
+            SetNumericLines(dx,dy);
+
         }
 
         private void View_SetColor(object sender, EventArgs e)
@@ -246,7 +252,7 @@ namespace MathAnalyser
             
             if (e.Delta>0)
             {
-                if(scale<50)
+                if(scale<100)
                 {
                     scale++;
                 }
@@ -259,19 +265,33 @@ namespace MathAnalyser
                 }
             }
             View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
-            View.Sheet = depiction.SetNumberNet(scale);
-
+            SetNumericLines(0,0);
+           
             DrawFunctionsInList();
 
         }
-
+        private void SetNumericLines(float dx,float dy)
+        {
+            if (scale >= 30)
+            {
+                View.Sheet = depiction.SetNumericLines(scale, 1,dx,dy);
+            }
+            else if ((scale < 30) && (scale >= 20))
+            {
+                View.Sheet = depiction.SetNumericLines(scale, 2,dx,dy);
+            }
+            else
+            {
+                View.Sheet = depiction.SetNumericLines(scale, 3,dx,dy);
+            }
+        }
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
             depiction.Clear();
             View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
             View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
-
+            SetNumericLines(0, 0);
             DrawFunctionsInList();
         }
 

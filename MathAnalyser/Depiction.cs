@@ -29,9 +29,12 @@ namespace MathAnalyser
         private int ViewPortWidth;
         private int ViewPortHeight;
 
+        Graphics numericLinesPainter;
         Graphics Painter;
         Bitmap Buffer;
-
+        Font font;
+        SolidBrush solidBrush;
+        int offset = 20;
         Point CoordinatePlaneCenter;
 
         public CoordinatePlane CoordinatePlaneLocation
@@ -54,7 +57,6 @@ namespace MathAnalyser
         int viewPortRightEdge;
         int viewPortTopEdge;
         int viewPortBottomEdge;
-
         public float Scale
         {
             get
@@ -107,8 +109,9 @@ namespace MathAnalyser
             Buffer = new Bitmap(ViewPortWidth, ViewPortHeight);
             Painter = Graphics.FromImage(Buffer);
 
+            Painter.Clip = new Region(new RectangleF(offset, offset, ViewPortWidth - 2*offset, ViewPortHeight - 2*offset));
             Painter.TranslateTransform(ViewPortWidth/2, ViewPortHeight / 2,MatrixOrder.Append);
-
+            
             viewPortLeftEdge = (int)Painter.VisibleClipBounds.X;
             viewPortRightEdge = (int)(Painter.VisibleClipBounds.X+Painter.VisibleClipBounds.Width);
             viewPortTopEdge = (int)Painter.VisibleClipBounds.Y;
@@ -126,6 +129,8 @@ namespace MathAnalyser
             Painter.PixelOffsetMode = PixelOffsetMode.HighQuality;
             Painter.CompositingQuality = CompositingQuality.HighQuality;
             Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+            ///
+            
 
         }
         public Depiction(int Width, int Height, CoordinatePlane offsets)
@@ -383,32 +388,60 @@ namespace MathAnalyser
             }
         }
 
-        public Bitmap SetNumberNet(float scale)
+       
+        public Bitmap SetNumericLines(float scale, int increment, float dx, float dy)
         {
-            Font font = new Font("Consolas", 8);
-            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(100, 121, 120, 122));
-            int offset = 15;
+            font = new Font("Consolas", 8);
+            solidBrush = new SolidBrush(Color.SteelBlue);
 
-            for(float step=0,i=0;step<viewPortRightEdge-offset;i++,step+=scale)
-            {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, viewPortBottomEdge-offset)); 
-            }
-            for (float step = -scale, i = -1; step >= viewPortLeftEdge+offset; i--, step -= scale)
-            {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(step, viewPortBottomEdge - offset));
-            }
-            for (float step = 0, i = 0; step < viewPortBottomEdge-offset; i++, step += scale)
-            {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(viewPortLeftEdge, step));
-            }
-            for (float step = -scale, i = 0; step >=viewPortTopEdge; i--, step -= scale)
-            {
-                Painter.DrawString(i.ToString(), font, solidBrush, new PointF(viewPortLeftEdge, step));
-            }
+            numericLinesPainter = Graphics.FromImage(Buffer);
+            numericLinesPainter.Clip = new Region(new Rectangle(offset, ViewPortHeight - offset, ViewPortWidth - 2 * offset, 2 * offset));
+            numericLinesPainter.TranslateTransform(Painter.Transform.OffsetX, 0);
 
+            numericLinesPainter.Clear(Color.Transparent);
+            
+            int i = 0;
+            int doubleincrement = 2 * increment;
+            for (float step = dx; step < viewPortRightEdge;)
+            {
+                if(i>=100)
+                {
+                    increment =doubleincrement;
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 12, ViewPortHeight - offset));
+                }
+                else if ((i >= 10)&&(i<100))
+                {
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 8, ViewPortHeight - offset));
+                }
+                else
+                {
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 4, ViewPortHeight - offset));
+                }
+                i+=increment;
+                step += increment * scale;
+            }
+            i = -1*increment;
+            for(float step=dx-increment*scale;step>=viewPortLeftEdge;)
+            {
+                if (Math.Abs(i) >= 100)
+                {
+                    increment = doubleincrement;
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 16, ViewPortHeight - offset));
+                }
+                else if ((Math.Abs(i) >= 10)&&(Math.Abs(i)<100))
+                {
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 12, ViewPortHeight - offset));
+                }
+                else
+                {
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step-8, ViewPortHeight - offset));
+                }
+                i -= increment;
+                step -= increment * scale;
+            }
             return Buffer;
         }
-        
+
         public void DrawDot(Graphics s,int size, Color color, PointF position)
         {
             SolidBrush brush = new SolidBrush(color);

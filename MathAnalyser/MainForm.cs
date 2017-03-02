@@ -71,10 +71,6 @@ namespace MathAnalyser
             this.Height = 2*screenSize.Size.Height/3;
             this.Width= 2*screenSize.Size.Width / 3;
 
-            Depiction p = new Depiction(pictureBox.Width, pictureBox.Height);
-            Sheet = p.BuildAxes(Color.FromArgb(155,121,120,122),2,0,0);
-            Sheet = p.BuildNet(Color.FromArgb(10, 121, 120, 122), 25,0,0);
-
             textBox_Function.KeyPress += TextBox_Function_KeyPress;
             pictureBox.SizeChanged += PictureBox_SizeChanged;
             pictureBox.MouseHover += PictureBox_MouseHover;
@@ -358,7 +354,7 @@ namespace MathAnalyser
         {
             if (e.Delta > 0)
             {
-                if (Scale < 50)
+                if (Scale < 100)
                 {
                     Scale++;
                 }
