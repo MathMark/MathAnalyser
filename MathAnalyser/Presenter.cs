@@ -24,6 +24,8 @@ namespace MathAnalyser
         List<Curve> FunctionsToDraw;
         bool colorIsSet;
 
+        //flags
+        bool NL = true;
         public Presenter(IMainForm View)
         {
             this.View = View;
@@ -43,7 +45,7 @@ namespace MathAnalyser
             View.DeleteFunctionButtonPressed += View_DeleteFunctionButtonPressed;
             View.ChangeColorButtonPressed += View_ChangeColorButtonPressed;
             View.ParametricFunctionFormOkPressed += View_ParametricFunctionFormOkPressed;
-
+            View.OnOffNumericLinesButtonClick += View_OnOffNumericLinesButtonClick;
 
             FunctionsToDraw = new List<Curve>();
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
@@ -56,6 +58,16 @@ namespace MathAnalyser
             View.Sheet = depiction.BuildAxes(ColorAxes,2,0,0);
             View.Sheet = depiction.BuildNet(ColorNet, 25, 0, 0);
             SetNumericLines(0, 0);
+        }
+
+        private void View_OnOffNumericLinesButtonClick(object sender, EventArgs e)
+        {
+            NL = !NL;
+            if(!NL)
+            {
+                View.Sheet = depiction.ClearNumericLines();
+            }
+            RefreshScene();
         }
 
         private void View_SetDashStyle(string dashStyle)
@@ -85,14 +97,18 @@ namespace MathAnalyser
             int blue = randomColor.Next(0, 255);
             return Color.FromArgb(red, green, blue);
         }
-        private void View_CenterButtonClick(object sender, EventArgs e)
+        private void RefreshScene()
         {
-            depiction = new Depiction(View.SheetWidth, View.SheetHeight);
             depiction.Clear();
             View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
             View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
             SetNumericLines(0, 0);
             DrawFunctionsInList();
+        }
+        private void View_CenterButtonClick(object sender, EventArgs e)
+        {
+            depiction = new Depiction(View.SheetWidth, View.SheetHeight);
+            RefreshScene();
         }
 
         private void View_ParametricFunctionFormOkPressed(string arg1, string arg2)
@@ -211,11 +227,12 @@ namespace MathAnalyser
                 FunctionsToDraw.Clear();
                 View.MessageBoard += "Delete all functions";
 
-                depiction.Clear();
-                View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
-                View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
+                //depiction.Clear();
+                //View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
+                //View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
 
-                SetNumericLines(0, 0);
+                //SetNumericLines(0, 0);
+                RefreshScene();
             }
             
         }
@@ -272,27 +289,32 @@ namespace MathAnalyser
         }
         private void SetNumericLines(float dx,float dy)
         {
-            if (scale >= 30)
+            if(NL)
             {
-                View.Sheet = depiction.SetNumericLines(scale, 1,dx,dy);
+                if (scale >= 30)
+                {
+                    View.Sheet = depiction.SetNumericLines(scale, 1, dx, dy);
+                }
+                else if ((scale < 30) && (scale >= 20))
+                {
+                    View.Sheet = depiction.SetNumericLines(scale, 2, dx, dy);
+                }
+                else
+                {
+                    View.Sheet = depiction.SetNumericLines(scale, 3, dx, dy);
+                }
             }
-            else if ((scale < 30) && (scale >= 20))
-            {
-                View.Sheet = depiction.SetNumericLines(scale, 2,dx,dy);
-            }
-            else
-            {
-                View.Sheet = depiction.SetNumericLines(scale, 3,dx,dy);
-            }
+            
         }
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
-            depiction.Clear();
-            View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
-            View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
-            SetNumericLines(0, 0);
-            DrawFunctionsInList();
+            //depiction.Clear();
+            //View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
+            //View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
+            //SetNumericLines(0, 0);
+            //DrawFunctionsInList();
+            RefreshScene();
         }
 
         private void View_EnterPressed(object sender, EventArgs e)

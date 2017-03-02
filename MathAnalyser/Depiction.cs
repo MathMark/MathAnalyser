@@ -478,6 +478,14 @@ namespace MathAnalyser
             }
             return Buffer;
         }
+        public Bitmap ClearNumericLines()
+        {
+            numericLinesPainter.Clear(Color.Transparent);
+            numericLinesPainter.ResetTransform();
+            numericLinesPainter.Clip = new Region(new Rectangle(offsetXViePortZone, ViewPortHeight - offsetXViePortZone, ViewPortWidth - 2 * offsetXViePortZone, 2 * offsetXViePortZone));
+            numericLinesPainter.Clear(Color.Transparent);
+            return Buffer;
+        }
 
         public void DrawDot(Graphics s,int size, Color color, PointF position)
         {

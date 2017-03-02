@@ -31,6 +31,7 @@ namespace MathAnalyser
         event Action<string, string> ParametricFunctionFormOkPressed;
 
         event EventHandler CenterButtonClick;
+        event EventHandler OnOffNumericLinesButtonClick;
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -52,6 +53,8 @@ namespace MathAnalyser
         public event Action<string, string> ParametricFunctionFormOkPressed;
 
         public event EventHandler CenterButtonClick;
+        public event EventHandler OnOffNumericLinesButtonClick;
+        bool numericLineActivator = true;
 
         public MainForm()
         {
@@ -96,6 +99,22 @@ namespace MathAnalyser
             dashDotDotItemButton.Click += ChangeDashStyleButton_Click;
 
             calculateAreaButton.Click += CalculateAreaButton_Click;
+            OnOffnumericLinesButton.Click += OnOffnumericLinesButton_Click;
+        }
+
+        private void OnOffnumericLinesButton_Click(object sender, EventArgs e)
+        {
+            if(numericLineActivator)
+            {
+                numericLineActivator = false;
+                OnOffnumericLinesButton.Text = "Off";
+            }
+            else
+            {
+                numericLineActivator = true;
+                OnOffnumericLinesButton.Text = "On";
+            }
+            OnOffNumericLinesButtonClick(this, e);
         }
 
         private void CalculateAreaButton_Click(object sender, EventArgs e)

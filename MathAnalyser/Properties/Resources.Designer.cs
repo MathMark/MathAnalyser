@@ -133,6 +133,16 @@ namespace MathAnalyser.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap numericLine {
+            get {
+                object obj = ResourceManager.GetObject("numericLine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap parametricF {
             get {
                 object obj = ResourceManager.GetObject("parametricF", resourceCulture);
