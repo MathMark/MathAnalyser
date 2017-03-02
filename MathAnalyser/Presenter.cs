@@ -91,7 +91,7 @@ namespace MathAnalyser
             depiction.Clear();
             View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
             View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
-
+            SetNumericLines(0, 0);
             DrawFunctionsInList();
         }
 

@@ -34,9 +34,7 @@ namespace MathAnalyser
         Bitmap Buffer;
         Font font;
         SolidBrush solidBrush;
-
-        int offsetXViePortZone = 15;
-        int offsetYViePortZone = 30;
+        int offset = 20;
         Point CoordinatePlaneCenter;
 
         public CoordinatePlane CoordinatePlaneLocation
@@ -111,7 +109,7 @@ namespace MathAnalyser
             Buffer = new Bitmap(ViewPortWidth, ViewPortHeight);
             Painter = Graphics.FromImage(Buffer);
 
-            Painter.Clip = new Region(new RectangleF(offsetYViePortZone, 0, ViewPortWidth - offsetYViePortZone, ViewPortHeight - offsetXViePortZone));
+            Painter.Clip = new Region(new RectangleF(offset, offset, ViewPortWidth - 2*offset, ViewPortHeight - 2*offset));
             Painter.TranslateTransform(ViewPortWidth/2, ViewPortHeight / 2,MatrixOrder.Append);
             
             viewPortLeftEdge = (int)Painter.VisibleClipBounds.X;
@@ -393,89 +391,79 @@ namespace MathAnalyser
        
         public Bitmap SetNumericLines(float scale, int increment, float dx, float dy)
         {
-            font = new Font("Consolas", 7);
+            font = new Font("Consolas", 8);
             solidBrush = new SolidBrush(Color.SteelBlue);
 
             numericLinesPainter = Graphics.FromImage(Buffer);
-            numericLinesPainter.Clip = new Region(new Rectangle(offsetXViePortZone, ViewPortHeight - offsetXViePortZone, ViewPortWidth - 2 * offsetXViePortZone, 2 * offsetXViePortZone));
+            numericLinesPainter.Clip = new Region(new Rectangle(offset, ViewPortHeight - offset, ViewPortWidth - 2 * offset, 2 * offset));
             numericLinesPainter.TranslateTransform(Painter.Transform.OffsetX, 0);
 
             numericLinesPainter.Clear(Color.Transparent);
             
             int i = 0;
             int doubleincrement = 2 * increment;
-            for (float step = dx; step < viewPortRightEdge-scale/2;)
+            for (float step = dx; step < viewPortRightEdge;)
             {
                 if(i>=100)
                 {
                     increment =doubleincrement;
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 12, ViewPortHeight - offsetXViePortZone));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 12, ViewPortHeight - offset));
                 }
                 else if ((i >= 10)&&(i<100))
                 {
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 8, ViewPortHeight - offsetXViePortZone));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 8, ViewPortHeight - offset));
                 }
                 else
                 {
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 4, ViewPortHeight - offsetXViePortZone));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 4, ViewPortHeight - offset));
                 }
                 i+=increment;
                 step += increment * scale;
             }
             i = -1*increment;
-            for(float step=dx-increment*scale;step>=viewPortLeftEdge+scale/2;)
+            for(float step=dx-increment*scale;step>=viewPortLeftEdge;)
             {
                 if (Math.Abs(i) >= 100)
                 {
                     increment = doubleincrement;
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 16, ViewPortHeight - offsetXViePortZone));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 16, ViewPortHeight - offset));
                 }
                 else if ((Math.Abs(i) >= 10)&&(Math.Abs(i)<100))
                 {
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 12, ViewPortHeight - offsetXViePortZone));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step - 12, ViewPortHeight - offset));
                 }
                 else
                 {
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step-8, ViewPortHeight - offsetXViePortZone));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(step-8, ViewPortHeight - offset));
                 }
                 i -= increment;
                 step -= increment * scale;
             }
             numericLinesPainter.ResetTransform();
-            numericLinesPainter.Clip = new Region(new Rectangle(0,  offsetYViePortZone, offsetYViePortZone, ViewPortHeight-2 * offsetYViePortZone));
+            numericLinesPainter.Clip = new Region(new Rectangle(0,  offset, offset, ViewPortHeight-2 * offset));
             numericLinesPainter.TranslateTransform(0, Painter.Transform.OffsetY);
 
             numericLinesPainter.Clear(Color.Transparent);
-            i = 0; 
-            for (float step = dy; step < viewPortBottomEdge-scale/2;)
+
+            for (float step = dx; step < viewPortBottomEdge;)
             {
                 if (i >= 100)
                 {
                     increment = doubleincrement;
-                    numericLinesPainter.DrawString((-1*i).ToString(), font, solidBrush, new PointF(0, step-4));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(0, step));
+                }
+                else if ((i >= 10) && (i < 100))
+                {
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(0, step));
                 }
                 else
                 {
-                    numericLinesPainter.DrawString((-1 * i).ToString(), font, solidBrush, new PointF(0, step-4));
+                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(0, step));
                 }
                 i += increment;
                 step += increment * scale;
             }
-            i = increment;
-            for (float step = dy-increment*scale; step > viewPortTopEdge + scale / 2;)
-            {
-                if (i >= 100)
-                {
-                    increment = doubleincrement;
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(0, step - 4));
-                }
-                else
-                {
-                    numericLinesPainter.DrawString(i.ToString(), font, solidBrush, new PointF(0, step - 4));
-                }
-                i += increment;
-                step -= increment * scale;
-            }
+
             return Buffer;
         }
 
