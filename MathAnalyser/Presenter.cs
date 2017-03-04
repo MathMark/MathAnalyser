@@ -14,8 +14,10 @@ namespace MathAnalyser
 
         int scale = 25;
 
-        Color ColorNet = Color.FromArgb(30, 121, 120, 122);
-        Color ColorAxes = Color.FromArgb(155, 121, 120, 122);
+        Color WhiteColorNet = Color.FromArgb(30, 121, 120, 122);
+        Color WhiteColorAxes = Color.FromArgb(155, 121, 120, 122);
+        Color BlackColorAxes = Color.Black;
+        Color ColorNetWhiteBackground = Color.FromArgb(60, 121, 120, 122);
 
         Pen pen;
         ColorDialog colordialog;
@@ -25,7 +27,10 @@ namespace MathAnalyser
         bool colorIsSet;
 
         //flags
-        bool NL = true;
+        bool NL = true;//numeric line
+        bool WB = false;//white background
+
+
         public Presenter(IMainForm View)
         {
             this.View = View;
@@ -46,6 +51,7 @@ namespace MathAnalyser
             View.ChangeColorButtonPressed += View_ChangeColorButtonPressed;
             View.ParametricFunctionFormOkPressed += View_ParametricFunctionFormOkPressed;
             View.OnOffNumericLinesButtonClick += View_OnOffNumericLinesButtonClick;
+            View.ChangeBackroundButtonPressed += View_ChangeBackroundButtonPressed;
 
             FunctionsToDraw = new List<Curve>();
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
@@ -55,9 +61,17 @@ namespace MathAnalyser
             View.CenterButtonClick += View_CenterButtonClick;
             colorIsSet = false;
 
-            View.Sheet = depiction.BuildAxes(ColorAxes,2,0,0);
-            View.Sheet = depiction.BuildNet(ColorNet, 25, 0, 0);
+            View.Sheet = depiction.BuildAxes(WhiteColorAxes,2,0,0);
+            View.Sheet = depiction.BuildNet(WhiteColorNet, 25, 0, 0);
             SetNumericLines(0, 0);
+        }
+
+        private void View_ChangeBackroundButtonPressed(object sender, EventArgs e)
+        {
+            WB = !WB;
+            RefreshScene(0,0);
+            DrawFunctionsInList();
+
         }
 
         private void View_OnOffNumericLinesButtonClick(object sender, EventArgs e)
@@ -67,7 +81,9 @@ namespace MathAnalyser
             {
                 View.Sheet = depiction.ClearNumericLines();
             }
-            RefreshScene();
+            RefreshScene(0,0);
+            DrawFunctionsInList();
+
         }
 
         private void View_SetDashStyle(string dashStyle)
@@ -97,18 +113,31 @@ namespace MathAnalyser
             int blue = randomColor.Next(0, 255);
             return Color.FromArgb(red, green, blue);
         }
-        private void RefreshScene()
+        private void RefreshScene(int dx,int dy)
         {
-            depiction.Clear();
-            View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
-            View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
+            
+            if(WB)
+            {
+                depiction.Clear(Color.White);
+                View.Sheet = depiction.BuildNet(ColorNetWhiteBackground, scale, dx, dy);
+                View.Sheet = depiction.BuildAxes(BlackColorAxes, 1, dx, dy);
+                
+            }
+            else
+            {
+                depiction.Clear(Color.Transparent);
+                View.Sheet = depiction.BuildNet(WhiteColorNet, scale, dx, dy);
+                View.Sheet = depiction.BuildAxes(WhiteColorAxes, 2, dx, dy);
+                
+            }
+          
             SetNumericLines(0, 0);
-            DrawFunctionsInList();
         }
         private void View_CenterButtonClick(object sender, EventArgs e)
         {
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
-            RefreshScene();
+            RefreshScene(0,0);
+            DrawFunctionsInList();
         }
 
         private void View_ParametricFunctionFormOkPressed(string arg1, string arg2)
@@ -192,30 +221,8 @@ namespace MathAnalyser
             }
             
             View.MessageBoard += $"Delete {FunctionToDelete}";
-
-            depiction.Clear();
-            View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
-            View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
-            SetNumericLines(0, 0);
-            if (FunctionsToDraw.Count != 0)
-            {
-                foreach (Curve function in FunctionsToDraw)
-                {
-                    if(function.Type=="explicit")
-                    {
-                        View.Sheet = depiction.DrawCurve(function.CurvePen, Parser.GetValues(function.FirstPostfixExpression,
-                             scale, depiction.CoordinatePlaneLocation.leftEdge, depiction.CoordinatePlaneLocation.rightEdge));
-                    }
-                    else
-                    {
-                        View.Sheet = depiction.DrawCurve(function.CurvePen, scale,
-                        function.FirstPostfixExpression,function.SecondPostfixExpression);
-                    }
-                    
-                }
-            }
-
-
+            RefreshScene(0,0);
+            DrawFunctionsInList();
 
         }
 
@@ -226,13 +233,7 @@ namespace MathAnalyser
             {
                 FunctionsToDraw.Clear();
                 View.MessageBoard += "Delete all functions";
-
-                //depiction.Clear();
-                //View.Sheet = depiction.BuildAxes(ColorAxes, 2, 0, 0);
-                //View.Sheet = depiction.BuildNet(ColorNet, scale, 0, 0);
-
-                //SetNumericLines(0, 0);
-                RefreshScene();
+                RefreshScene(0,0);
             }
             
         }
@@ -246,9 +247,7 @@ namespace MathAnalyser
 
         private void View_MoveGraph(int dx, int dy)
         {
-            depiction.Clear();
-            View.Sheet = depiction.BuildAxes(ColorAxes, 2, dx, dy);
-            View.Sheet = depiction.BuildNet(ColorNet, scale,dx,dy);
+            RefreshScene(dx,dy);
             SetNumericLines(dx,dy);
 
         }
@@ -264,8 +263,8 @@ namespace MathAnalyser
 
         private void View_SheetMouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            depiction.Clear();
-            View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
+            
+           // View.Sheet = depiction.BuildAxes(WhiteColorAxes, 2,0,0);
             
             if (e.Delta>0)
             {
@@ -281,9 +280,8 @@ namespace MathAnalyser
                     scale--;
                 }
             }
-            View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
-            SetNumericLines(0,0);
-           
+
+            RefreshScene(0,0);
             DrawFunctionsInList();
 
         }
@@ -309,12 +307,8 @@ namespace MathAnalyser
         private void View_SheetSizeChanged(object sender, EventArgs e)
         {
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
-            //depiction.Clear();
-            //View.Sheet = depiction.BuildAxes(ColorAxes, 2,0,0);
-            //View.Sheet = depiction.BuildNet(ColorNet, scale,0,0);
-            //SetNumericLines(0, 0);
-            //DrawFunctionsInList();
-            RefreshScene();
+            RefreshScene(0,0);
+            DrawFunctionsInList();
         }
 
         private void View_EnterPressed(object sender, EventArgs e)
@@ -338,7 +332,7 @@ namespace MathAnalyser
 
                     FunctionsToDraw.Add(new Curve(View.InputData, Postfix, pen.Color, pen.Width, pen.DashStyle));
 
-                    View.MessageBoard += $"Input Line: {View.InputData} Output Line: {Postfix}";
+                    View.MessageBoard += $"Input Line: \t{View.InputData} Output Line: \t{Postfix}";
 
                     View.AddfunctionInListBox(View.InputData, pen.Color);
 

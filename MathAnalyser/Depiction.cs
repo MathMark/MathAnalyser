@@ -151,9 +151,9 @@ namespace MathAnalyser
             Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
         }
-        public void Clear()
+        public void Clear(Color color)
         {
-            Painter.Clear(Color.Transparent);
+            Painter.Clear(color);
         }
         public Bitmap BuildAxes(Color colorPen,int width,int dx,int dy)
         {
@@ -594,7 +594,7 @@ namespace MathAnalyser
         }
        public Bitmap DrawScene(Color colorNet,Color colorAxes,int scale)
         {
-            Clear();
+            Clear(Color.Transparent);
             BuildNet(colorNet, scale, 0, 0);
             BuildAxes(colorAxes, 2, 0, 0);
             return Buffer;

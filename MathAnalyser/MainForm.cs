@@ -32,6 +32,7 @@ namespace MathAnalyser
 
         event EventHandler CenterButtonClick;
         event EventHandler OnOffNumericLinesButtonClick;
+        event EventHandler ChangeBackroundButtonPressed;
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -54,7 +55,9 @@ namespace MathAnalyser
 
         public event EventHandler CenterButtonClick;
         public event EventHandler OnOffNumericLinesButtonClick;
+        public event EventHandler ChangeBackroundButtonPressed;
         bool numericLineActivator = true;
+        bool whiteBackgroundActivator = false;
 
         public MainForm()
         {
@@ -100,6 +103,12 @@ namespace MathAnalyser
 
             calculateAreaButton.Click += CalculateAreaButton_Click;
             OnOffnumericLinesButton.Click += OnOffnumericLinesButton_Click;
+            ChangeBackgroundButton.Click += ChangeBackgroundButton_Click;
+        }
+
+        private void ChangeBackgroundButton_Click(object sender, EventArgs e)
+        {
+            ChangeBackroundButtonPressed(this, e);
         }
 
         private void OnOffnumericLinesButton_Click(object sender, EventArgs e)

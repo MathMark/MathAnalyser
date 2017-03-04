@@ -41,6 +41,9 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.centerButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripSeparator();
+            this.OnOffnumericLinesButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -135,8 +138,7 @@
             this.button49 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
             this.button51 = new System.Windows.Forms.Button();
-            this.OnOffnumericLinesButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripSeparator();
+            this.ChangeBackgroundButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -247,7 +249,9 @@
             this.toolStripLabel2,
             this.centerButton,
             this.toolStripButton7,
-            this.OnOffnumericLinesButton});
+            this.OnOffnumericLinesButton,
+            this.toolStripButton2,
+            this.ChangeBackgroundButton});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -280,6 +284,29 @@
             this.centerButton.Name = "centerButton";
             this.centerButton.Size = new System.Drawing.Size(35, 27);
             this.centerButton.Text = "Center";
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(6, 30);
+            // 
+            // OnOffnumericLinesButton
+            // 
+            this.OnOffnumericLinesButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.OnOffnumericLinesButton.ForeColor = System.Drawing.Color.White;
+            this.OnOffnumericLinesButton.Image = global::MathAnalyser.Properties.Resources.numericLine;
+            this.OnOffnumericLinesButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.OnOffnumericLinesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.OnOffnumericLinesButton.Name = "OnOffnumericLinesButton";
+            this.OnOffnumericLinesButton.Size = new System.Drawing.Size(53, 27);
+            this.OnOffnumericLinesButton.Text = "On";
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(6, 30);
             // 
             // tableLayoutPanel1
             // 
@@ -1420,22 +1447,14 @@
             this.button51.Text = "sinh";
             this.button51.UseVisualStyleBackColor = false;
             // 
-            // OnOffnumericLinesButton
+            // ChangeBackgroundButton
             // 
-            this.OnOffnumericLinesButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.OnOffnumericLinesButton.ForeColor = System.Drawing.Color.White;
-            this.OnOffnumericLinesButton.Image = ((System.Drawing.Image)(resources.GetObject("OnOffnumericLinesButton.Image")));
-            this.OnOffnumericLinesButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.OnOffnumericLinesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.OnOffnumericLinesButton.Name = "OnOffnumericLinesButton";
-            this.OnOffnumericLinesButton.Size = new System.Drawing.Size(53, 27);
-            this.OnOffnumericLinesButton.Text = "On";
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(6, 30);
+            this.ChangeBackgroundButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ChangeBackgroundButton.Image = ((System.Drawing.Image)(resources.GetObject("ChangeBackgroundButton.Image")));
+            this.ChangeBackgroundButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ChangeBackgroundButton.Name = "ChangeBackgroundButton";
+            this.ChangeBackgroundButton.Size = new System.Drawing.Size(23, 27);
+            this.ChangeBackgroundButton.Text = "toolStripButton8";
             // 
             // MainForm
             // 
@@ -1588,6 +1607,8 @@
         private System.Windows.Forms.ToolStripButton calculateAreaButton;
         private System.Windows.Forms.ToolStripSeparator toolStripButton7;
         private System.Windows.Forms.ToolStripButton OnOffnumericLinesButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripButton2;
+        private System.Windows.Forms.ToolStripButton ChangeBackgroundButton;
     }
 }
 
