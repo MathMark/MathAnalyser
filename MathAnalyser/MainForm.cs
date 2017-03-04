@@ -15,6 +15,7 @@ namespace MathAnalyser
         bool TraceMode { get; set; }
 
         void AddfunctionInListBox(string function, Color backgroundColor);
+        void ChangeColorOfFunctionInListBox(string function, Color newColor);
 
         event EventHandler EnterPressed;
         event EventHandler SheetSizeChanged;
@@ -127,6 +128,16 @@ namespace MathAnalyser
 
         private void ChangeBackgroundButton_Click(object sender, EventArgs e)
         {
+            if(whiteBackgroundActivator)
+            {
+                whiteBackgroundActivator = false;
+                ChangeBackgroundButton.Text = "Scene: Black";
+            }
+            else
+            {
+                whiteBackgroundActivator = true;
+                ChangeBackgroundButton.Text = "Scene: White";
+            }
             ChangeBackroundButtonPressed(this, e);
         }
 
@@ -345,7 +356,17 @@ namespace MathAnalyser
             }
             functionListBox.EnsureVisible(functionListBox.Items.Count - 1);
         }
-
+        public void ChangeColorOfFunctionInListBox(string function,Color newColor)
+        {
+            foreach (ListViewItem item in functionListBox.Items)
+            {
+                if (item.Text == function)
+                {
+                    item.BackColor = newColor;
+                }
+            }
+            functionListBox.EnsureVisible(functionListBox.Items.Count - 1);
+        }
 
         #endregion
 

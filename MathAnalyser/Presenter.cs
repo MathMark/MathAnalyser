@@ -181,11 +181,13 @@ namespace MathAnalyser
         private void View_ChangeColorButtonPressed(string FunctionToChangeColor)
         {
             int index=FunctionsToDraw.IndexOf(new Curve(FunctionToChangeColor));
+            Color newColor = GenerateColor();
             FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
                                              Parser.ConvertToPostfix(FunctionToChangeColor),
-                                             GenerateColor(),
+                                             newColor,
                                              2,
                                              pen.DashStyle);
+            View.ChangeColorOfFunctionInListBox(FunctionToChangeColor, newColor);
             RefreshScene(0,0);
             DrawFunctionsInList();
         }

@@ -190,6 +190,12 @@
   <ItemGroup>
     <None Include="Resources\Net.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\changeColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deleteFunctions.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
