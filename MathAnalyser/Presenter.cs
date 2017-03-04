@@ -169,7 +169,14 @@ namespace MathAnalyser
 
         private void View_ChangeColorButtonPressed(string FunctionToChangeColor)
         {
-            
+            int index=FunctionsToDraw.IndexOf(new Curve(FunctionToChangeColor));
+            FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
+                                             Parser.ConvertToPostfix(FunctionToChangeColor),
+                                             GenerateColor(),
+                                             2,
+                                             pen.DashStyle);
+            RefreshScene(0,0);
+            DrawFunctionsInList();
         }
 
         private bool Exists(string InputFunctionName)

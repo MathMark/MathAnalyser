@@ -44,16 +44,14 @@
             this.toolStripButton7 = new System.Windows.Forms.ToolStripSeparator();
             this.OnOffnumericLinesButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ChangeBackgroundButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.SetColorButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.SetDashStyleButton = new System.Windows.Forms.ToolStripSplitButton();
             this.solidItemButton = new System.Windows.Forms.ToolStripMenuItem();
             this.dashItemButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,7 +136,6 @@
             this.button49 = new System.Windows.Forms.Button();
             this.button50 = new System.Windows.Forms.Button();
             this.button51 = new System.Windows.Forms.Button();
-            this.ChangeBackgroundButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -308,6 +305,18 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(6, 30);
             // 
+            // ChangeBackgroundButton
+            // 
+            this.ChangeBackgroundButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ChangeBackgroundButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ChangeBackgroundButton.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ChangeBackgroundButton.ForeColor = System.Drawing.Color.White;
+            this.ChangeBackgroundButton.Image = ((System.Drawing.Image)(resources.GetObject("ChangeBackgroundButton.Image")));
+            this.ChangeBackgroundButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ChangeBackgroundButton.Name = "ChangeBackgroundButton";
+            this.ChangeBackgroundButton.Size = new System.Drawing.Size(95, 27);
+            this.ChangeBackgroundButton.Text = "Scene: Black";
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -374,11 +383,8 @@
             this.toolStrip4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator5,
-            this.toolStripLabel3,
             this.SetColorButton,
             this.toolStripButton5,
-            this.toolStripSeparator2,
             this.SetDashStyleButton,
             this.toolStripButton4,
             this.calculateAreaButton,
@@ -392,21 +398,6 @@
             this.toolStrip4.Size = new System.Drawing.Size(864, 28);
             this.toolStrip4.TabIndex = 7;
             this.toolStrip4.Text = "toolStrip4";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
-            // 
-            // toolStripLabel3
-            // 
-            this.toolStripLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripLabel3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripLabel3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel3.Image")));
-            this.toolStripLabel3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(32, 25);
-            this.toolStripLabel3.Text = "Function";
             // 
             // SetColorButton
             // 
@@ -427,11 +418,6 @@
             this.toolStripButton5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(6, 28);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
             // SetDashStyleButton
             // 
@@ -454,25 +440,25 @@
             // solidItemButton
             // 
             this.solidItemButton.Name = "solidItemButton";
-            this.solidItemButton.Size = new System.Drawing.Size(146, 22);
+            this.solidItemButton.Size = new System.Drawing.Size(152, 22);
             this.solidItemButton.Text = "Solid";
             // 
             // dashItemButton
             // 
             this.dashItemButton.Name = "dashItemButton";
-            this.dashItemButton.Size = new System.Drawing.Size(146, 22);
+            this.dashItemButton.Size = new System.Drawing.Size(152, 22);
             this.dashItemButton.Text = "Dash";
             // 
             // dashDotItemButton
             // 
             this.dashDotItemButton.Name = "dashDotItemButton";
-            this.dashDotItemButton.Size = new System.Drawing.Size(146, 22);
+            this.dashDotItemButton.Size = new System.Drawing.Size(152, 22);
             this.dashDotItemButton.Text = "Dash Dot";
             // 
             // dashDotDotItemButton
             // 
             this.dashDotDotItemButton.Name = "dashDotDotItemButton";
-            this.dashDotDotItemButton.Size = new System.Drawing.Size(146, 22);
+            this.dashDotDotItemButton.Size = new System.Drawing.Size(152, 22);
             this.dashDotDotItemButton.Text = "Dash Dot Dot";
             // 
             // toolStripButton4
@@ -1447,15 +1433,6 @@
             this.button51.Text = "sinh";
             this.button51.UseVisualStyleBackColor = false;
             // 
-            // ChangeBackgroundButton
-            // 
-            this.ChangeBackgroundButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ChangeBackgroundButton.Image = ((System.Drawing.Image)(resources.GetObject("ChangeBackgroundButton.Image")));
-            this.ChangeBackgroundButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ChangeBackgroundButton.Name = "ChangeBackgroundButton";
-            this.ChangeBackgroundButton.Size = new System.Drawing.Size(23, 27);
-            this.ChangeBackgroundButton.Text = "toolStripButton8";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1513,12 +1490,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.ToolStrip toolStrip4;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton SetColorButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.ToolStrip toolStrip5;
         private System.Windows.Forms.ToolStripButton DeleteFunctionsButton;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.Panel panel1;
@@ -1602,7 +1577,6 @@
         private System.Windows.Forms.ToolStripMenuItem dashItemButton;
         private System.Windows.Forms.ToolStripMenuItem dashDotItemButton;
         private System.Windows.Forms.ToolStripMenuItem dashDotDotItemButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripButton4;
         private System.Windows.Forms.ToolStripButton calculateAreaButton;
         private System.Windows.Forms.ToolStripSeparator toolStripButton7;
