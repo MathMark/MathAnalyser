@@ -33,6 +33,7 @@ namespace MathAnalyser
         event EventHandler CenterButtonClick;
         event EventHandler OnOffNumericLinesButtonClick;
         event EventHandler ChangeBackroundButtonPressed;
+        event EventHandler OnOffCoordinateNetButtonPressed;
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -56,8 +57,10 @@ namespace MathAnalyser
         public event EventHandler CenterButtonClick;
         public event EventHandler OnOffNumericLinesButtonClick;
         public event EventHandler ChangeBackroundButtonPressed;
+        public event EventHandler OnOffCoordinateNetButtonPressed;
         bool numericLineActivator = true;
         bool whiteBackgroundActivator = false;
+        bool coordinateNetActivator = true;
 
         public MainForm()
         {
@@ -104,6 +107,22 @@ namespace MathAnalyser
             calculateAreaButton.Click += CalculateAreaButton_Click;
             OnOffnumericLinesButton.Click += OnOffnumericLinesButton_Click;
             ChangeBackgroundButton.Click += ChangeBackgroundButton_Click;
+            OnOffCoordinateNet.Click += OnOffCoordinateNet_Click;
+        }
+
+        private void OnOffCoordinateNet_Click(object sender, EventArgs e)
+        {
+            if(coordinateNetActivator)
+            {
+                coordinateNetActivator = false;
+                OnOffCoordinateNet.Text = "Off";
+            }
+            else
+            {
+                coordinateNetActivator = true;
+                OnOffCoordinateNet.Text = "On";
+            }
+            OnOffCoordinateNetButtonPressed(this,e);
         }
 
         private void ChangeBackgroundButton_Click(object sender, EventArgs e)

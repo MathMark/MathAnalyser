@@ -29,7 +29,7 @@ namespace MathAnalyser
         //flags
         bool NL = true;//numeric line
         bool WB = false;//white background
-
+        bool CN = true;//coordinate net
 
         public Presenter(IMainForm View)
         {
@@ -52,6 +52,7 @@ namespace MathAnalyser
             View.ParametricFunctionFormOkPressed += View_ParametricFunctionFormOkPressed;
             View.OnOffNumericLinesButtonClick += View_OnOffNumericLinesButtonClick;
             View.ChangeBackroundButtonPressed += View_ChangeBackroundButtonPressed;
+            View.OnOffCoordinateNetButtonPressed += View_OnOffCoordinateNetButtonPressed;
 
             FunctionsToDraw = new List<Curve>();
             depiction = new Depiction(View.SheetWidth, View.SheetHeight);
@@ -61,9 +62,14 @@ namespace MathAnalyser
             View.CenterButtonClick += View_CenterButtonClick;
             colorIsSet = false;
 
-            View.Sheet = depiction.BuildAxes(WhiteColorAxes,2,0,0);
-            View.Sheet = depiction.BuildNet(WhiteColorNet, 25, 0, 0);
-            SetNumericLines(0, 0);
+            RefreshScene(0, 0);
+        }
+
+        private void View_OnOffCoordinateNetButtonPressed(object sender, EventArgs e)
+        {
+            CN = !CN;
+            RefreshScene(0, 0);
+            DrawFunctionsInList();
         }
 
         private void View_ChangeBackroundButtonPressed(object sender, EventArgs e)
@@ -71,7 +77,6 @@ namespace MathAnalyser
             WB = !WB;
             RefreshScene(0,0);
             DrawFunctionsInList();
-
         }
 
         private void View_OnOffNumericLinesButtonClick(object sender, EventArgs e)
@@ -119,15 +124,21 @@ namespace MathAnalyser
             if(WB)
             {
                 depiction.Clear(Color.White);
-                View.Sheet = depiction.BuildNet(ColorNetWhiteBackground, scale, dx, dy);
+                if(CN)
+                {
+                    View.Sheet = depiction.BuildNet(ColorNetWhiteBackground, scale, dx, dy);
+                }
                 View.Sheet = depiction.BuildAxes(BlackColorAxes, 1, dx, dy);
                 
             }
             else
             {
                 depiction.Clear(Color.Transparent);
-                View.Sheet = depiction.BuildNet(WhiteColorNet, scale, dx, dy);
-                View.Sheet = depiction.BuildAxes(WhiteColorAxes, 2, dx, dy);
+                if(CN)
+                {
+                    View.Sheet = depiction.BuildNet(WhiteColorNet, scale, dx, dy);
+                }
+                 View.Sheet = depiction.BuildAxes(WhiteColorAxes, 2, dx, dy);
                 
             }
           
