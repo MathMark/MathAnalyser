@@ -29,9 +29,9 @@ namespace MathAnalyser
         private int ViewPortWidth;
         private int ViewPortHeight;
 
-        Graphics numericLinesPainter;
+        Graphics numericLinesPainter;//the variable for depiction numeric lines
         Graphics Painter;
-        Bitmap Buffer;
+        Bitmap Buffer;//buffer for drawing 
         Font font;
         SolidBrush solidBrush;
 

@@ -60,9 +60,20 @@ namespace MathAnalyser
             colordialog = new ColorDialog();
 
             View.CenterButtonClick += View_CenterButtonClick;
+            View.SaveButtonPressed += View_SaveButtonPressed;
             colorIsSet = false;
 
             RefreshScene(0, 0);
+        }
+
+        private void View_SaveButtonPressed(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Image Files|*.png|All Files (*.*)|*.*";
+            if(saveFileDialog.ShowDialog()==DialogResult.OK)
+            {
+                View.Sheet.Save(saveFileDialog.FileName);
+            }
         }
 
         private void View_OnOffCoordinateNetButtonPressed(object sender, EventArgs e)
@@ -182,11 +193,19 @@ namespace MathAnalyser
         {
             int index=FunctionsToDraw.IndexOf(new Curve(FunctionToChangeColor));
             Color newColor = GenerateColor();
-            FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
-                                             Parser.ConvertToPostfix(FunctionToChangeColor),
-                                             newColor,
-                                             2,
-                                             pen.DashStyle);
+            if(FunctionsToDraw[index].Type=="parametric")
+            {
+                throw new Exception();
+            }
+            else
+            {
+                FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
+                                            Parser.ConvertToPostfix(FunctionToChangeColor),
+                                            newColor,
+                                            2,
+                                            pen.DashStyle);
+            }
+           
             View.ChangeColorOfFunctionInListBox(FunctionToChangeColor, newColor);
             RefreshScene(0,0);
             DrawFunctionsInList();
@@ -352,7 +371,7 @@ namespace MathAnalyser
 
                     FunctionsToDraw.Add(new Curve(View.InputData, Postfix, pen.Color, pen.Width, pen.DashStyle));
 
-                    View.MessageBoard += $"Input Line: \t{View.InputData} Output Line: \t{Postfix}";
+                    View.MessageBoard += $"Input Line: \t{View.InputData} \tOutput Line: \t{Postfix}";
 
                     View.AddfunctionInListBox(View.InputData, pen.Color);
 

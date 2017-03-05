@@ -177,18 +177,21 @@ namespace BL
 
         public static float GetValue(string PostfixExpression, double point)
         {
+            //Prepare the stack by creating a variable of Stack type
             Stack<double> stack = new Stack<double>();
-
+            //Prepare two operands
             double number1, number2;
-
+            //Remove spaces from the input string
             string[] Statements = PostfixExpression.Split(new char[] {}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string token in Statements)
             {
+                //if current token is digit
                 if (char.IsDigit(token[0]))
-                    {
-                        stack.Push(Convert.ToDouble(token));
-                    }
+                {
+                    //push the digit onto the stack
+                    stack.Push(Convert.ToDouble(token));
+                }
                 else if ((char.IsLetter(token[0])) && (!EqualsToConstant(token[0])))
                     {
                         double variable = Convert.ToDouble(stack.Pop());
