@@ -119,38 +119,38 @@ namespace MathAnalyser
             viewPortTopEdge = (int)Painter.VisibleClipBounds.Y;
             viewPortBottomEdge = (int)(Painter.VisibleClipBounds.Height+ Painter.VisibleClipBounds.Y);
 
-            //Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
-            //Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-            //Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
-            //Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-            //Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-
-            //High quality
-            Painter.InterpolationMode = InterpolationMode.High; // or NearestNeighbour
-            Painter.SmoothingMode = SmoothingMode.HighQuality;
-            Painter.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            Painter.CompositingQuality = CompositingQuality.HighQuality;
-            Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-            ///
-            
-
-        }
-        public Depiction(int Width, int Height, CoordinatePlane offsets)
-        {
-            this.ViewPortWidth = Width;
-            this.ViewPortHeight = Height;
-            Buffer = new Bitmap(Width, Height);
-            Painter = Graphics.FromImage(Buffer);
-
-            CoordinatePlaneLocation = offsets; 
-
             Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
             Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
             Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
             Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
 
+            //High quality
+            //Painter.InterpolationMode = InterpolationMode.High; // or NearestNeighbour
+            //Painter.SmoothingMode = SmoothingMode.HighQuality;
+            //Painter.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            //Painter.CompositingQuality = CompositingQuality.HighQuality;
+            //Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+            ///
+            
+
         }
+        //public Depiction(int Width, int Height, CoordinatePlane offsets)
+        //{
+        //    this.ViewPortWidth = Width;
+        //    this.ViewPortHeight = Height;
+        //    Buffer = new Bitmap(Width, Height);
+        //    Painter = Graphics.FromImage(Buffer);
+
+        //    CoordinatePlaneLocation = offsets; 
+
+        //    Painter.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low; // or NearestNeighbour
+        //    Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+        //    Painter.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.None;
+        //    Painter.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+        //    Painter.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+
+        //}
         public void Clear(Color color)
         {
             Painter.Clear(color);

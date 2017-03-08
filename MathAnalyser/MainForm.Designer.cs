@@ -133,12 +133,14 @@
             this.calculateAreaButton = new System.Windows.Forms.ToolStripButton();
             this.traceButton = new System.Windows.Forms.ToolStripButton();
             this.ParametricFunctionButton = new System.Windows.Forms.ToolStripButton();
+            this.SaveButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.centerButton = new System.Windows.Forms.ToolStripButton();
             this.OnOffnumericLinesButton = new System.Windows.Forms.ToolStripButton();
             this.OnOffCoordinateNet = new System.Windows.Forms.ToolStripButton();
             this.ChangeBackgroundButton = new System.Windows.Forms.ToolStripButton();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.SaveButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -357,7 +359,8 @@
             this.traceButton,
             this.toolStripSeparator1,
             this.ParametricFunctionButton,
-            this.SaveButton});
+            this.SaveButton,
+            this.toolStripButton9});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -417,7 +420,8 @@
             this.DeleteFunctionsButton,
             this.toolStripButton1,
             this.ChangeColorButton,
-            this.toolStripButton3});
+            this.toolStripButton3,
+            this.toolStripLabel3});
             this.toolStrip5.Location = new System.Drawing.Point(0, 0);
             this.toolStrip5.Name = "toolStrip5";
             this.toolStrip5.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -1341,25 +1345,25 @@
             // solidItemButton
             // 
             this.solidItemButton.Name = "solidItemButton";
-            this.solidItemButton.Size = new System.Drawing.Size(146, 22);
+            this.solidItemButton.Size = new System.Drawing.Size(152, 22);
             this.solidItemButton.Text = "Solid";
             // 
             // dashItemButton
             // 
             this.dashItemButton.Name = "dashItemButton";
-            this.dashItemButton.Size = new System.Drawing.Size(146, 22);
+            this.dashItemButton.Size = new System.Drawing.Size(152, 22);
             this.dashItemButton.Text = "Dash";
             // 
             // dashDotItemButton
             // 
             this.dashDotItemButton.Name = "dashDotItemButton";
-            this.dashDotItemButton.Size = new System.Drawing.Size(146, 22);
+            this.dashDotItemButton.Size = new System.Drawing.Size(152, 22);
             this.dashDotItemButton.Text = "Dash Dot";
             // 
             // dashDotDotItemButton
             // 
             this.dashDotDotItemButton.Name = "dashDotDotItemButton";
-            this.dashDotDotItemButton.Size = new System.Drawing.Size(146, 22);
+            this.dashDotDotItemButton.Size = new System.Drawing.Size(152, 22);
             this.dashDotDotItemButton.Text = "Dash Dot Dot";
             // 
             // calculateAreaButton
@@ -1399,6 +1403,25 @@
             this.ParametricFunctionButton.Name = "ParametricFunctionButton";
             this.ParametricFunctionButton.Size = new System.Drawing.Size(36, 25);
             this.ParametricFunctionButton.Text = "Set parametric function";
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SaveButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveButton.Image")));
+            this.SaveButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.SaveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(25, 25);
+            this.SaveButton.Text = "Save graph";
+            // 
+            // toolStripButton9
+            // 
+            this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton9.Image")));
+            this.toolStripButton9.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton9.Name = "toolStripButton9";
+            this.toolStripButton9.Size = new System.Drawing.Size(23, 25);
+            this.toolStripButton9.Text = "About";
             // 
             // centerButton
             // 
@@ -1458,15 +1481,13 @@
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
-            // SaveButton
+            // toolStripLabel3
             // 
-            this.SaveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SaveButton.Image = global::MathAnalyser.Properties.Resources.Save;
-            this.SaveButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.SaveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(25, 25);
-            this.SaveButton.Text = "toolStripButton9";
+            this.toolStripLabel3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripLabel3.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(133, 22);
+            this.toolStripLabel3.Text = "Depicted functions";
             // 
             // MainForm
             // 
@@ -1621,6 +1642,8 @@
         private System.Windows.Forms.ToolStripButton OnOffCoordinateNet;
         private System.Windows.Forms.ToolStripSeparator toolStripButton8;
         private System.Windows.Forms.ToolStripButton SaveButton;
+        private System.Windows.Forms.ToolStripButton toolStripButton9;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
     }
 }
 

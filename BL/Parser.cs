@@ -183,7 +183,7 @@ namespace BL
             double number1, number2;
             //Remove spaces from the input string
             string[] Statements = PostfixExpression.Split(new char[] {}, StringSplitOptions.RemoveEmptyEntries);
-
+            //scaning the input line by each separate token
             foreach (string token in Statements)
             {
                 //if current token is digit
@@ -192,8 +192,10 @@ namespace BL
                     //push the digit onto the stack
                     stack.Push(Convert.ToDouble(token));
                 }
+                //if current token is letter or equals to x, e or pi
                 else if ((char.IsLetter(token[0])) && (!EqualsToConstant(token[0])))
-                    {
+                {
+                    //take one number from the stack
                         double variable = Convert.ToDouble(stack.Pop());
                         switch (token)
                         {
@@ -233,8 +235,9 @@ namespace BL
                         case "lg":
                             stack.Push(Math.Log10(variable));
                             break;
-                            case "аbs":
-                                stack.Push(Math.Abs(variable));
+                            case "аbs"://if current operator equals to "abs"
+                            //calculate absolute value from prepared number
+                            stack.Push(Math.Abs(variable));
                                 break;
                             case "ln":
                                 stack.Push(Math.Log(variable));
@@ -296,6 +299,7 @@ namespace BL
                             case "arcsch":
                                 stack.Push(MathFunctions.Arcsch(variable));
                                 break;
+                            //if current operator doesn't equal to any of reserved operators
                             default:
                                 throw new Exception(String.Format("The line contains unknown operator: {0}",token));
 

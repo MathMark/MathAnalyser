@@ -65,14 +65,28 @@ namespace MathAnalyser
 
             RefreshScene(0, 0);
         }
-
+        private void WriteFunctions(Bitmap fileToSave)
+        {
+            Graphics temp = Graphics.FromImage(fileToSave);
+            SolidBrush brush;
+            Font font = new Font("Consolas", 12);
+            PointF point = new PointF(30, 20);
+            foreach(Curve function in FunctionsToDraw)
+            {
+                brush = new SolidBrush(function.CurvePen.Color);
+                temp.DrawString(function.FirstExcpression, font, brush, point);
+                point = new PointF(point.X, point.Y += 15);
+            }
+        }
         private void View_SaveButtonPressed(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Image Files|*.png|All Files (*.*)|*.*";
+            Bitmap pictureToSave = new Bitmap(View.Sheet);
             if(saveFileDialog.ShowDialog()==DialogResult.OK)
             {
-                View.Sheet.Save(saveFileDialog.FileName);
+                WriteFunctions(pictureToSave);
+                pictureToSave.Save(saveFileDialog.FileName);
             }
         }
 
@@ -144,7 +158,7 @@ namespace MathAnalyser
             }
             else
             {
-                depiction.Clear(Color.Transparent);
+                depiction.Clear(Color.FromArgb(30,30,30));
                 if(CN)
                 {
                     View.Sheet = depiction.BuildNet(WhiteColorNet, scale, dx, dy);
@@ -193,18 +207,11 @@ namespace MathAnalyser
         {
             int index=FunctionsToDraw.IndexOf(new Curve(FunctionToChangeColor));
             Color newColor = GenerateColor();
-            if(FunctionsToDraw[index].Type=="parametric")
-            {
-                throw new Exception();
-            }
-            else
-            {
-                FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
+            FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
                                             Parser.ConvertToPostfix(FunctionToChangeColor),
                                             newColor,
                                             2,
                                             pen.DashStyle);
-            }
            
             View.ChangeColorOfFunctionInListBox(FunctionToChangeColor, newColor);
             RefreshScene(0,0);
@@ -280,6 +287,7 @@ namespace MathAnalyser
         private void View_FinishMoving(int dx, int dy)
         {
             depiction.StartPosition = new Point(dx,dy);
+            RefreshScene(0, 0);
             SetNumericLines(0,0);
             DrawFunctionsInList();
         }

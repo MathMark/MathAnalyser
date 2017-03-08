@@ -41,6 +41,13 @@ namespace MathAnalyser
                 return type;
             }
         }
+        public string FirstExcpression
+        {
+            get
+            {
+                return firstExpression;
+            }
+        }
         public Curve(string firstExpression)
         {
             this.firstExpression = firstExpression;
