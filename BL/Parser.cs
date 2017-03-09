@@ -175,7 +175,7 @@ namespace BL
             return OutputExpression;
         }
 
-        public static float GetValue(string PostfixExpression, double point)
+        public static double GetValue(string PostfixExpression, double point)
         {
             //Prepare the stack by creating a variable of Stack type
             Stack<double> stack = new Stack<double>();
@@ -363,32 +363,32 @@ namespace BL
             {
                 throw new Exception("Wrong line");
             }
-            return (float)stack.Pop();
+            return Math.Round(stack.Pop(),2);
         }
         public static PointF[] GetValues(string PostfixExpression,int scale,int from,int to)
         {
             List<PointF> coordinates = new List<PointF>();
-            float argument;
-            float value;
+            double argument;
+            double value;
             int MinValue = -10000000;
             int MaxValue = 10000000;
             StreamWriter w = new StreamWriter("D:\\o.txt");
             for (float x = from; x < to; x += 0.1f)
             {
-                argument = (float)Math.Round(x, 1) / scale;
+                argument = Math.Round(x, 1) / scale;
                 value=(-scale * GetValue(PostfixExpression, argument));
                 value = (float)Math.Round(value, 6);
                // w.WriteLine($"{argument} - {value}");
-                if (Single.IsInfinity(value))
+                if (Double.IsInfinity(value))
                 {
-                    coordinates.Add(new PointF(x, value));
+                    coordinates.Add(new PointF(x, (float)value));
                 }
                 else
                 {
                     if (value.ToString()=="NaN"||(value < MaxValue && value > MinValue))
                     {
                         w.WriteLine($"{argument} - {value}");
-                        coordinates.Add(new PointF(x, value));
+                        coordinates.Add(new PointF(x, (float)value));
                     }
                 }
                 
@@ -396,21 +396,21 @@ namespace BL
             w.Close();
             return coordinates.ToArray();
         }
-        public static float[,] GetDataSet(string RPNfunction,int from,int to,float increment)
-        {
-            int dimention_0 = (int)((to - from) / increment);
-            const int dimention_1 = 2;
+        //public static float[,] GetDataSet(string RPNfunction,int from,int to,float increment)
+        //{
+        //    int dimention_0 = (int)((to - from) / increment);
+        //    const int dimention_1 = 2;
 
-            float[,] DataSet = new float[dimention_0, dimention_1];
+        //    float[,] DataSet = new float[dimention_0, dimention_1];
 
-            int counter = 0;
-            for(float i=from;i<to;i+=increment,counter++)
-            {
-                DataSet[counter, 0] = i;
-                DataSet[counter, 1] = GetValue(RPNfunction, i);
-            }
-            return DataSet;
-        }
+        //    int counter = 0;
+        //    for(float i=from;i<to;i+=increment,counter++)
+        //    {
+        //        DataSet[counter, 0] = i;
+        //        DataSet[counter, 1] = GetValue(RPNfunction, i);
+        //    }
+        //    return DataSet;
+        //}
         public static float GetDerivativeInPoint(string RPNfunction, float point)
         {
             float dx = 0.001f;
@@ -458,7 +458,7 @@ namespace BL
             {
                 if(Math.Abs(point.Y)<EPS)
                 {
-                    extremumPointsList.Add(new PointF(point.X, -scale*GetValue(RPNfunction, point.X/scale)));
+                    extremumPointsList.Add(new PointF(point.X, (float)(-scale*GetValue(RPNfunction, point.X/scale))));
                 }
             }
             PointF[] result = extremumPointsList.ToArray();

@@ -195,7 +195,7 @@ namespace MathAnalyser
         public Bitmap DrawCurveq(Pen pen,int scale, string PostfixFunction)
         {
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            float functionValue;
+            double functionValue;
 
             PointF[] coordinates;
             List<PointF> coordinatesList = new List<PointF>();
@@ -207,11 +207,11 @@ namespace MathAnalyser
                 functionValue = -Parser.GetValue(PostfixFunction, Math.Round(x / scale,2));
                 functionValue =(float) Math.Round(functionValue, 4);
                 //w.WriteLine($"{functionValue}");
-                if (!float.IsNegativeInfinity(functionValue)&& functionValue < -200000)
+                if (!double.IsNegativeInfinity(functionValue)&& functionValue < -200000)
                 {
                     functionValue = -200000;
                 }
-                else if (!float.IsInfinity(functionValue)&&functionValue > 200000)
+                else if (!double.IsInfinity(functionValue)&&functionValue > 200000)
                 {
                     functionValue = 200000;
                 }
@@ -268,8 +268,8 @@ namespace MathAnalyser
         {
             Painter.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            float functionValue_1;
-            float functionValue_2;
+            double functionValue_1;
+            double functionValue_2;
 
             PointF[] coordinates;
             List<PointF> coordinatesList = new List<PointF>();
@@ -370,7 +370,7 @@ namespace MathAnalyser
 
 
 
-        public Bitmap SetCross(Bitmap d,Pen pen,int offset, float crossPoint)
+        public Bitmap SetCross(Bitmap d,Pen pen,int offset, double crossPoint)
         {
             Bitmap e =new Bitmap(d);
             try
@@ -378,9 +378,9 @@ namespace MathAnalyser
                 
                 Graphics s = Graphics.FromImage(e);
                 s.TranslateTransform(Painter.Transform.OffsetX, Painter.Transform.OffsetY);
-                s.DrawLine(pen, offset, 0, offset, crossPoint);
-                s.DrawLine(pen, 0, crossPoint, offset, crossPoint);
-                DrawDot(s,8, Color.Red, new PointF(offset, crossPoint));
+                s.DrawLine(pen, offset, 0, offset, (float)crossPoint);
+                s.DrawLine(pen, 0, (float)crossPoint, offset, (float)crossPoint);
+                DrawDot(s,8, Color.Red, new PointF(offset, (float)crossPoint));
                 s.Dispose();
                 return e;
             }

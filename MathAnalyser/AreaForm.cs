@@ -148,9 +148,9 @@ namespace MathAnalyser
                                            depiction.CoordinatePlaneLocation.leftEdge,
                                            depiction.CoordinatePlaneLocation.rightEdge));
 
-            float maxy = Math.Max(Math.Abs(Parser.GetValue(selectedfunction_Postfix, (float)x1NUD.Value)),
+            double maxy = Math.Max(Math.Abs(Parser.GetValue(selectedfunction_Postfix, (float)x1NUD.Value)),
                              Math.Abs(Parser.GetValue(selectedfunction_Postfix, (float)x2NUD.Value)));
-            RectangleF rectangle = new RectangleF((float)(x1NUD.Value * Scale), -maxy * Scale, (float)(x2NUD.Value - x1NUD.Value) * Scale, maxy * Scale);
+            RectangleF rectangle = new RectangleF((float)(x1NUD.Value * Scale), (float)-maxy * Scale, (float)(x2NUD.Value - x1NUD.Value) * Scale, (float)maxy * Scale);
             ViewPort = depiction.DrawRectangle(new Pen(Color.White), rectangle);
 
             float rfx = 0;
@@ -161,7 +161,7 @@ namespace MathAnalyser
             {
                 rfx = (float)new Random(new Random().Next((int)(rfy * 1000))).NextDouble();
                 rfy = (float)new Random(new Random().Next((int)(rfx * 1000))).NextDouble();
-                PointF rp = new PointF(((float)x2NUD.Value - (float)x1NUD.Value) * rfx + (float)x1NUD.Value, maxy * rfy);
+                PointF rp = new PointF(((float)x2NUD.Value - (float)x1NUD.Value) * rfx + (float)x1NUD.Value, (float)maxy * rfy);
                 if (rp.Y > Parser.GetValue(selectedfunction_Postfix, rp.X))
                     tempColor = Color.Pink;
                 else
@@ -197,6 +197,7 @@ namespace MathAnalyser
         }
         private void DoneButton_Click(object sender, EventArgs e)
         {
+            View.AreaMode = false;
             this.Close();
         }
 

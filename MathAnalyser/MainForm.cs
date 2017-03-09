@@ -13,6 +13,7 @@ namespace MathAnalyser
         int SheetWidth { get; }
         int SheetHeight { get; }
         bool TraceMode { get; set; }
+        bool AreaMode { get; set; }
 
         void AddfunctionInListBox(string function, Color backgroundColor);
         void ChangeColorOfFunctionInListBox(string function, Color newColor);
@@ -64,6 +65,7 @@ namespace MathAnalyser
         bool numericLineActivator = true;
         bool whiteBackgroundActivator = false;
         bool coordinateNetActivator = true;
+
 
         public MainForm()
         {
@@ -167,14 +169,16 @@ namespace MathAnalyser
         private void CalculateAreaButton_Click(object sender, EventArgs e)
         {
             if ((functionListBox.Items.Count != 0)
-                && (CheckExplicitFunctionInFunctionListBox()))
+                && (CheckExplicitFunctionInFunctionListBox())&&(!AreaMode))
             {
                 areaForm = new AreaForm(this, Scale, functionListBox.Items);
+                AreaMode = true;
                 areaForm.Show();
             }
             else
             {
-                MessageBoard += "There is no function which is set in explicit way";
+                MessageBoard += 
+                    "Unable to call the subprogram: make sure you set an explicit function or you have already called the subprogram";
             }
         }
 
@@ -488,7 +492,18 @@ namespace MathAnalyser
                 traceMode = value;
             }
         }
-
+        bool areaMode = false;
+        public bool AreaMode
+        {
+            get
+            {
+                return areaMode;
+            }
+            set
+            {
+                areaMode = value;
+            }
+        }
         public bool IsFocused
         {
             get

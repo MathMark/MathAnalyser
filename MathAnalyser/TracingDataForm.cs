@@ -54,7 +54,7 @@ namespace MathAnalyser
         string function;
         int Scale;
         float offset;
-        float functionValue;
+        double functionValue;
 
         Pen penForCurve;
         Pen penForCross;
