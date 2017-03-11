@@ -62,9 +62,27 @@ namespace MathAnalyser
             View.CenterButtonClick += View_CenterButtonClick;
             View.SaveButtonPressed += View_SaveButtonPressed;
             colorIsSet = false;
+            View.PenWidthButtonPressed += View_PenWidthButtonPressed;
 
             RefreshScene(0, 0);
         }
+
+        private void View_PenWidthButtonPressed(string width)
+        {
+           switch(width)
+            {
+                case "tiny":
+                    pen.Width = 1;
+                    break;
+                case "middle":
+                    pen.Width = 2;
+                    break;
+                case "large":
+                    pen.Width = 3;
+                    break;
+            }
+        }
+
         private void WriteFunctions(Bitmap fileToSave)
         {
             Graphics temp = Graphics.FromImage(fileToSave);
@@ -210,7 +228,7 @@ namespace MathAnalyser
             FunctionsToDraw[index] = new Curve(FunctionToChangeColor,
                                             Parser.ConvertToPostfix(FunctionToChangeColor),
                                             newColor,
-                                            2,
+                                            pen.Width,
                                             pen.DashStyle);
            
             View.ChangeColorOfFunctionInListBox(FunctionToChangeColor, newColor);

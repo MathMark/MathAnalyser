@@ -37,6 +37,7 @@ namespace MathAnalyser
         event EventHandler ChangeBackroundButtonPressed;
         event EventHandler OnOffCoordinateNetButtonPressed;
         event EventHandler SaveButtonPressed;
+        event Action<string> PenWidthButtonPressed;
     }
     public partial class MainForm : Form,IMainForm
     {
@@ -62,6 +63,8 @@ namespace MathAnalyser
         public event EventHandler ChangeBackroundButtonPressed;
         public event EventHandler OnOffCoordinateNetButtonPressed;
         public event EventHandler SaveButtonPressed;
+
+        public event Action<string> PenWidthButtonPressed;
         bool numericLineActivator = true;
         bool whiteBackgroundActivator = false;
         bool coordinateNetActivator = true;
@@ -114,6 +117,15 @@ namespace MathAnalyser
             ChangeBackgroundButton.Click += ChangeBackgroundButton_Click;
             OnOffCoordinateNet.Click += OnOffCoordinateNet_Click;
             SaveButton.Click += SaveButton_Click;
+
+            width1button.Click += Widthbutton_Click;
+            width2button.Click += Widthbutton_Click;
+            width3button.Click += Widthbutton_Click;
+        }
+
+        private void Widthbutton_Click(object sender, EventArgs e)
+        {
+            PenWidthButtonPressed(sender.ToString());
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
