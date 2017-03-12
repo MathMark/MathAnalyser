@@ -363,7 +363,7 @@ namespace BL
             {
                 throw new Exception("Wrong line");
             }
-            return Math.Round(stack.Pop(),2);
+            return stack.Pop();
         }
         public static PointF[] GetValues(string PostfixExpression,int scale,int from,int to)
         {

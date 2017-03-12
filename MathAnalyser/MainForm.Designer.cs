@@ -166,10 +166,9 @@
             // 
             // textBox_Function
             // 
-            this.textBox_Function.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_Function.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.textBox_Function.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_Function.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_Function.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_Function.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox_Function.Location = new System.Drawing.Point(3, 31);

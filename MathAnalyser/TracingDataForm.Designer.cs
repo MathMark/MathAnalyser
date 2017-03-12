@@ -43,8 +43,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.head = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.scene)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.incrementValueBox)).BeginInit();
@@ -78,7 +78,7 @@
             this.labelY.AutoSize = true;
             this.labelY.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelY.ForeColor = System.Drawing.SystemColors.Control;
-            this.labelY.Location = new System.Drawing.Point(643, 28);
+            this.labelY.Location = new System.Drawing.Point(586, 84);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(28, 15);
             this.labelY.TabIndex = 2;
@@ -127,7 +127,7 @@
             this.segmentYLabel.AutoSize = true;
             this.segmentYLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.segmentYLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.segmentYLabel.Location = new System.Drawing.Point(586, 308);
+            this.segmentYLabel.Location = new System.Drawing.Point(586, 305);
             this.segmentYLabel.Name = "segmentYLabel";
             this.segmentYLabel.Size = new System.Drawing.Size(112, 15);
             this.segmentYLabel.TabIndex = 10;
@@ -138,7 +138,7 @@
             this.segmentXLabel.AutoSize = true;
             this.segmentXLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.segmentXLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.segmentXLabel.Location = new System.Drawing.Point(586, 288);
+            this.segmentXLabel.Location = new System.Drawing.Point(586, 285);
             this.segmentXLabel.Name = "segmentXLabel";
             this.segmentXLabel.Size = new System.Drawing.Size(112, 15);
             this.segmentXLabel.TabIndex = 9;
@@ -149,7 +149,7 @@
             this.derivativeLabel.AutoSize = true;
             this.derivativeLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.derivativeLabel.ForeColor = System.Drawing.Color.White;
-            this.derivativeLabel.Location = new System.Drawing.Point(586, 95);
+            this.derivativeLabel.Location = new System.Drawing.Point(586, 163);
             this.derivativeLabel.Name = "derivativeLabel";
             this.derivativeLabel.Size = new System.Drawing.Size(56, 15);
             this.derivativeLabel.TabIndex = 8;
@@ -234,16 +234,6 @@
             this.head.MouseMove += new System.Windows.Forms.MouseEventHandler(this.head_MouseMove);
             this.head.MouseUp += new System.Windows.Forms.MouseEventHandler(this.head_MouseUp);
             // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
-            this.label3.Location = new System.Drawing.Point(3, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 21);
-            this.label3.TabIndex = 10;
-            // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -253,6 +243,16 @@
             this.label4.Size = new System.Drawing.Size(143, 16);
             this.label4.TabIndex = 11;
             this.label4.Text = "Function tracing";
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
+            this.label3.Location = new System.Drawing.Point(3, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 21);
+            this.label3.TabIndex = 10;
             // 
             // TracingDataForm
             // 
