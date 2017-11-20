@@ -4,7 +4,7 @@
 
 MathAnalyser represents a program which is able to analyse math functions. 
 
-##Features
+## Features
 - Drawing graphs of math functions
 - Analysing graphs of math functions in each seperate point (TO DO)
 - Finding local and global extremums (TO DO)
